@@ -12,7 +12,7 @@
   --violet: #7c5cff;
   --ok-bg: #f3f3f4; --ok-line: #1c1c1e;
   --sig: linear-gradient(90deg, #e5484d 0%, #e5484d 55%, #7c5cff 100%);
-  --serif: "Instrument Serif", Georgia, "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  --serif: "Instrument Serif", Georgia, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif;
   --sans: "Inter Variable", Inter, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", "Noto Sans CJK JP", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
   --r-button: 10px; --r-card: 14px; --r-panel: 18px; --r-tag: 6px;
   --shadow: 0 12px 28px -18px rgba(0, 0, 0, .24);
@@ -827,3 +827,42 @@ svg .grid line { stroke: var(--line-2); stroke-width: .6; stroke-dasharray: 2 2;
   .topnav { gap: 0; }
   .topnav a { padding: 6px 6px; font-size: 13px; }
 }
+
+/* ---- JPLS: poles tampilan ---- */
+.hero-greet { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 6px !important; padding: 3px 10px; border-radius: 10px; line-height: 1.4; background: var(--accent-soft); color: var(--accent-strong) !important; font-size: 12.5px; font-weight: 560; }
+.hero-greet::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.opt.jp { font-size: 19px; padding: 8px 16px; letter-spacing: .02em; }
+.listen-hint { margin: 6px 0 10px; font-size: 13.5px; color: var(--muted); }
+.audio-wrap { display: grid; gap: 6px; margin-bottom: 4px; }
+.voice-note { margin: 0; font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.voice-note .btn.small { min-height: 28px; padding: 3px 10px; font-size: 12.5px; }
+.voice-note .script { font-size: 15px; color: var(--ink); }
+.example-main { display: flex; align-items: center; gap: 10px; font-size: 30px; }
+.example-card .example-meta { margin-top: var(--s3); }
+/* Menulis: kepala dengan navigasi, dua kartu sama besar */
+.write-head { grid-template-columns: auto 1fr auto; }
+.write-head-text .btn { margin-top: 2px; }
+.write-head-nav { display: flex; gap: 8px; align-self: center; }
+.write-head-nav .btn span { font-size: 16px; }
+.write-grid { grid-template-columns: 1fr 1fr; align-items: stretch; }
+.write-card { grid-template-rows: auto 1fr auto; align-content: start; }
+.write-card .model-box { align-self: center; }
+.stroke-model { max-width: 300px; width: 100%; }
+.pad { max-width: 300px; }
+.write-card-head .muted { font-size: 12.5px; }
+#write-fb-slot:empty { display: none; }
+@media (max-width: 720px) {
+  .write-head { grid-template-columns: auto 1fr; }
+  .write-head-nav { grid-column: 1 / -1; justify-content: space-between; }
+  .write-grid { grid-template-columns: 1fr; }
+  .stroke-model { max-width: 200px; }
+}
+/* HP: maskot kartu sambutan kecil di pojok kanan atas, tidak memakan satu baris */
+@media (max-width: 560px) {
+  .hero-card { display: block; padding: var(--s5); }
+  .hero-card > .crow-wrap { position: absolute; right: 14px; top: 12px; width: 62px !important; z-index: 1; }
+  .hero-card .hero-greet { max-width: calc(100% - 70px); }
+  .hero-card h1 { padding-right: 64px; }
+}
+.hero-card + .section-title { margin-top: var(--s5); }
+.write-set .bar + small { margin-top: 4px; }
