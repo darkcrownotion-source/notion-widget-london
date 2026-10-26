@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>English Time Widget</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: "Space Grotesk", sans-serif;
+    background-color: #1d2433;
+    background-size: cover;
+    background-position: center;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden;
+  }
+  .widget {
+    text-align: center;
+    padding: 30px;
+    width: 380px;
+    max-width: calc(100vw - 72px);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .day {
+    font-size: 28px; font-weight: 400; text-transform: uppercase;
+    letter-spacing: 4px; margin-bottom: 5px; color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  .date { font-size: 16px; font-weight: 300; letter-spacing: 2px; margin-bottom: 20px; color: #f8f8ff; }
+  .time {
+    font-size: 56px; font-weight: 700; letter-spacing: 3px; margin-bottom: 10px;
+    color: #fff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-variant-numeric: tabular-nums;
+  }
+  .quote-container { margin-top: 5px; padding: 8px 10px; border-radius: 1px; background: rgba(0, 0, 0, 0.3); color: #dfe7f2; }
+  .quote { font-size: 18px; font-style: italic; line-height: 1.5; }
+  @media (max-width: 360px) {
+    .widget { padding: 22px 18px; }
+    .time { font-size: 44px; }
+    .day { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="widget">
+  <div class="day" id="day">Monday</div>
+  <div class="date" id="date">26 October 2026</div>
+  <div class="time" id="time">00:00:00</div>
+  <div class="quote-container">
+    <div class="quote" id="quote">Every expert was once a beginner.</div>
+  </div>
+</div>
+
+<script>
+  // Free photos from Unsplash (Unsplash License: free to use, no permission needed).
+  // Pick one with ?bg=<name>, e.g. ?bg=bigben  (default: skyline)
+  const PHOTOS = {
+    bigben:      "photo-1584986098745-02507619826c", // Big Ben + Thames
+    towerbridge: "photo-1543832923-44667a44c804",    // Tower Bridge
+    stpauls:     "photo-1476958526483-36efcaa80b1b", // St Paul's from Millennium Bridge
+    skyline:     "photo-1772339164384-e4eba87f08c0", // London skyline at sunset
+    clocktower:  "photo-1706907269436-6e1299cebfb0", // bridge + clock tower
+    village:     "photo-1760299477470-a93208e294f2", // sheep above a village
+    sheep:       "photo-1588152850700-c82ecb8ba9b1", // sheep in green field
+    stonestreet: "photo-1670620800615-4225fe6ecb75", // stone houses + forest
+    riverbridge: "photo-1703291556808-9771c4b00059"  // old bridge over a river
+  };
+  const pick = new URLSearchParams(location.search).get("bg");
+  const id = PHOTOS[pick] || PHOTOS.skyline;
+  document.body.style.backgroundImage =
+    `url("https://images.unsplash.com/${id}?auto=format&fit=crop&w=1920&q=80")`;
+
+  const quotes = [
+    "Every expert was once a beginner.",
+    "Small steps every day add up.",
+    "Mind the gap between today and your goals.",
+    "Done is better than perfect.",
+    "Practice makes progress.",
+    "Slow progress is still progress.",
+    "Today is a good day to learn something new.",
+    "Mistakes mean you are trying.",
+    "Keep calm and keep learning."
+  ];
+
+  function tick() {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    document.getElementById("time").textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    document.getElementById("day").textContent =
+      now.toLocaleDateString("en-GB", { weekday: "long" });
+    document.getElementById("date").textContent =
+      now.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  let last = -1;
+  function newQuote() {
+    let i;
+    do { i = Math.floor(Math.random() * quotes.length); } while (i === last);
+    last = i;
+    document.getElementById("quote").textContent = quotes[i];
+  }
+
+  tick();
+  newQuote();
+  setInterval(tick, 1000);
+  setInterval(newQuote, 60000);
+</script>
+</body>
+</html>
