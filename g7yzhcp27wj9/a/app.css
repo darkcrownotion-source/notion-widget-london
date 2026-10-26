@@ -514,3 +514,78 @@ details.panel + details.panel { margin-top: var(--s3); }
   .deck-bar { margin-bottom: var(--s4); }
   .q-card .prompt { margin-bottom: var(--s4); }
 }
+
+/* =========================================================
+   Desain 4: layar lebar memakai dua kolom (isi + panel samping)
+   ========================================================= */
+@media (min-width: 1000px) { :root { --page: 1140px; } }
+.layout { display: grid; gap: var(--s6); align-items: start; }
+@media (min-width: 1000px) {
+  .layout { grid-template-columns: minmax(0, 1fr) 330px; gap: 40px; }
+  .side-col { position: sticky; top: 76px; }
+  .mobile-only { display: none !important; }
+}
+@media (max-width: 999px) { .desk-only { display: none !important; } }
+.main-col { min-width: 0; }
+.side-col { display: grid; gap: var(--s4); min-width: 0; }
+
+.side-card { border: 1px solid var(--line); border-radius: 18px; background: var(--canvas); padding: var(--s5); }
+.side-card h3 { margin: 0 0 var(--s4); font-size: 14px; font-weight: 600; color: var(--ink-2); display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); }
+.side-card h3 small { font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.side-card .big { font-family: var(--serif); font-size: 52px; line-height: 1; font-variant-numeric: tabular-nums; }
+.side-card .big small { font-size: 22px; color: var(--muted); }
+.side-card .bar { margin: var(--s3) 0 var(--s4); }
+.kv { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.kv li { display: flex; justify-content: space-between; gap: var(--s3); padding: 10px 0; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+.kv li b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.kv li a { color: inherit; }
+.mini-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.mini-list a { display: grid; grid-template-columns: 22px 1fr auto; gap: 10px; align-items: center; padding: 9px 10px; margin: 0 -10px; border-radius: 10px; text-decoration: none; font-size: 14px; color: var(--ink-2); }
+.mini-list a:hover { background: var(--control); color: var(--ink); }
+.mini-list a.cur { background: var(--control); color: var(--ink); font-weight: 600; }
+.mini-list .mi { width: 22px; height: 22px; border-radius: 7px; background: var(--control); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--muted); }
+.mini-list a.cur .mi { background: var(--button); color: var(--on-button); }
+.mini-list .mi.ok { background: var(--accent-strong); color: #fff; }
+.mini-list .t { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mini-list .s { font-size: 12px; color: var(--muted); }
+.side-card.dark { background: #1c1c1e; border-color: #1c1c1e; color: #f2f2f3; position: relative; overflow: hidden; }
+.side-card.dark h3 { color: #b8b8bd; }
+.side-card.dark p { color: #c9c9ce; font-size: 14px; margin: 0 0 var(--s4); }
+.side-card.dark::after { content: ""; position: absolute; right: -50px; top: -50px; width: 180px; height: 180px; background: radial-gradient(circle, rgba(124,92,255,.25), transparent 65%); filter: blur(26px); pointer-events: none; }
+.side-card.dark .btn { background: #f2f2f3; color: #111113; border-color: #f2f2f3; position: relative; z-index: 1; }
+.side-card .goal-text { font-size: 14.5px; color: var(--ink-2); margin: 0 0 var(--s4); line-height: 1.55; }
+.step-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.step-list a { display: flex; align-items: center; gap: 10px; padding: 9px 10px; margin: 0 -10px; border-radius: 10px; text-decoration: none; font-size: 14px; color: var(--ink-2); }
+.step-list a:hover { background: var(--control); }
+.step-list a[aria-current] { background: var(--control); color: var(--ink); font-weight: 600; }
+.step-list .n { width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11.5px; background: var(--control); }
+.step-list a[aria-current] .n { background: var(--accent); color: #fff; }
+.step-list .n.ok { background: var(--accent-strong); color: #fff; }
+.step-list .r { margin-left: auto; font-size: 12px; color: var(--muted); font-weight: 400; }
+@media (min-width: 1000px) {
+  .lesson-view .steps.has-side { display: none; }
+  .home-hero h1 { font-size: 40px; }
+}
+@media (min-width: 1000px) {
+  .lesson-view .lesson-head { margin-bottom: var(--s5); }
+  .lesson-view .lesson-head .goal { display: none; }
+  .lesson-view .lesson-head h1 { font-size: 38px; }
+  .lesson-view.step-latihan .lesson-head h1, .lesson-view.step-uji .lesson-head h1, .lesson-view.step-contoh .lesson-head h1 { font-size: 32px; }
+}
+@media (min-width: 1400px) { :root { --page: 1200px; } }
+@media (min-width: 1000px) {
+  .side-col { max-height: calc(100vh - 92px); overflow-y: auto; scrollbar-width: thin; padding-bottom: 4px; }
+  .check-run .parts-nav { display: none; }
+}
+.settings-grid { display: grid; gap: var(--s4); }
+@media (min-width: 900px) { .settings-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+.settings-grid .panel { margin: 0 !important; }
+.part-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: var(--s3); margin-bottom: var(--s5); }
+.part-tile { display: flex; gap: var(--s3); align-items: center; padding: var(--s4); border: 1px solid var(--line); border-radius: 14px; }
+.part-tile .q-letter { width: 32px; height: 32px; border-radius: 9px; font-size: 14px; flex: none; }
+.part-tile b { display: block; font-size: 14.5px; font-weight: 600; }
+.part-tile small { color: var(--muted); font-size: 13px; }
+.side-card > summary { list-style: none; cursor: default; font-size: 14px; font-weight: 600; color: var(--ink-2); margin-bottom: var(--s3); pointer-events: none; }
+.side-card > summary::-webkit-details-marker { display: none; }
+.side-card ul.md { padding-left: 1.1em; margin: 0; font-size: 14px; color: var(--ink-2); }
+.side-card ul.md li + li { margin-top: var(--s2); }
