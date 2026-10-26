@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساعة عربية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Noto+Kufi+Arabic:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; height: 100%; }
+  body {
+    font-family: "Space Grotesk", "Noto Kufi Arabic", sans-serif;
+    background-color: #1d2433;
+    background-size: cover;
+    background-position: center;
+    display: flex; justify-content: center; align-items: center;
+    overflow: hidden;
+  }
+  .widget {
+    text-align: center;
+    padding: 30px;
+    width: 380px;
+    max-width: calc(100vw - 72px);
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 1px;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  .day {
+    font-size: 28px; font-weight: 400; text-transform: uppercase;
+    letter-spacing: 4px; margin-bottom: 5px; color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  .date { font-size: 16px; font-weight: 300; letter-spacing: 2px; margin-bottom: 20px; color: #f8f8ff; }
+  .time {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 56px; font-weight: 700; letter-spacing: 3px; margin-bottom: 10px;
+    color: #fff; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-variant-numeric: tabular-nums;
+  }
+  .quote-container { margin-top: 5px; padding: 8px 10px; border-radius: 1px; background: rgba(0, 0, 0, 0.3); color: #dfe7f2; }
+  .quote { font-size: 18px; font-style: italic; line-height: 1.5; }
+  .day, .date { letter-spacing: 0; }
+  .quote { font-style: normal; line-height: 1.8; }
+  .time { direction: ltr; }
+  @media (max-width: 360px) {
+    .widget { padding: 22px 18px; }
+    .time { font-size: 44px; }
+    .day { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="widget">
+  <div class="day" id="day"></div>
+  <div class="date" id="date"></div>
+  <div class="time" id="time">00:00:00</div>
+  <div class="quote-container">
+    <div class="quote" id="quote"></div>
+  </div>
+</div>
+
+<script>
+  // Free photos from Unsplash (Unsplash License). Pick one with ?bg=<name> (default: petra)
+  const PHOTOS = {
+      "petra": "photo-1580834341580-8c17a3a630ca",
+      "dubai": "photo-1512453979798-5ea266f8880c",
+      "petra2": "photo-1548786811-dd6e453ccca7"
+  };
+  const pick = new URLSearchParams(location.search).get("bg");
+  const id = PHOTOS[pick] || PHOTOS.petra;
+  document.body.style.backgroundImage =
+    `url("https://images.unsplash.com/${id}?auto=format&fit=crop&w=1920&q=80")`;
+
+  const LOCALE = "ar-EG-u-nu-latn";
+  const quotes = [
+      "من جدّ وجد، ومن زرع حصد.",
+      "العلم نور.",
+      "لكل مجتهد نصيب.",
+      "الصبر مفتاح الفرج.",
+      "خطوة بخطوة تصل إلى هدفك.",
+      "قليلٌ دائمٌ خيرٌ من كثيرٍ منقطع.",
+      "التكرار يعلّم الشطّار.",
+      "كل يوم فرصة جديدة للتعلّم."
+  ];
+
+  function tick() {
+    const now = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    document.getElementById("time").textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    document.getElementById("day").textContent =
+      now.toLocaleDateString(LOCALE, { weekday: "long" });
+    document.getElementById("date").textContent =
+      now.toLocaleDateString(LOCALE, { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  let last = -1;
+  function newQuote() {
+    let i;
+    do { i = Math.floor(Math.random() * quotes.length); } while (i === last);
+    last = i;
+    document.getElementById("quote").textContent = quotes[i];
+  }
+
+  tick();
+  newQuote();
+  setInterval(tick, 1000);
+  setInterval(newQuote, 60000);
+</script>
+</body>
+</html>
