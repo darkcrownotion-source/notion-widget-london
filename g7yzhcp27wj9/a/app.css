@@ -765,3 +765,20 @@ body { background: var(--app-bg); }
 .deck-nav .nav-crow + .deck-next { margin-left: 0; }
 .deck-nav .nav-crow .crow-bubble.pos-atas { left: auto; right: -8px; translate: none; }
 .deck-nav .nav-crow .crow-bubble.pos-atas::before { left: auto; right: 22px; transform: rotate(45deg); }
+
+/* ---- poles (setara JPLS Foundation) ---- */
+.hero-greet { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 6px !important; padding: 3px 10px; border-radius: 10px; line-height: 1.4; background: var(--accent-soft); color: var(--accent-strong) !important; font-size: 12.5px; font-weight: 560; }
+.hero-greet::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+.listen-hint { margin: 6px 0 10px; font-size: 13.5px; color: var(--muted); }
+.hero-card + .section-title { margin-top: var(--s5); }
+/* HP: maskot kartu sambutan kecil di pojok kanan atas, tidak memakan satu baris */
+@media (max-width: 560px) {
+  .hero-card { display: block; padding: var(--s5); }
+  .hero-card > .crow-wrap { position: absolute; right: 14px; top: 12px; width: 62px !important; z-index: 1; }
+  .hero-card .hero-greet { max-width: calc(100% - 70px); }
+  .hero-card h1 { padding-right: 64px; }
+}
+@media (max-width: 430px) {
+  .topnav { gap: 0; }
+  .topnav a { padding: 6px 7px; font-size: 13.5px; }
+}
