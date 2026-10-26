@@ -63,14 +63,18 @@
 </div>
 
 <script>
-  // Free photos from Unsplash (Unsplash License). Pick one with ?bg=<name> (default: shanghai)
+  // Free photos from Unsplash (Unsplash License). Pick one with ?bg=<name> (default: guilin)
   const PHOTOS = {
+      "guilin": "photo-1702266888836-e7969c65acc8",
+      "zhangjiajie": "photo-1567266565245-c08dc046815f",
+      "kotaterlarang": "photo-1614555383820-941c466f1b52",
+      "lampion": "photo-1517009832553-cfcd067adf81",
       "shanghai": "photo-1545893835-abaa50cbe628",
       "greatwall": "photo-1508804185872-d7badad00f7d",
       "greatwall2": "photo-1608037521277-154cd1b89191"
   };
   const pick = new URLSearchParams(location.search).get("bg");
-  const id = PHOTOS[pick] || PHOTOS.shanghai;
+  const id = PHOTOS[pick] || PHOTOS.guilin;
   document.body.style.backgroundImage =
     `url("https://images.unsplash.com/${id}?auto=format&fit=crop&w=1920&q=80")`;
 
