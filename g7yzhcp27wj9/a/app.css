@@ -663,3 +663,105 @@ body { background: var(--app-bg); }
 .lesson-view .lesson-head.page-head .eyebrow { margin-bottom: var(--s3); }
 .recorder { margin-top: var(--s4); }
 @media (max-width: 560px) { .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); } .hero-stats div { min-width: 0; } .hero-stats b { font-size: 26px; } }
+
+/* =========================================================
+   Maskot gagak hidup (dasar dari situs utama v3) + emosi tambahan yang wajar
+   ========================================================= */
+:root { --ease: cubic-bezier(.23, 1, .32, 1); --pop: cubic-bezier(.34, 1.56, .64, 1); }
+.crow-wrap { position: relative; display: inline-block; flex: none; padding: 0; border: 0; background: none; cursor: pointer; -webkit-tap-highlight-color: transparent; line-height: 0; }
+.crow-wrap.quiet { cursor: default; }
+.crow-wrap:focus-visible { border-radius: 30%; }
+.crow { position: relative; display: block; width: 100%; }
+.crow-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.crow-svg :is(.crow-rig, .crow-face, .crow-eyes, .crow-crest, .crow-floor, .crow-wave, .crow-tails, .crow-pen, .crow-wave-lines) { transform-box: view-box; }
+.crow-svg .crow-rig { transform-origin: 120px 202px; }
+.crow-svg .crow-floor { transform-origin: 120px 202px; }
+.crow-svg .crow-face { transform: translate(calc(var(--lx, 0) * 7px), calc(var(--ly, 0) * 5px)); transition: transform .32s var(--ease); }
+.crow-svg .crow-eyes { transform-origin: 120px 137px; transition: transform .14s ease, opacity .12s; }
+.crow-svg .crow-happy { transition: opacity .12s; }
+.crow-svg .crow-crest { transform-origin: 122px 68px; transition: transform .4s var(--ease); }
+.crow-svg .crow-wave { transform-origin: 190px 128px; }
+.crow-svg .crow-tails { transform-origin: 188px 88px; }
+.crow-svg .crow-pen { transform-origin: 205px 150px; }
+.crow .crow-rig { animation: breathe 3.4s ease-in-out infinite; }
+.crow .crow-wave { animation: wave 1.5s ease-in-out infinite; }
+.crow .crow-wave-lines { animation: fade 1.5s ease-in-out infinite; }
+.crow .crow-tails { animation: flutter 1.8s ease-in-out infinite; }
+.crow .crow-pen { animation: pen 2.6s ease-in-out infinite; }
+/* kedip & senang (asli) */
+.crow.is-blink .crow-eyes { transform: scaleY(.08); }
+.crow.is-happy .crow-eyes { opacity: 0; }
+.crow.is-happy .crow-happy { opacity: 1; }
+/* lesu: mata turun & mengecil, jambul menunduk */
+.crow.is-sad .crow-face { transform: translate(0, 5px); }
+.crow.is-sad .crow-eyes { transform: scale(.92, .66); }
+.crow.is-sad .crow-crest { transform: rotate(-14deg) translateY(3px); }
+/* berpikir: melirik ke atas */
+.crow.is-think .crow-face { transform: translate(5px, -4px); }
+.crow.is-think .crow-eyes { transform: scaleY(.86); }
+/* kaget: mata membesar */
+.crow.is-surprise .crow-eyes { transform: scale(1.16, 1.2); }
+/* mengantuk: mata setengah terpejam, napas lebih lambat */
+.crow.is-sleepy .crow-eyes { transform: translateY(3px) scaleY(.28); }
+.crow.is-sleepy .crow-rig { animation-duration: 5.2s; }
+/* gerak satu kali */
+.crow.is-hop .crow-rig { animation: hop .66s cubic-bezier(.3, .7, .4, 1); }
+.crow.is-hop .crow-floor { animation: floor .66s cubic-bezier(.3, .7, .4, 1); }
+.crow.is-squash .crow-rig { animation: squash .5s cubic-bezier(.3, .7, .4, 1); }
+.crow:is(.is-hop, .is-squash) .crow-crest { animation: crest .9s .28s ease-out; }
+.crow.is-cheer .crow-rig { animation: cheer 1.3s cubic-bezier(.3, .7, .4, 1); }
+.crow.is-cheer .crow-floor { animation: floor2 1.3s cubic-bezier(.3, .7, .4, 1); }
+.crow.is-cheer .crow-crest { animation: crest .9s .5s ease-out; }
+.crow.is-nod .crow-rig { animation: nod 1.05s ease-in-out; }
+.crow.is-tilt .crow-rig { animation: tilt 1.5s ease-in-out; }
+.crow.is-glance .crow-face { animation: glance 1.5s ease-in-out; }
+.crow.is-wiggle .crow-crest { animation: crest 1s ease-out; }
+/* percikan saat bangga */
+.crow::before, .crow::after { content: ""; position: absolute; width: 9%; aspect-ratio: 1; background: var(--accent); clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); opacity: 0; pointer-events: none; }
+.crow::before { left: 4%; top: 6%; }
+.crow::after { right: 2%; top: 0; background: var(--violet); width: 7%; }
+.crow.is-spark::before { animation: spark 1.1s .15s var(--pop) both; }
+.crow.is-spark::after { animation: spark 1.1s .3s var(--pop) both; }
+@keyframes breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.014, .986); } }
+@keyframes hop { 0% { transform: translateY(0) scale(1, 1); } 14% { transform: translateY(0) scale(1.1, .86); } 40% { transform: translateY(-36px) scale(.9, 1.12); } 58% { transform: translateY(-42px) scale(.97, 1.03); } 78% { transform: translateY(0) scale(1.14, .84); } 90% { transform: translateY(0) scale(.97, 1.04); } 100% { transform: translateY(0) scale(1, 1); } }
+@keyframes cheer { 0% { transform: translateY(0) scale(1); } 10% { transform: scale(1.08, .88); } 26% { transform: translateY(-30px) scale(.92, 1.1); } 40% { transform: translateY(0) scale(1.1, .88); } 52% { transform: scale(1.06, .9); } 68% { transform: translateY(-22px) scale(.94, 1.07); } 84% { transform: translateY(0) scale(1.06, .92); } 100% { transform: translateY(0) scale(1); } }
+@keyframes squash { 0% { transform: scale(1, 1); } 20% { transform: scale(.9, 1.12); } 55% { transform: scale(1.14, .85); } 78% { transform: scale(.97, 1.04); } 100% { transform: scale(1, 1); } }
+@keyframes floor { 0%, 14%, 78%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.62); opacity: .45; } }
+@keyframes floor2 { 0%, 40%, 84%, 100% { transform: scale(1); opacity: 1; } 26%, 68% { transform: scale(.7); opacity: .5; } }
+@keyframes crest { 0% { transform: rotate(0); } 25% { transform: rotate(-11deg); } 50% { transform: rotate(7deg); } 75% { transform: rotate(-3deg); } 100% { transform: rotate(0); } }
+@keyframes nod { 0%, 100% { transform: translateY(0) rotate(0); } 25% { transform: translateY(4px) rotate(2deg); } 50% { transform: translateY(0) rotate(0); } 75% { transform: translateY(4px) rotate(-2deg); } }
+@keyframes tilt { 0%, 100% { transform: rotate(0); } 30%, 70% { transform: rotate(-6deg); } }
+@keyframes glance { 0%, 100% { transform: translate(0, 0); } 25%, 40% { transform: translate(-6px, -1px); } 60%, 75% { transform: translate(6px, -1px); } }
+@keyframes wave { 0%, 100% { transform: rotate(-16deg); } 50% { transform: rotate(10deg); } }
+@keyframes fade { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+@keyframes flutter { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+@keyframes pen { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-3.5deg); } }
+@keyframes spark { 0% { opacity: 0; transform: scale(.2) rotate(0); } 40% { opacity: 1; transform: scale(1.2) rotate(20deg); } 100% { opacity: 0; transform: scale(.6) translateY(-10px) rotate(45deg); } }
+@media (prefers-reduced-motion: reduce) { .crow .crow-rig, .crow .crow-pen, .crow .crow-wave, .crow .crow-tails { animation: none !important; } }
+
+/* gelembung kata */
+.crow-bubble { position: absolute; z-index: 4; max-width: 220px; width: max-content; padding: 8px 12px; border-radius: 14px; background: var(--button); color: var(--on-button); font: 560 13px/1.35 var(--sans); text-align: left; white-space: normal; opacity: 0; transform: scale(.9); transition: opacity .18s, transform .22s var(--pop); pointer-events: none; box-shadow: var(--shadow); }
+.crow-bubble.is-pop { opacity: 1; transform: scale(1); }
+.crow-bubble.pos-kanan { left: calc(100% + 6px); top: 4%; transform-origin: left center; }
+.crow-bubble.pos-kanan::before { content: ""; position: absolute; left: -5px; top: 14px; width: 10px; height: 10px; background: inherit; transform: rotate(45deg); border-radius: 2px; }
+.crow-bubble.pos-kiri { right: calc(100% + 6px); top: 4%; transform-origin: right center; }
+.crow-bubble.pos-kiri::before { content: ""; position: absolute; right: -5px; top: 14px; width: 10px; height: 10px; background: inherit; transform: rotate(45deg); border-radius: 2px; }
+.crow-bubble.pos-atas { bottom: calc(100% + 4px); left: 50%; translate: -50% 0; transform-origin: bottom center; }
+
+/* penempatan */
+.brand .crow-wrap { width: 30px !important; }
+.hero-card > .crow-wrap { align-self: center; }
+.page-head .head-crow { position: absolute; right: var(--s6); top: 50%; translate: 0 -50%; z-index: 2; }
+@media (max-width: 760px) { .page-head .head-crow { right: var(--s4); top: var(--s4); translate: none; width: 54px !important; } .page-head .head-crow .crow-bubble { display: none; } .page-head h1 { padding-right: 60px; } }
+@media (min-width: 761px) { .page-head:has(.head-crow) { padding-right: 200px; } }
+.q-summary .crow-wrap, .result-box .crow-wrap { display: block; margin: 0 auto var(--s3); }
+.hero-card, .page-head { overflow: visible; }
+.hero-card::after, .page-head::after { display: none; }
+.hero-card { background: radial-gradient(260px 200px at 100% 0%, rgba(229,72,77,.07), transparent 70%), radial-gradient(240px 220px at 92% 10%, rgba(124,92,255,.08), transparent 70%), var(--canvas); }
+.page-head { background: radial-gradient(260px 220px at 100% 100%, rgba(124,92,255,.07), transparent 70%), var(--canvas); }
+.crow-bubble.pos-atas { bottom: calc(100% + 6px); }
+.crow-bubble.pos-atas::before { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; background: inherit; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+.deck-nav .nav-crow { margin-left: auto; margin-right: 4px; align-self: flex-end; }
+.deck-nav .nav-crow + .deck-next { margin-left: 0; }
+.deck-nav .nav-crow .crow-bubble.pos-atas { left: auto; right: -8px; translate: none; }
+.deck-nav .nav-crow .crow-bubble.pos-atas::before { left: auto; right: 22px; transform: rotate(45deg); }
