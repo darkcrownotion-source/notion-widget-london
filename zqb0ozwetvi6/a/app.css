@@ -795,3 +795,7 @@ body { background: var(--app-bg); }
 .f5-grid label { display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
 .f5-grid label i { font-style: normal; color: var(--ink); font-weight: 560; }
 @media (max-width: 560px) { .f5-grid { grid-template-columns: 1fr; } }
+.accent-keys { display: flex; flex-wrap: wrap; gap: 4px; }
+.akey { min-width: 34px; height: 32px; padding: 0 6px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; }
+.akey:hover { border-color: var(--line-2); background: var(--canvas); }
+.akey:active { background: var(--accent-soft); }
