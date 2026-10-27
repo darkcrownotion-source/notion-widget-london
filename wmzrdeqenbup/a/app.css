@@ -880,3 +880,9 @@ svg .grid line { stroke: var(--line-2); stroke-width: .6; stroke-dasharray: 2 2;
 .q-script { font-size: 17px; line-height: 1.8; }
 .opt.py { font-size: 17px; letter-spacing: .01em; }
 :lang(zh-CN) { font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", var(--sans); }
+/* CPLS: papan nada Pinyin */
+.tone-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.tone-key { min-width: 40px; height: 36px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--canvas); color: var(--ink); font: 500 17px/1 var(--sans); cursor: pointer; }
+.tone-key:hover { border-color: var(--ink); }
+.tone-key:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.tone-hint { font-size: 12.5px; color: var(--muted); }
