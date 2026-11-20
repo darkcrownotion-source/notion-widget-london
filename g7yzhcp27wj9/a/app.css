@@ -782,3 +782,7 @@ body { background: var(--app-bg); }
   .topnav { gap: 0; }
   .topnav a { padding: 6px 7px; font-size: 13.5px; }
 }
+.audio-wrap { display: grid; gap: 6px; margin-bottom: 4px; }
+.voice-note { margin: 0; font-size: 12.5px; color: var(--muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.voice-note .btn.small { min-height: 28px; padding: 3px 10px; font-size: 12.5px; }
+.voice-note .script { font-size: 15px; color: var(--ink); }
