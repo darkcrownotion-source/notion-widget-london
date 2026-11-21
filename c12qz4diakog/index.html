@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="googlebot" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f5f5f6">
+<title>EPLS A1 · Belajar Bahasa Inggris</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='6' fill='%23161618'/%3E%3Ctext x='16' y='21.5' font-size='12' font-weight='700' text-anchor='middle' fill='%23fff' font-family='Arial,sans-serif'%3EEN%3C/text%3E%3C/svg%3E">
+<style>
+html,body{margin:0;height:100%;background:#f5f5f6;color:#1c1c1e;font:15px/1.6 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}
+.boot{min-height:100%;display:grid;place-items:center;text-align:center;padding:24px;box-sizing:border-box}
+.boot h2{font-weight:600;font-size:18px;margin:0 0 6px}.boot p{margin:0 0 14px;color:#636367}
+.sp{width:22px;height:22px;border:2px solid #d8d8da;border-top-color:#e5484d;border-radius:50%;display:inline-block;vertical-align:-5px;margin-right:10px;animation:s .8s linear infinite}
+@keyframes s{to{transform:rotate(360deg)}}
+button{font:inherit;font-weight:600;padding:10px 18px;border-radius:10px;border:0;background:#232325;color:#fff;cursor:pointer}
+</style>
+</head>
+<body>
+<div class="boot" id="boot" role="status"><div><span class="sp" aria-hidden="true"></span>Memuat EPLS A1…</div></div>
+<noscript><p style="padding:16px">EPLS A1 membutuhkan JavaScript. Aktifkan JavaScript atau buka halaman ini di browser lain.</p></noscript>
+<script>
+(function(){
+ var CDN="",LOCAL='a/',K="uzRiEhf+cUyD7cfU2+HHhKvbMZZGsfIGbxxJ2ueT0bM=",boot=document.getElementById('boot');
+ function say(h){if(boot&&boot.isConnected)boot.innerHTML='<div>'+h+'</div>';}
+ function fail(m){say('<h2>EPLS A1 gagal dimuat</h2><p>'+m+'</p><button onclick="location.reload()">Coba lagi</button>');}
+ var slow=setTimeout(function(){say('<span class="sp" aria-hidden="true"></span>Masih memuat… koneksi sedang lambat.');},7000);
+ if(typeof DecompressionStream==='undefined'){fail('Browser ini terlalu lama. Perbarui Chrome, Edge, atau Safari ke versi terbaru.');return;}
+ var urls=CDN?[CDN+'app.bin',LOCAL+'app.bin']:[LOCAL+'app.bin'];
+ urls.reduce(function(p,u){return p.catch(function(){return fetch(u).then(function(r){if(!r.ok)throw new Error(r.status);return r;});});},Promise.reject())
+ .then(function(r){return r.arrayBuffer();}).then(function(buf){
+  var b=new Uint8Array(buf),k=atob(K);for(var i=0;i<b.length;i++)b[i]^=k.charCodeAt(i%k.length);
+  return new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+ }).then(function(t){clearTimeout(slow);document.open();document.write(t);document.close();})
+ .catch(function(e){clearTimeout(slow);fail('Periksa koneksi internet, lalu coba lagi. ('+(e&&e.message||e)+')');});
+})();
+</script>
+</body>
+</html>
