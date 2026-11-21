@@ -1,0 +1,873 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Course Hub · Darkcrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --canvas:#ffffff;--surface:#fafafa;--control:#f4f4f4;
+  --line:#e7e7e8;--line-2:#d8d8da;
+  --ink:#1c1c1e;--ink-2:#3f3f43;--muted:#636367;
+  --button:#232325;--button-h:#424245;--button-ink:#ffffff;
+  --dark:#1c1c1e;--dark-2:#111113;--dark-line:#2e2e31;--dark-ink:#f4f4f5;--dark-muted:#8f8f94;
+  --accent:#e5484d;--accent-strong:#c8372d;--accent-soft:#fdeeed;--violet:#7c5cff;
+  --sig:linear-gradient(90deg,#e5484d 0%,#e5484d 55%,#7c5cff 100%);
+  --h0:#efeff0;--h1:#cfcfd2;--h2:#9c9ca1;--h3:#5d5d62;--h4:#1c1c1e;
+  --shadow:0 12px 28px -18px rgba(0,0,0,.24);
+  --serif:"Instrument Serif",Georgia,serif;
+  --sans:"Inter Variable",Inter,Arial,sans-serif;
+  --r-button:10px;--r-card:14px;--r-panel:18px;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --canvas:#191919;--surface:#202022;--control:#2a2a2d;
+    --line:#2e2e31;--line-2:#3a3a3e;
+    --ink:#f2f2f3;--ink-2:#c9c9cd;--muted:#8f8f94;
+    --button:#f2f2f3;--button-h:#d8d8db;--button-ink:#111113;
+    --dark:#232325;--dark-2:#1c1c1e;--dark-line:#34343a;
+    --accent-soft:rgba(229,72,77,.16);
+    --h0:#262628;--h1:#3d3d41;--h2:#66666c;--h3:#a3a3a8;--h4:#f2f2f3;
+    --shadow:0 12px 28px -18px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --canvas:#191919;--surface:#202022;--control:#2a2a2d;
+  --line:#2e2e31;--line-2:#3a3a3e;
+  --ink:#f2f2f3;--ink-2:#c9c9cd;--muted:#8f8f94;
+  --button:#f2f2f3;--button-h:#d8d8db;--button-ink:#111113;
+  --dark:#232325;--dark-2:#1c1c1e;--dark-line:#34343a;
+  --accent-soft:rgba(229,72,77,.16);
+  --h0:#262628;--h1:#3d3d41;--h2:#66666c;--h3:#a3a3a8;--h4:#f2f2f3;
+  --shadow:0 12px 28px -18px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--canvas);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;font-feature-settings:"cv11","ss01"}
+button,input,textarea,select{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 28px}
+
+/* header */
+.top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.top h1{font:400 34px/1.05 var(--serif);margin:0;letter-spacing:-.01em;flex:1;min-width:0;overflow-wrap:anywhere}
+.top h1 em{font-style:italic}
+.pill{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.dot.off{background:var(--line-2)}
+.icon-btn{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);background:var(--canvas);border-radius:var(--r-button);flex:none}
+.icon-btn:hover{background:var(--control)}
+.icon-btn svg{width:17px;height:17px}
+
+/* continue */
+.lanjut{position:relative;overflow:hidden;background:var(--dark);color:var(--dark-ink);border-radius:var(--r-panel);padding:20px 20px 18px;margin-bottom:16px}
+.lanjut::before{content:"";position:absolute;right:-60px;top:-70px;width:240px;height:200px;background:radial-gradient(closest-side,rgba(124,92,255,.22),transparent),radial-gradient(closest-side at 30% 70%,rgba(229,72,77,.14),transparent);filter:blur(24px);pointer-events:none}
+.lanjut::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:14px 14px;pointer-events:none}
+.lanjut>*{position:relative;z-index:1}
+.eyebrow{font-size:13px;color:var(--dark-muted);display:flex;align-items:center;gap:8px}
+.lanjut h2{font:400 28px/1.15 var(--serif);margin:6px 0 2px;overflow-wrap:anywhere}
+.lanjut .sub{color:var(--dark-muted);font-size:14px}
+.scribble{display:block;width:72px;height:3px;border-radius:3px;background:var(--sig);margin:10px 0 14px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:38px;padding:0 15px;border-radius:var(--r-button);border:1px solid var(--line-2);background:var(--canvas);font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--control)}
+.btn.primary{background:var(--button);border-color:var(--button);color:var(--button-ink)}
+.btn.primary:hover{background:var(--button-h)}
+.btn.sm{height:32px;padding:0 11px;font-size:13px}
+.btn svg{width:15px;height:15px}
+.lanjut .btn{background:transparent;border-color:var(--dark-line);color:var(--dark-ink)}
+.lanjut .btn:hover{background:rgba(255,255,255,.06)}
+.lanjut .btn.primary{background:#fff;border-color:#fff;color:#111113}
+.lanjut .btn.primary:hover{background:#e9e9ea}
+
+/* grid */
+.grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:640px){.grid{grid-template-columns:minmax(0,1.4fr) minmax(250px,1fr)}}
+.col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.card{border:1px solid var(--line);border-radius:var(--r-card);background:var(--canvas)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 16px 0}
+.card-h h3{margin:0;font-size:14px;font-weight:600}
+.card-b{padding:12px 16px 16px}
+.label{font-size:13px;color:var(--muted)}
+
+/* materials */
+.mat{border:1px solid var(--line);border-radius:var(--r-card);background:var(--canvas);overflow:hidden}
+.mat-h{width:100%;display:flex;align-items:center;gap:12px;padding:13px 14px;background:none;border:0;text-align:left}
+.mat-h:hover{background:var(--surface)}
+.ring{width:38px;height:38px;flex:none;position:relative}
+.ring svg{width:38px;height:38px;transform:rotate(-90deg)}
+.ring .t{stroke:var(--line)}
+.ring .p{stroke:var(--ink);transition:stroke-dashoffset .5s cubic-bezier(.2,.7,.2,1)}
+.ring .c{position:absolute;inset:0;display:grid;place-items:center;font-size:11px;font-weight:600;font-variant-numeric:tabular-nums}
+.ring.full .c{color:#fff}
+.ring.full .c::before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--accent-strong)}
+.ring.full .c span{position:relative}
+.mat-name{flex:1;min-width:0}
+.mat-name b{display:block;font-weight:600;font-size:15px;overflow-wrap:anywhere}
+.mat-name small{color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.chev{width:16px;height:16px;color:var(--muted);transition:transform .2s}
+.mat.open .chev{transform:rotate(180deg)}
+.bab-list{display:none;border-top:1px solid var(--line);padding:4px 0;background:var(--surface)}
+.mat.open .bab-list{display:block}
+.bab{display:flex;align-items:center;gap:10px;padding:6px 14px 6px 12px;min-height:40px}
+.bab.now{box-shadow:inset 2px 0 0 var(--accent)}
+.chk{width:22px;height:22px;flex:none;border-radius:7px;border:1px solid var(--line-2);background:var(--canvas);display:grid;place-items:center;padding:0}
+.chk svg{width:13px;height:13px;opacity:0;color:#fff}
+.chk.on{background:var(--accent-strong);border-color:var(--accent-strong)}
+.chk.on svg{opacity:1}
+.chk.pop{animation:pop .32s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes pop{0%{transform:scale(.7)}100%{transform:scale(1)}}
+.bab-name{flex:1;min-width:0;font-size:14px;color:var(--ink);text-decoration:none;overflow-wrap:anywhere;background:none;border:0;padding:0;text-align:left}
+a.bab-name:hover{text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:3px}
+.bab.done .bab-name{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(229,72,77,.55)}
+.mini{height:28px;padding:0 9px;border-radius:8px;border:1px solid transparent;background:none;font-size:12px;color:var(--muted);display:inline-flex;align-items:center;gap:5px;flex:none}
+.mini:hover{border-color:var(--line-2);color:var(--ink);background:var(--canvas)}
+.mini svg{width:13px;height:13px}
+.bab-txt{flex:1;min-width:0;display:flex;flex-direction:column}.bab-txt .from{font-size:12px;color:var(--muted)}
+.mini.on{color:var(--ink);border-color:var(--line-2);background:var(--canvas)}.mini.on svg{color:var(--accent-strong)}
+.plan-list .bab{padding-left:16px;padding-right:12px}
+.sg{list-style:none;counter-reset:s;margin:0 0 12px;padding:0;display:flex;flex-direction:column;gap:6px}
+.sg li{counter-increment:s;display:flex;flex-direction:column;padding:8px 10px 8px 36px;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.sg li::before{content:counter(s);position:absolute;left:12px;top:9px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sg b{font-weight:500;font-size:14px}.sg small{font-size:12px;color:var(--muted)}
+.stats3 b small{font-size:12px;font-weight:400;color:var(--muted)}
+.mat-link{display:flex;justify-content:flex-end;padding:4px 12px 8px}
+
+/* timer */
+.tabs{display:inline-flex;background:var(--control);border-radius:var(--r-button);padding:3px;gap:2px}
+.tabs button{height:28px;padding:0 11px;border:0;border-radius:8px;background:none;font-size:13px;color:var(--muted)}
+.tabs button.on{background:var(--canvas);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.clock{display:flex;flex-direction:column;align-items:center;padding:6px 0 4px}
+.dial{position:relative;width:176px;height:176px}
+.dial svg{width:176px;height:176px;transform:rotate(-90deg)}
+.dial .t{stroke:var(--line)}
+.dial .p{transition:stroke-dashoffset .3s linear}
+.dial-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.time{font:500 40px/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.phase{font-size:13px;color:var(--muted);margin-top:6px;display:flex;align-items:center;gap:6px}
+.focus-for{font-size:13px;color:var(--muted);text-align:center;margin:8px 0 12px;min-height:20px;overflow-wrap:anywhere}
+.focus-for b{color:var(--ink);font-weight:500}
+.ctrl{display:flex;justify-content:center;gap:8px}
+.note{font-size:13px;text-align:center;color:var(--ink-2);background:var(--accent-soft);border-radius:var(--r-button);padding:8px 10px;margin-top:12px}
+.note:empty{display:none}
+
+/* week + heat */
+.stat{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.big{font:400 30px/1 var(--serif);font-variant-numeric:tabular-nums}.big .label{font:13px var(--sans);margin-left:4px}
+.bar{height:6px;border-radius:6px;background:var(--control);overflow:hidden;margin:10px 0 8px}
+.bar i{display:block;height:100%;background:var(--sig);border-radius:6px;transition:width .5s}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+.stats3 div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.stats3 b{display:block;font-size:15px;white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
+.stats3 span{font-size:12px;color:var(--muted)}
+.heat{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;grid-auto-columns:11px;gap:3px;justify-content:end;margin-top:4px}
+.heat i{border-radius:3px;background:var(--h0)}
+.heat i.l1{background:var(--h1)}.heat i.l2{background:var(--h2)}.heat i.l3{background:var(--h3)}.heat i.l4{background:var(--h4)}
+.heat i.today{box-shadow:0 0 0 1.5px var(--accent)}
+.heat i.fut{background:transparent}
+.legend{display:flex;align-items:center;justify-content:flex-end;gap:3px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* empty */
+.empty{border:1px solid var(--line);border-radius:var(--r-panel);padding:40px 22px;text-align:center}
+.empty h2{font:400 34px/1.1 var(--serif);margin:0 0 8px}
+.empty p{color:var(--muted);margin:0 auto 18px;max-width:420px}
+
+/* editor */
+.sheet{position:fixed;inset:0;background:rgba(17,17,19,.45);display:none;align-items:flex-start;justify-content:center;padding:16px;overflow:auto;z-index:20}
+.sheet.show{display:flex}
+.panel{width:100%;max-width:640px;background:var(--canvas);border:1px solid var(--line);border-radius:var(--r-panel);box-shadow:var(--shadow);padding:18px}
+.panel h2{font:400 28px/1.1 var(--serif);margin:0 0 14px}
+.field{display:block;margin-bottom:12px}
+.field>span{display:block;font-size:13px;color:var(--muted);margin-bottom:5px}
+.in{width:100%;height:38px;padding:0 11px;border:1px solid var(--line-2);border-radius:var(--r-button);background:var(--canvas)}
+textarea.in{height:auto;min-height:110px;padding:9px 11px;line-height:1.5;resize:vertical;font-size:14px}
+.in:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--accent-soft)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.ed-mat{border:1px solid var(--line);border-radius:var(--r-card);padding:12px;margin-bottom:10px;background:var(--surface)}
+.ed-mat .head{display:flex;gap:6px;align-items:center;margin-bottom:8px}
+.ed-mat .head b{flex:1;font-size:13px;font-weight:600;color:var(--muted)}
+.hint{font-size:12px;color:var(--muted);margin-top:4px}
+.sep{height:1px;background:var(--line);margin:16px 0}
+.foot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:14px}
+.linkbox{display:flex;gap:6px}
+.linkbox .in{font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:16px;transform:translate(-50%,20px);opacity:0;background:var(--button);color:var(--button-ink);padding:9px 14px;border-radius:var(--r-button);font-size:13px;transition:.25s;pointer-events:none;z-index:30;max-width:calc(100% - 32px);text-align:center}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* standalone timer */
+body.solo .wrap{max-width:none;padding:6px}
+.band{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr;gap:16px;align-items:center;text-align:center;
+  border:1px solid var(--line);border-radius:var(--r-panel);background:var(--canvas);padding:22px 18px 26px}
+.band::before{content:"";position:absolute;right:-80px;top:-90px;width:300px;height:220px;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(124,92,255,.10),transparent),radial-gradient(closest-side at 35% 70%,rgba(229,72,77,.08),transparent);filter:blur(26px)}
+.band>*{position:relative}
+.band-phase{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.band-time{font:520 clamp(56px,9vw,88px)/1 var(--sans);font-variant-numeric:tabular-nums;letter-spacing:-.035em;margin-top:6px}
+.band-m{display:flex;flex-direction:column;align-items:center;gap:12px}
+.band .ctrl .btn{min-width:92px;height:42px;font-size:15px}
+.band .tabs button{height:32px;padding:0 13px;font-size:13.5px}
+.cycle{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.cycle i{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--line-2)}
+.cycle i.on{background:var(--accent);border-color:var(--accent)}
+.band-note{font-size:13px;color:var(--ink-2);min-height:0}
+.band-note:empty{display:none}
+.band-r{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.band-r div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px;text-align:left}
+.band-r b{display:block;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.band-r span{font-size:12px;color:var(--muted)}
+.band-bar{position:absolute!important;left:0;right:0;bottom:0;height:4px;background:var(--control)}
+.band-bar i{display:block;height:100%;background:var(--sig);transition:width .3s linear}
+.band.rest .band-bar i{background:var(--h3)}
+@media (min-width:720px){
+  .band{grid-template-columns:auto 1fr auto;text-align:left;padding:26px 28px 30px;gap:28px}
+  .band-r{grid-template-columns:1fr;min-width:150px}
+  .band-r div{padding:6px 12px;display:flex;align-items:baseline;gap:6px}
+  .band-r b{display:inline}
+}
+@media (min-width:1100px){.band-r div{display:block}.band-r b{display:block}}
+@media (min-width:1100px){.band-r{grid-template-columns:repeat(3,auto)}}
+.band-q{font:italic 400 17px/1.3 var(--serif);color:var(--muted);margin-top:8px}
+/* gaya di atas latar gelap: foto dan malam */
+.band.dark{--ink:#fff;--ink-2:rgba(255,255,255,.86);--muted:rgba(255,255,255,.74);--line:rgba(255,255,255,.2);--line-2:rgba(255,255,255,.34);
+  --canvas:rgba(255,255,255,.1);--control:rgba(255,255,255,.14);--surface:rgba(255,255,255,.1);
+  --button:#fff;--button-h:#e9e9ea;--button-ink:#111113;color:#fff;border-color:transparent}
+.band.dark .tabs button.on{background:rgba(255,255,255,.94);color:#111113;box-shadow:none}
+.band.dark .btn:not(.primary):hover{background:rgba(255,255,255,.2)}
+.band.dark .band-bar{background:rgba(255,255,255,.16)}
+.band.dark .dot.off{background:rgba(255,255,255,.4)}
+.band.dark.rest .band-bar i{background:rgba(255,255,255,.7)}
+.band.g-foto{background-size:cover;background-position:center 60%;background-color:#1c1c1e;min-height:230px}
+.band.g-foto::before{inset:0;right:0;top:0;width:auto;height:auto;filter:none;
+  background:linear-gradient(90deg,rgba(17,17,19,.8) 0%,rgba(17,17,19,.5) 48%,rgba(17,17,19,.66) 100%)}
+.band.g-foto .cycle{background:rgba(17,17,19,.45);padding:4px 10px;border-radius:999px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.band.g-foto .tabs{background:rgba(17,17,19,.38)}.band.g-foto .band-r div,.band.g-foto .btn:not(.primary){background:rgba(17,17,19,.34)}
+@media (max-width:719px){.band.g-foto::before{background:rgba(17,17,19,.62)}}
+.band.g-foto .tabs,.band.g-foto .band-r div,.band.g-foto .btn:not(.primary){-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.band.g-foto .band-time{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.band.g-malam{background:#1c1c1e}
+.band.g-malam::before{background:radial-gradient(closest-side,rgba(124,92,255,.26),transparent),radial-gradient(closest-side at 30% 70%,rgba(229,72,77,.16),transparent)}
+.band.g-malam::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:14px 14px;pointer-events:none}
+.band-photo{border-radius:12px;background-size:cover;background-position:center;min-height:120px;display:flex;align-items:flex-end;overflow:hidden}
+.band-photo span{font:italic 400 19px/1.25 var(--serif);color:#fff;padding:36px 14px 12px;width:100%;text-align:left;background:linear-gradient(180deg,transparent,rgba(17,17,19,.7))}
+@media (min-width:720px){
+  .band.g-belah{grid-template-columns:minmax(200px,26%) auto 1fr auto;padding-left:12px}
+  .band.g-belah .band-photo{align-self:stretch;margin:-14px 0 -16px;min-height:170px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="sheet" id="sheet"><div class="panel" id="panel"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(() => {
+"use strict";
+/* ---------- helpers ---------- */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const fnv = s => { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); };
+const rid = () => Math.random().toString(36).slice(2, 10);
+const enc = o => { const b = new TextEncoder().encode(JSON.stringify(o)); let s = ""; b.forEach(x => s += String.fromCharCode(x)); return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); };
+const dec = s => { s = s.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "="; const bin = atob(s); return JSON.parse(new TextDecoder().decode(Uint8Array.from(bin, c => c.charCodeAt(0)))); };
+const dkey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const today = () => dkey(new Date());
+const BULAN = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+const fmtMin = ms => { const m = Math.round(ms / 60000); if (m < 60) return `${m} mnt`; const h = Math.floor(m / 60), r = m % 60; return r ? `${h}j ${r}m` : `${h} jam`; };
+const weekStart = () => { const d = new Date(); d.setHours(0, 0, 0, 0); const wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd); return d.getTime(); };
+const inFrame = (() => { try { return window.top !== window; } catch (e) { return true; } })();
+const isUrl = s => /^https?:\/\/\S+$/i.test(s) || /^notion:\/\/\S+$/i.test(s);
+
+const I = {
+  gear: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+  check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  chev: '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>',
+  open: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6"/><path d="M20 4l-9 9"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>',
+  play: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.9l10.4-6.5a1 1 0 0 0 0-1.8L9.5 4.6A1 1 0 0 0 8 5.5z"/></svg>',
+  timer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5"/><path d="M9.5 2.5h5"/></svg>'
+};
+
+/* ---------- config (struktur course) ---------- */
+// Struktur disimpan di link (#c=...) supaya sama di semua perangkat. Progres per perangkat.
+const babId = (matName, babName, nth) => "b" + fnv(matName + "\u0001" + babName + "#" + nth);
+function withIds(cfg) {
+  cfg.materi.forEach(m => {
+    m.id = "m" + fnv(m.nama);
+    const seen = {};
+    m.bab.forEach(b => { const n = (seen[b.nama] = (seen[b.nama] || 0) + 1); b.id = babId(m.nama, b.nama, n); });
+  });
+  return cfg;
+}
+const pack = c => ({ v: 1, i: c.id, j: c.judul, t: c.target, th: c.tema, p: [c.fokus, c.istirahat],
+  m: c.materi.map(m => [m.nama, m.link || "", m.bab.map(b => b.link ? [b.nama, b.link] : b.nama)]) });
+const unpack = o => withIds({
+  id: o.i || rid(), judul: o.j || "Course", target: +o.t || 3, tema: o.th || "auto",
+  fokus: (o.p && +o.p[0]) || 25, istirahat: (o.p && +o.p[1]) || 5,
+  materi: (o.m || []).map(([nama, link, bab]) => ({ nama, link, bab: (bab || []).map(b => Array.isArray(b) ? { nama: b[0], link: b[1] } : { nama: b, link: "" }) }))
+});
+
+const params = new URLSearchParams(location.search);
+const SOLO = params.get("v") === "timer";
+const hashStr = (location.hash.match(/c=([^&]+)/) || [])[1] || "";
+const CFG_KEY = "dch:cfg:" + (hashStr ? fnv(hashStr) : "local");
+let cfg = null;
+(() => {
+  const local = LS.get(CFG_KEY, null);
+  try {
+    if (local) cfg = unpack(local);
+    else if (hashStr) cfg = unpack(dec(hashStr));
+  } catch (e) { cfg = null; }
+})();
+const embedLink = () => location.origin + location.pathname + "#c=" + enc(pack(cfg));
+function saveCfg(next) {
+  cfg = withIds(next);
+  LS.set(CFG_KEY, pack(cfg));
+  if (!inFrame) { try { history.replaceState(null, "", "#c=" + enc(pack(cfg))); } catch (e) {} }
+}
+
+/* ---------- progres ---------- */
+const PKEY = () => "dch:p:" + cfg.id;
+let prog = { done: {}, last: null, open: {} };
+const loadProg = () => { prog = Object.assign({ done: {}, last: null, open: {} }, cfg ? LS.get(PKEY(), {}) : {}); };
+const saveProg = () => LS.set(PKEY(), prog);
+
+/* log fokus global: semua widget di domain ini berbagi */
+const LOG = "dch:log";
+function addLog(ms) {
+  if (ms < 1000) return;
+  const log = LS.get(LOG, {}); const k = today();
+  log[k] = (log[k] || 0) + Math.round(ms); LS.set(LOG, log);
+}
+
+/* ---------- tema ---------- */
+function applyTheme() {
+  const t = params.get("tema") || (cfg && cfg.tema) || "auto";
+  const map = { terang: "light", gelap: "dark", light: "light", dark: "dark" };
+  if (map[t]) document.documentElement.dataset.theme = map[t]; else delete document.documentElement.dataset.theme;
+}
+
+/* ---------- logika course ---------- */
+const allBab = () => cfg.materi.flatMap(m => m.bab.map(b => ({ m, b })));
+function nextUp() {
+  const list = allBab(); if (!list.length) return null;
+  const L = prog.last;
+  if (L) {
+    const i = list.findIndex(x => x.b.id === L.b);
+    if (i >= 0) {
+      if (!prog.done[list[i].b.id]) return list[i];
+      const j = list.findIndex((x, k) => k > i && x.m.id === list[i].m.id && !prog.done[x.b.id]);
+      if (j >= 0) return list[j];
+    }
+  }
+  return list.find(x => !prog.done[x.b.id]) || null;
+}
+const linkOf = (m, b) => (b && b.link) || m.link || "";
+function streak() {
+  const log = LS.get(LOG, {});
+  const act = new Set(Object.keys(log).filter(k => log[k] >= 60000));
+  Object.values(prog.done).forEach(ts => act.add(dkey(new Date(ts))));
+  const d = new Date(); let n = 0;
+  if (!act.has(dkey(d))) d.setDate(d.getDate() - 1);
+  while (act.has(dkey(d))) { n++; d.setDate(d.getDate() - 1); }
+  return n;
+}
+const doneThisWeek = () => { const ws = weekStart(); return Object.values(prog.done).filter(ts => ts >= ws).length; };
+function focusSum(fromTs) {
+  const log = LS.get(LOG, {}); let s = 0;
+  const d = new Date(fromTs); const end = today();
+  for (let i = 0; i < 400; i++) { const k = dkey(d); s += log[k] || 0; if (k === end) break; d.setDate(d.getDate() + 1); }
+  return s;
+}
+
+/* ---------- timer (state bersama lewat localStorage) ---------- */
+const TKEY = "dch:timer";
+const T0 = { mode: "pomo", phase: "fokus", run: false, at: 0, acc: 0, label: "", rounds: 0 };
+let T = Object.assign({}, T0, LS.get(TKEY, {}));
+const durs = () => {
+  const f = (cfg && cfg.fokus) || +params.get("fokus") || 25, r = (cfg && cfg.istirahat) || +params.get("istirahat") || 5;
+  return { fokus: f * 60000, istirahat: r * 60000 };
+};
+const elapsed = () => T.acc + (T.run ? Date.now() - T.at : 0);
+const curDur = () => durs()[T.phase] || durs().fokus;
+const saveT = () => LS.set(TKEY, T);
+let note = "";
+let audio = null;
+function beep() {
+  try {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    [0, .28, .56].forEach((t, i) => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.type = "sine"; o.frequency.value = i === 2 ? 880 : 660;
+      g.gain.setValueAtTime(0, audio.currentTime + t);
+      g.gain.linearRampToValueAtTime(.18, audio.currentTime + t + .02);
+      g.gain.exponentialRampToValueAtTime(.001, audio.currentTime + t + .24);
+      o.connect(g).connect(audio.destination); o.start(audio.currentTime + t); o.stop(audio.currentTime + t + .26);
+    });
+  } catch (e) {}
+}
+const counts = () => T.mode === "sw" || T.phase === "fokus";
+function stopSeg() {
+  if (!T.run) return;
+  let seg = Date.now() - T.at;
+  if (T.mode === "pomo") seg = Math.min(seg, Math.max(0, curDur() - T.acc));
+  if (counts()) addLog(seg);
+  T.acc += seg; T.run = false;
+}
+const timer = {
+  start(label) {
+    T = Object.assign({}, T0, LS.get(TKEY, {}));
+    if (label !== undefined) T.label = label;
+    if (!T.run) { T.run = true; T.at = Date.now(); }
+    try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (e) {}
+    note = ""; saveT(); render();
+  },
+  pause() { T = Object.assign({}, T0, LS.get(TKEY, {})); stopSeg(); saveT(); render(); },
+  reset() { T = Object.assign({}, T0, LS.get(TKEY, {})); stopSeg(); T.acc = 0; if (T.mode === "pomo") T.phase = "fokus"; note = ""; saveT(); render(); },
+  skip() {
+    T = Object.assign({}, T0, LS.get(TKEY, {})); stopSeg();
+    T.phase = T.phase === "fokus" ? "istirahat" : "fokus"; T.acc = 0; note = ""; saveT(); render();
+  },
+  mode(m) { if (T.mode === m) return; T = Object.assign({}, T0, LS.get(TKEY, {})); stopSeg(); T.mode = m; T.phase = "fokus"; T.acc = 0; note = ""; saveT(); render(); },
+  set(k) { // fokus | istirahat | sw
+    T = Object.assign({}, T0, LS.get(TKEY, {}));
+    const m = k === "sw" ? "sw" : "pomo", ph = k === "sw" ? "fokus" : k;
+    if (T.mode === m && T.phase === ph) return;
+    stopSeg(); T.mode = m; T.phase = ph; T.acc = 0; note = ""; saveT(); render();
+  }
+};
+const SES = "dch:ses";
+const sesToday = () => (LS.get(SES, {})[today()] || 0);
+function timeInfo() {
+  const d = curDur(), e = elapsed();
+  const ms = T.mode === "pomo" ? Math.max(0, d - e) : e;
+  const s = Math.floor(ms / 1000 + (T.mode === "pomo" ? .999 : 0));
+  const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+  const text = (h ? h + ":" + String(m).padStart(2, "0") : String(m).padStart(2, "0")) + ":" + String(sec).padStart(2, "0");
+  const p = T.mode === "pomo" ? Math.min(1, e / d) : (e % 3600000) / 3600000;
+  return { text, p, e };
+}
+function checkDone() {
+  if (T.mode !== "pomo" || !T.run || elapsed() < curDur()) return;
+  const fresh = Object.assign({}, T0, LS.get(TKEY, {}));
+  if (!fresh.run || fresh.at !== T.at) { T = fresh; return; } // widget lain sudah mencatat
+  T = fresh; stopSeg();
+  if (T.phase === "fokus") {
+    T.rounds = (T.rounds || 0) + 1; T.phase = "istirahat"; note = "Satu sesi selesai. Istirahat dulu.";
+    const ses = LS.get(SES, {}); ses[today()] = (ses[today()] || 0) + 1; LS.set(SES, ses);
+  }
+  else { T.phase = "fokus"; note = "Istirahat selesai. Lanjut fokus kalau siap."; }
+  T.acc = 0; saveT(); beep(); render();
+}
+
+/* ---------- render ---------- */
+const app = $("#app");
+function titleHTML(s) {
+  const w = String(s || "").trim().split(/\s+/);
+  if (w.length < 2) return `<em>${esc(w[0] || "Course")}</em>`;
+  const last = w.pop(); return `${esc(w.join(" "))} <em>${esc(last)}</em>`;
+}
+function ringHTML(done, total) {
+  const r = 16, C = 2 * Math.PI * r, p = total ? done / total : 0, full = total && done === total;
+  return `<div class="ring${full ? " full" : ""}"><svg viewBox="0 0 38 38"><circle class="t" cx="19" cy="19" r="${r}" fill="none" stroke-width="3"/>${full ? "" : `<circle class="p" cx="19" cy="19" r="${r}" fill="none" stroke-width="3" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - p)).toFixed(2)}"/>`}</svg><div class="c"><span>${full ? I.check.replace('stroke-width="3"', 'stroke-width="3" width="14" height="14"') : Math.round(p * 100) + "%"}</span></div></div>`;
+}
+function timerHTML() {
+  const d = curDur(), e = elapsed();
+  const ms = T.mode === "pomo" ? Math.max(0, d - e) : e;
+  const s = Math.floor(ms / 1000 + (T.mode === "pomo" ? .999 : 0));
+  const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+  const t = (h ? h + ":" + String(m).padStart(2, "0") : String(m).padStart(2, "0")) + ":" + String(sec).padStart(2, "0");
+  const r = 80, C = 2 * Math.PI * r;
+  const p = T.mode === "pomo" ? Math.min(1, e / d) : (e % 3600000) / 3600000;
+  const phase = T.mode === "sw" ? "Stopwatch" : T.phase === "fokus" ? "Fokus" : "Istirahat";
+  return `
+  <div class="card" id="timer-card">
+    <div class="card-h"><h3>Fokus</h3>
+      <div class="tabs" role="tablist"><button data-act="mode" data-v="pomo" class="${T.mode === "pomo" ? "on" : ""}">Pomodoro</button><button data-act="mode" data-v="sw" class="${T.mode === "sw" ? "on" : ""}">Stopwatch</button></div>
+    </div>
+    <div class="card-b">
+      <div class="clock"><div class="dial">
+        <svg viewBox="0 0 176 176"><defs><linearGradient id="g" gradientUnits="userSpaceOnUse" x1="176" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset=".55" stop-color="#e5484d"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
+        <circle class="t" cx="88" cy="88" r="${r}" fill="none" stroke-width="5"/>
+        <circle class="p" id="dial-p" cx="88" cy="88" r="${r}" fill="none" stroke="${T.phase === "istirahat" && T.mode === "pomo" ? "var(--h3)" : "url(#g)"}" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - p)).toFixed(2)}"/></svg>
+        <div class="dial-in"><div class="time" id="time">${t}</div><div class="phase"><span class="dot${T.run ? "" : " off"}"></span>${phase}${T.mode === "pomo" && T.rounds ? ` · ${T.rounds} sesi` : ""}</div></div>
+      </div></div>
+      <div class="focus-for">${T.label ? `Untuk <b>${esc(T.label)}</b>` : ""}</div>
+      <div class="ctrl">
+        ${T.run ? `<button class="btn primary" data-act="pause">Jeda</button>` : `<button class="btn primary" data-act="start">${e > 0 ? "Lanjut" : "Mulai"}</button>`}
+        <button class="btn" data-act="reset">Ulang</button>
+        ${T.mode === "pomo" ? `<button class="btn" data-act="skip">Lewati</button>` : ""}
+      </div>
+      <div class="note">${esc(note)}</div>
+    </div>
+  </div>`;
+}
+function heatHTML(weeks) {
+  const log = LS.get(LOG, {});
+  const end = new Date(); end.setHours(0, 0, 0, 0);
+  const wd = (end.getDay() + 6) % 7; // Senin = 0
+  const start = new Date(end); start.setDate(end.getDate() - wd - (weeks - 1) * 7);
+  let cells = ""; const tk = today();
+  for (let i = 0; i < weeks * 7; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i); const k = dkey(d);
+    if (d > end) { cells += `<i class="fut"></i>`; continue; }
+    const m = (log[k] || 0) / 60000, b = babPerDay[k] || 0;
+    const s = b + m / 25; // satu bab ≈ satu sesi 25 menit
+    const l = s <= 0 ? 0 : s < 1.5 ? 1 : s < 2.5 ? 2 : s < 3.5 ? 3 : 4;
+    const tip = [`${b} bab`].concat(m >= 1 ? [`${Math.round(m)} menit`] : []).join(" · ");
+    cells += `<i class="${l ? "l" + l : ""}${k === tk ? " today" : ""}" title="${d.getDate()} ${BULAN[d.getMonth()]} · ${tip}"></i>`;
+  }
+  return cells;
+}
+let babPerDay = {};
+const countBabPerDay = () => { babPerDay = {}; Object.values(prog.done).forEach(ts => { const k = dkey(new Date(ts)); babPerDay[k] = (babPerDay[k] || 0) + 1; }); };
+const planIds = () => (prog.plan && prog.plan.d === today() ? prog.plan.ids : []).filter(id => findBab(id));
+function suggest(n) {
+  const list = allBab(), up = nextUp(); if (!up) return [];
+  const i = list.findIndex(x => x.b.id === up.b.id);
+  return list.slice(i).concat(list.slice(0, i)).filter(x => !prog.done[x.b.id]).slice(0, n);
+}
+function babLine(x, extra) {
+  const L = linkOf(x.m, x.b), on = !!prog.done[x.b.id];
+  return `<div class="bab${on ? " done" : ""}">
+    <button class="chk${on ? " on" : ""}" data-act="check" data-b="${x.b.id}" aria-label="Tandai ${esc(x.b.nama)}" aria-pressed="${on}">${I.check}</button>
+    <span class="bab-txt">${L ? `<a class="bab-name" href="${esc(L)}" target="_blank" rel="noopener" data-act="visit" data-b="${x.b.id}">${esc(x.b.nama)}</a>` : `<button class="bab-name" data-act="visit" data-b="${x.b.id}">${esc(x.b.nama)}</button>`}<small class="from">${esc(x.m.nama)}</small></span>
+    ${extra || ""}
+  </div>`;
+}
+function planHTML() {
+  const items = planIds().map(findBab);
+  const doneT = items.filter(x => prog.done[x.b.id]).length;
+  if (!items.length) {
+    const sg = suggest(3);
+    return `<div class="card plan"><div class="card-h"><h3>Rencana hari ini</h3></div>
+      <div class="card-b">${sg.length ? `
+        <p class="label" style="margin:0 0 10px">Pilih bab lewat tombol + di daftar materi, atau pakai saran ini:</p>
+        <ol class="sg">${sg.map(x => `<li><b>${esc(x.b.nama)}</b><small>${esc(x.m.nama)}</small></li>`).join("")}</ol>
+        <button class="btn primary" data-act="plan-fill" style="width:100%">Pakai saran</button>` : `<p class="label" style="margin:0">Semua bab sudah selesai.</p>`}
+      </div></div>`;
+  }
+  return `<div class="card plan"><div class="card-h"><h3>Rencana hari ini</h3><span class="label">${doneT} dari ${items.length} beres</span></div>
+    <div class="card-b" style="padding:6px 0 10px"><div class="plan-list">
+      ${items.map(x => babLine(x, `<button class="mini" data-act="plan" data-b="${x.b.id}" aria-label="Keluarkan dari rencana" title="Keluarkan dari rencana">✕</button>`)).join("")}
+    </div>
+    ${doneT === items.length ? `<div class="note" style="margin:10px 16px 0">Rencana hari ini beres. Mantap.</div>` : ""}
+    </div></div>`;
+}
+function hubHTML() {
+  const up = nextUp(), st = streak(), wk = doneThisWeek(), tgt = cfg.target || 3;
+  const total = allBab().length, doneN = allBab().filter(x => prog.done[x.b.id]).length;
+  const upLink = up ? linkOf(up.m, up.b) : "";
+  const inPlan = new Set(planIds());
+  countBabPerDay();
+  const todayN = babPerDay[today()] || 0;
+  const mats = cfg.materi.map(m => {
+    const d = m.bab.filter(b => prog.done[b.id]).length, open = prog.open[m.id] ?? (up && up.m.id === m.id);
+    return `<div class="mat${open ? " open" : ""}" data-m="${m.id}">
+      <button class="mat-h" data-act="toggle" data-m="${m.id}">${ringHTML(d, m.bab.length)}
+        <span class="mat-name"><b>${esc(m.nama)}</b><small>${d} dari ${m.bab.length} bab</small></span>${I.chev}</button>
+      <div class="bab-list">
+        ${m.bab.map(b => {
+          const L = linkOf(m, b), on = !!prog.done[b.id], now = up && up.b.id === b.id;
+          return `<div class="bab${on ? " done" : ""}${now ? " now" : ""}">
+            <button class="chk${on ? " on" : ""}" data-act="check" data-b="${b.id}" aria-label="Tandai ${esc(b.nama)}" aria-pressed="${on}">${I.check}</button>
+            ${L ? `<a class="bab-name" href="${esc(L)}" target="_blank" rel="noopener" data-act="visit" data-b="${b.id}">${esc(b.nama)}</a>` : `<button class="bab-name" data-act="visit" data-b="${b.id}">${esc(b.nama)}</button>`}
+            ${on ? "" : inPlan.has(b.id) ? `<button class="mini on" data-act="plan" data-b="${b.id}" title="Keluarkan dari rencana hari ini">${I.check.replace('stroke-width="3"', 'stroke-width="2.4"')}Hari ini</button>` : `<button class="mini" data-act="plan" data-b="${b.id}" title="Masukkan ke rencana hari ini">+ Hari ini</button>`}
+          </div>`;
+        }).join("") || `<div class="bab"><span class="label">Belum ada bab. Tambah lewat Atur.</span></div>`}
+        ${m.link ? `<div class="mat-link"><a class="btn sm" href="${esc(m.link)}" target="_blank" rel="noopener">${I.open}Buka ${esc(m.nama)}</a></div>` : ""}
+      </div></div>`;
+  }).join("");
+
+  return `
+  <header class="top">
+    <h1>${titleHTML(cfg.judul)}</h1>
+    <span class="pill" title="Hari beruntun belajar"><span class="dot${st ? "" : " off"}"></span>${st} hari beruntun</span>
+    <button class="icon-btn" data-act="edit" aria-label="Atur course">${I.gear}</button>
+  </header>
+  <section class="lanjut">
+    ${up ? `
+      <div class="eyebrow">Lanjutkan · ${esc(up.m.nama)}</div>
+      <h2>${esc(up.b.nama)}</h2>
+      <div class="sub">${doneN} dari ${total} bab selesai</div>
+      <span class="scribble"></span>
+      <div class="row">
+        ${upLink ? `<a class="btn primary" href="${esc(upLink)}" target="_blank" rel="noopener" data-act="visit" data-b="${up.b.id}">${I.open}Buka materi</a>` : ""}
+        <button class="btn${upLink ? "" : " primary"}" data-act="check" data-b="${up.b.id}">${I.check.replace('stroke-width="3"', 'stroke-width="2.4"')}Tandai selesai</button>
+      </div>` : total ? `
+      <div class="eyebrow">Selesai</div><h2>Semua bab sudah <em>beres.</em></h2>
+      <div class="sub">${total} dari ${total} bab. Tambah materi baru lewat Atur.</div><span class="scribble"></span>` : `
+      <div class="eyebrow">Mulai</div><h2>Tambah materi <em>dulu.</em></h2>
+      <div class="sub">Klik Atur, isi nama materi dan daftar babnya.</div><span class="scribble"></span>
+      <div class="row"><button class="btn primary" data-act="edit">Atur course</button></div>`}
+  </section>
+  <div class="grid">
+    <div class="col">${mats}</div>
+    <div class="col">
+      ${planHTML()}
+      <div class="card"><div class="card-h"><h3>Minggu ini</h3><span class="label">target ${tgt} bab</span></div>
+        <div class="card-b">
+          <div class="stat"><span class="big">${wk}<span class="label">dari ${tgt} bab</span></span><span class="label">${wk >= tgt ? "Target tercapai" : `${tgt - wk} lagi`}</span></div>
+          <div class="bar"><i style="width:${Math.min(100, wk / tgt * 100)}%"></i></div>
+          <div class="stats3">
+            <div><b>${todayN}</b><span>bab hari ini</span></div>
+            <div><b>${doneN}<small> / ${total}</small></b><span>bab selesai</span></div>
+            <div><b>${total ? Math.round(doneN / total * 100) : 0}%</b><span>progres</span></div>
+          </div>
+        </div></div>
+      <div class="card"><div class="card-h"><h3>Jejak belajar</h3><span class="label" id="heat-range"></span></div>
+        <div class="card-b"><div class="heat" id="heat"></div>
+          <div class="legend">sedikit <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i> banyak</div>
+        </div></div>
+    </div>
+  </div>`;
+}
+function emptyHTML() {
+  return `<div class="empty">
+    <h2>Course kamu, <em>satu tempat.</em></h2>
+    <p>Daftar materi dan bab, tombol lanjutkan, rencana hari ini, dan jejak belajar harian. Atur sekali, lalu tempel linknya di Notion.</p>
+    <div class="row" style="justify-content:center"><button class="btn primary" data-act="edit">Mulai atur</button><button class="btn" data-act="sample">Lihat contoh</button></div>
+  </div>`;
+}
+function fitHeat() {
+  const h = $("#heat"); if (!h) return;
+  const w = h.getBoundingClientRect().width - 2;
+  const weeks = Math.max(8, Math.min(26, Math.floor((w + 3) / 14)));
+  h.innerHTML = heatHTML(weeks);
+  const r = $("#heat-range"); if (r) r.textContent = weeks + " minggu";
+}
+// Foto bebas dari Unsplash (Unsplash License), sama dengan widget jam di halaman utama. Pilih lewat ?bg=<nama>
+const FOTO = {
+  kanalsenja: "photo-1512470876302-972faa2aa9a4", kanal: "photo-1534351590666-13e3e96b5017", kinderdijk: "photo-1595698251407-8e7e3030a715",
+  skyline: "photo-1772339164384-e4eba87f08c0", towerbridge: "photo-1543832923-44667a44c804", bigben: "photo-1584986098745-02507619826c"
+};
+const KUTIPAN = {
+  nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
+  en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."]
+};
+const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
+const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
+const kutipan = () => { const k = KUTIPAN[params.get("bahasa")]; return k ? k[new Date().getDate() % k.length] : ""; };
+function bandHTML() {
+  const { text, p, e } = timeInfo(), D = durs();
+  const k = T.mode === "sw" ? "sw" : T.phase;
+  const phase = k === "sw" ? "Stopwatch" : k === "fokus" ? "Fokus" : "Istirahat";
+  const tab = (v, t) => `<button data-act="set" data-v="${v}" class="${k === v ? "on" : ""}">${t}</button>`;
+  const ses = sesToday();
+  const q = kutipan();
+  return `<section class="band g-${GAYA}${GAYA === "foto" || GAYA === "malam" ? " dark" : ""}${k === "istirahat" ? " rest" : ""}"${GAYA === "foto" ? ` style="background-image:url('${fotoUrl(1920)}')"` : ""}>
+    ${GAYA === "belah" ? `<div class="band-photo" style="background-image:url('${fotoUrl(900)}')">${q ? `<span>${esc(q)}</span>` : ""}</div>` : ""}
+    <div class="band-l">
+      <div class="band-phase"><span class="dot${T.run ? "" : " off"}"></span>${phase}${T.run ? "" : e > 0 ? " · dijeda" : ""}</div>
+      <div class="band-time" id="time">${text}</div>
+      ${q && GAYA !== "belah" ? `<div class="band-q">${esc(q)}</div>` : ""}
+    </div>
+    <div class="band-m">
+      <div class="tabs">${tab("fokus", `Fokus ${D.fokus / 60000}`)}${tab("istirahat", `Istirahat ${D.istirahat / 60000}`)}${tab("sw", "Stopwatch")}</div>
+      <div class="ctrl">
+        ${T.run ? `<button class="btn primary" data-act="pause">Jeda</button>` : `<button class="btn primary" data-act="start">${I.play}${e > 0 ? "Lanjut" : "Mulai"}</button>`}
+        <button class="btn" data-act="reset">Ulang</button>
+        ${T.mode === "pomo" ? `<button class="btn" data-act="skip">Lewati</button>` : ""}
+      </div>
+      <div class="cycle">${[0, 1, 2, 3].map(i => `<i class="${i < (T.rounds || 0) % 4 || ((T.rounds || 0) && (T.rounds % 4 === 0) && k === "istirahat") ? "on" : ""}"></i>`).join("")}<span>siklus 4 sesi</span></div>
+      <div class="band-note">${esc(note)}</div>
+    </div>
+    <div class="band-r">
+      <div><b>${fmtMin(focusSum(Date.now()))}</b><span>fokus hari ini</span></div>
+      <div><b>${ses}</b><span>sesi selesai</span></div>
+      <div><b>${fmtMin(focusSum(weekStart()))}</b><span>minggu ini</span></div>
+    </div>
+    <div class="band-bar"><i id="band-p" style="width:${(p * 100).toFixed(2)}%"></i></div>
+  </section>`;
+}
+function render() {
+  applyTheme();
+  if (SOLO) { document.body.classList.add("solo"); app.innerHTML = bandHTML(); return; }
+  app.innerHTML = cfg ? hubHTML() : emptyHTML();
+  fitHeat();
+}
+function tick() {
+  checkDone();
+  if (SOLO) {
+    const t = $("#time"), bp = $("#band-p"); if (!t) return;
+    const { text, p } = timeInfo(); t.textContent = text; if (bp) bp.style.width = (p * 100).toFixed(2) + "%";
+    return;
+  }
+  const t = $("#time"); if (!t) return;
+  // perbarui angka saja tanpa render ulang semua
+  const tmp = document.createElement("div"); tmp.innerHTML = timerHTML();
+  t.textContent = $("#time", tmp).textContent;
+  const p = $("#dial-p"), np = $("#dial-p", tmp); if (p && np) p.setAttribute("stroke-dashoffset", np.getAttribute("stroke-dashoffset"));
+}
+
+/* ---------- aksi ---------- */
+const findBab = id => allBab().find(x => x.b.id === id);
+let toastT;
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 2200); }
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; } catch (e) {
+    const ta = document.createElement("textarea"); ta.value = s; ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (e2) {} ta.remove(); return ok;
+  }
+}
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act]"); if (!el) return;
+  const act = el.dataset.act, b = el.dataset.b;
+  if (act === "toggle") { prog.open[el.dataset.m] = !el.closest(".mat").classList.contains("open"); saveProg(); render(); }
+  else if (act === "check") {
+    if (prog.done[b]) delete prog.done[b]; else { prog.done[b] = Date.now(); prog.last = { b }; }
+    saveProg(); render();
+    const btn = document.querySelector(`.chk[data-b="${b}"]`); if (btn && prog.done[b]) btn.classList.add("pop");
+    if (prog.done[b]) toast("Bab ditandai selesai");
+  }
+  else if (act === "visit") { prog.last = { b }; saveProg(); if (el.tagName !== "A") toast("Belum ada link untuk bab ini. Tambah lewat Atur."); setTimeout(render, 50); }
+  else if (act === "focus") {
+    const x = findBab(b); if (!x) return; prog.last = { b }; saveProg();
+    if (T.mode !== "pomo") timer.mode("pomo");
+    timer.start(`${x.m.nama} · ${x.b.nama}`);
+    const c = $("#timer-card"); if (c) c.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+  else if (act === "plan") {
+    const ids = planIds(); const i = ids.indexOf(b);
+    if (i >= 0) ids.splice(i, 1); else ids.push(b);
+    prog.plan = { d: today(), ids }; saveProg(); render();
+  }
+  else if (act === "plan-fill") { prog.plan = { d: today(), ids: suggest(3).map(x => x.b.id) }; saveProg(); render(); }
+  else if (act === "start") timer.start();
+  else if (act === "pause") timer.pause();
+  else if (act === "reset") timer.reset();
+  else if (act === "skip") timer.skip();
+  else if (act === "mode") timer.mode(el.dataset.v);
+  else if (act === "set") timer.set(el.dataset.v);
+  else if (act === "edit") openEditor();
+  else if (act === "sample") { saveCfg(sample()); loadProg(); render(); toast("Contoh dimuat. Ubah lewat Atur."); }
+});
+window.addEventListener("storage", e => {
+  if (e.key === TKEY) { T = Object.assign({}, T0, LS.get(TKEY, {})); render(); }
+  else if (e.key === LOG || (cfg && e.key === PKEY())) { if (cfg) loadProg(); render(); }
+});
+let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fitHeat, 120); });
+
+/* ---------- editor ---------- */
+function sample() {
+  const unit = (n, arr) => arr.map((t, i) => ({ nama: `${n} ${i + 1} · ${t}`, link: "" }));
+  return {
+    id: rid(), judul: "A1 English", target: 3, tema: "auto", fokus: 25, istirahat: 5,
+    materi: [
+      { nama: "A1 Textbook", link: "", bab: unit("Unit", ["Hello", "My family", "Numbers", "Daily routine", "Food", "At home", "In town", "Review"]) },
+      { nama: "A1 Workbook", link: "", bab: unit("Latihan", ["Hello", "My family", "Numbers", "Daily routine", "Food", "At home"]) },
+      { nama: "Listening", link: "", bab: unit("Audio", ["Greetings", "Shopping", "Directions", "Phone calls"]) }
+    ]
+  };
+}
+let draft = null;
+const babToText = bab => bab.map(b => b.link ? `${b.nama} | ${b.link}` : b.nama).join("\n");
+function textToBab(t) {
+  return t.split(/\r?\n/).map(l => l.trim()).filter(Boolean).map(l => {
+    const i = l.lastIndexOf("|");
+    if (i > 0) { const right = l.slice(i + 1).trim(); if (isUrl(right)) return { nama: l.slice(0, i).trim() || "Bab", link: right }; }
+    const m = l.match(/^(.*?)\s+(https?:\/\/\S+)$/); if (m) return { nama: m[1].trim(), link: m[2] };
+    return { nama: l, link: "" };
+  });
+}
+function openEditor() {
+  const base = cfg || { id: rid(), judul: "", target: 3, tema: "auto", fokus: 25, istirahat: 5, materi: [] };
+  draft = JSON.parse(JSON.stringify(base));
+  if (!draft.materi.length) draft.materi.push({ nama: "", link: "", bab: [] });
+  drawEditor(); $("#sheet").classList.add("show");
+}
+function readEditor() {
+  const p = $("#panel");
+  draft.judul = $("#f-judul", p).value.trim() || "Course";
+  draft.target = Math.max(1, Math.min(50, +$("#f-target", p).value || 3));
+
+
+  draft.tema = $("#f-tema", p).value;
+  draft.materi = [...p.querySelectorAll(".ed-mat")].map(el => ({
+    nama: $(".f-nama", el).value.trim(), link: $(".f-link", el).value.trim(), bab: textToBab($(".f-bab", el).value)
+  }));
+}
+function drawEditor() {
+  const d = draft;
+  $("#panel").innerHTML = `
+    <h2>Atur <em>course</em></h2>
+    <label class="field"><span>Judul</span><input class="in" id="f-judul" value="${esc(d.judul)}" placeholder="A1 English"></label>
+    <div class="cols">
+      <label class="field"><span>Target bab per minggu</span><input class="in" id="f-target" type="number" min="1" max="50" value="${d.target}"></label>
+
+      <label class="field"><span>Tema</span><select class="in" id="f-tema">
+        ${[["auto", "Ikut perangkat"], ["terang", "Terang"], ["gelap", "Gelap"]].map(([v, t]) => `<option value="${v}"${d.tema === v ? " selected" : ""}>${t}</option>`).join("")}
+      </select></label>
+    </div>
+    <div class="sep"></div>
+    <div id="ed-list">
+    ${d.materi.map((m, i) => `
+      <div class="ed-mat">
+        <div class="head"><b>Materi ${i + 1}</b>
+          <button class="mini" data-ed="up" data-i="${i}" ${i ? "" : "disabled"}>Naik</button>
+          <button class="mini" data-ed="down" data-i="${i}" ${i < d.materi.length - 1 ? "" : "disabled"}>Turun</button>
+          <button class="mini" data-ed="del" data-i="${i}">Hapus</button></div>
+        <div class="cols">
+          <label class="field"><span>Nama materi</span><input class="in f-nama" value="${esc(m.nama)}" placeholder="A1 Textbook"></label>
+          <label class="field"><span>Link halaman Notion (opsional)</span><input class="in f-link" value="${esc(m.link)}" placeholder="https://www.notion.so/..."></label>
+        </div>
+        <label class="field" style="margin:0"><span>Daftar bab, satu per baris</span>
+          <textarea class="in f-bab" placeholder="Unit 1 · Hello&#10;Unit 2 · My family | https://www.notion.so/...">${esc(babToText(m.bab))}</textarea></label>
+        <div class="hint">Link per bab opsional: tulis setelah tanda | . Kalau kosong, bab membuka link materi.</div>
+      </div>`).join("")}
+    </div>
+    <button class="btn" data-ed="add">+ Tambah materi</button>
+    <div class="sep"></div>
+    <div class="field" style="margin:0"><span class="label">Link untuk embed di Notion</span>
+      <div class="linkbox" style="margin-top:5px"><input class="in" id="f-out" readonly value="${cfg ? esc(embedLink()) : "Simpan dulu, link muncul di sini."}"><button class="btn" data-ed="copy" ${cfg ? "" : "disabled"}>Salin</button></div>
+      <div class="hint">Daftar materi ikut tersimpan di link ini, jadi tampil sama di laptop dan HP. Centang bab dan menit fokus tersimpan di masing-masing perangkat. Setiap kali daftar diubah, salin link baru dan ganti embed di Notion.</div>
+    </div>
+    <div class="foot">
+      <button class="btn" data-ed="close">Batal</button>
+      <button class="btn primary" data-ed="save">Simpan</button>
+    </div>`;
+}
+$("#sheet").addEventListener("click", async e => {
+  if (e.target.id === "sheet") { $("#sheet").classList.remove("show"); return; }
+  const el = e.target.closest("[data-ed]"); if (!el) return;
+  const a = el.dataset.ed, i = +el.dataset.i;
+  if (a === "close") { $("#sheet").classList.remove("show"); return; }
+  if (a === "copy") { const ok = await copyText($("#f-out").value); toast(ok ? "Link disalin" : "Salin manual: pilih teks link"); if (!ok) $("#f-out").select(); return; }
+  readEditor();
+  if (a === "add") draft.materi.push({ nama: "", link: "", bab: [] });
+  else if (a === "del") draft.materi.splice(i, 1);
+  else if (a === "up" && i > 0) [draft.materi[i - 1], draft.materi[i]] = [draft.materi[i], draft.materi[i - 1]];
+  else if (a === "down" && i < draft.materi.length - 1) [draft.materi[i + 1], draft.materi[i]] = [draft.materi[i], draft.materi[i + 1]];
+  else if (a === "save") {
+    draft.materi = draft.materi.filter(m => m.nama || m.bab.length).map((m, k) => ({ ...m, nama: m.nama || `Materi ${k + 1}` }));
+    // nama materi kembar bikin id bentrok, beri nomor
+    const seen = {}; draft.materi.forEach(m => { seen[m.nama] = (seen[m.nama] || 0) + 1; if (seen[m.nama] > 1) m.nama += ` (${seen[m.nama]})`; });
+    saveCfg(draft); loadProg(); render(); drawEditor();
+    toast("Tersimpan. Salin link untuk Notion.");
+    return;
+  }
+  drawEditor();
+});
+
+/* ---------- mulai ---------- */
+if (cfg) loadProg();
+render();
+setInterval(tick, 250);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { T = Object.assign({}, T0, LS.get(TKEY, {})); checkDone(); render(); } });
+})();
+</script>
+</body>
+</html>
