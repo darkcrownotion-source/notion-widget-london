@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
 <head>
 <meta charset="utf-8">
@@ -168,7 +168,7 @@ a.bab-name:hover{text-decoration:underline;text-decoration-color:var(--line-2);t
 .stats3 div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
 .stats3 b{display:block;font-size:15px;white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
 .stats3 span{font-size:12px;color:var(--muted)}
-.heat{display:grid;grid-template-rows:repeat(7,11px);grid-auto-flow:column;grid-auto-columns:11px;gap:3px;justify-content:end;margin-top:4px}
+.heat{display:grid;grid-template-rows:repeat(7,var(--cell,11px));grid-auto-flow:column;grid-auto-columns:var(--cell,11px);gap:3px;justify-content:end;margin-top:4px}
 .heat i{border-radius:3px;background:var(--h0)}
 .heat i.l1{background:var(--h1)}.heat i.l2{background:var(--h2)}.heat i.l3{background:var(--h3)}.heat i.l4{background:var(--h4)}
 .heat i.today{box-shadow:0 0 0 1.5px var(--accent)}
@@ -205,6 +205,74 @@ textarea.in{height:auto;min-height:110px;padding:9px 11px;line-height:1.5;resize
 
 /* standalone timer */
 body.solo .wrap{max-width:none;padding:6px}
+body.papan .wrap{max-width:none;padding:6px}
+.p-hero{position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;min-height:178px;padding:22px 24px;margin-bottom:14px;
+  border-radius:var(--r-panel);background-size:cover;background-position:center 58%;background-color:#1c1c1e;color:#fff}
+.p-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,17,19,.84) 0%,rgba(17,17,19,.5) 55%,rgba(17,17,19,.58) 100%)}
+.p-hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--sig)}
+.p-hero>*{position:relative}
+.p-hero-l{min-width:0}
+.p-salam{font-size:13px;color:rgba(255,255,255,.8);display:inline-flex;align-items:center;gap:7px}
+.p-salam::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.p-hero h1{margin:8px 0 6px;font:400 clamp(30px,4.2vw,46px)/1.05 var(--serif);letter-spacing:-.01em;overflow-wrap:anywhere;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.p-hero h1 em{font-style:italic}
+.p-hero p{margin:0;font-size:14.5px;color:rgba(255,255,255,.86)}
+.p-hero-r{display:flex;align-items:center;gap:10px;flex:none}
+.p-ring{position:relative;width:72px;height:72px}
+.p-ring>svg{width:72px;height:72px;transform:rotate(-90deg)}
+.p-ring circle{transition:stroke-dashoffset .5s cubic-bezier(.2,.7,.2,1)}
+.p-ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.p-ring b svg{width:26px;height:26px}
+.p-streak{display:flex;flex-direction:column;justify-content:center;height:72px;padding:0 16px;border-radius:14px;background:rgba(17,17,19,.36);border:1px solid rgba(255,255,255,.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.p-streak b{font:400 30px/1 var(--serif);font-variant-numeric:tabular-nums}
+.p-streak span{font-size:12px;color:rgba(255,255,255,.8);white-space:nowrap}
+.p-grid{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.p-grid>.card{display:flex;flex-direction:column;min-width:0}
+.p-form{display:flex;gap:8px}
+.p-form .in{flex:1;min-width:0;font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{height:30px;padding:0 11px;border:1px solid var(--line-2);border-radius:999px;background:var(--canvas);font-size:13px;color:var(--ink-2)}
+.chip:hover{background:var(--control)}
+.p-list{flex:1;border-top:1px solid var(--line);padding:4px 0 6px;background:var(--surface);border-radius:0 0 var(--r-card) var(--r-card)}
+.p-list .bab{padding-left:16px}
+.p-list .bab:hover{background:var(--control)}
+.p-x{opacity:.55}.bab:hover .p-x,.p-x:focus-visible{opacity:1}
+.p-sep{font-size:12px;color:var(--muted);padding:10px 16px 2px}
+.p-empty{flex:1;display:grid;place-items:center;min-height:72px;padding:12px 16px 16px;border-top:1px solid var(--line);background:var(--surface);
+  border-radius:0 0 var(--r-card) var(--r-card);font-size:13px;color:var(--muted);text-align:center}
+.stepper{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
+.stepper button{width:26px;height:26px;border:1px solid var(--line-2);border-radius:7px;background:var(--canvas);line-height:1;padding:0;color:var(--ink)}
+.stepper button:hover{background:var(--control)}
+.p-b .card-b{flex:1;display:flex;flex-direction:column}
+.p-week{position:relative;flex:1;display:grid;grid-template-columns:repeat(7,1fr);grid-template-rows:minmax(0,1fr);gap:8px;min-height:104px}
+.p-week-kosong{position:absolute;left:0;right:0;top:calc(50% - 26px);text-align:center;font-size:13px;color:var(--muted)}
+.p-day{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;min-width:0;min-height:0}
+.p-day i{display:block;width:100%;max-width:40px;border-radius:6px 6px 3px 3px;background:var(--h2);transition:height .5s cubic-bezier(.2,.7,.2,1)}
+.p-day.now i{background:var(--ink)}
+.p-day.fut i{background:var(--h0)}
+.p-n{font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;min-height:16px}
+.p-d{font-size:12px;color:var(--muted)}
+.p-day.now .p-d{color:var(--ink);font-weight:600}
+.p-day.now .p-d::after{content:"";display:block;width:5px;height:5px;border-radius:50%;background:var(--accent);margin:3px auto 0}
+.p-day:not(.now) .p-d::after{content:"";display:block;height:8px}
+.p-c .card-b{flex:1;display:flex;flex-direction:column;justify-content:center}
+.heat-m{position:relative;height:17px;font-size:11px;color:var(--muted)}
+.heat-m span{position:absolute;top:0;white-space:nowrap}
+.toast.show.aksi{pointer-events:auto}
+.toast button{margin-left:10px;padding:0;border:0;background:none;color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+@media (hover:none){.p-x{opacity:.75}}
+@media (min-width:640px){
+  .p-grid{grid-template-columns:minmax(0,1.4fr) minmax(250px,1fr)}
+  .p-c{grid-column:1/-1}
+}
+@media (min-width:1000px){
+  .p-grid{grid-template-columns:minmax(0,1.3fr) minmax(250px,.9fr) minmax(300px,1.1fr)}
+  .p-c{grid-column:auto}
+}
+@media (max-width:560px){
+  .p-hero{flex-direction:column;align-items:flex-start;padding:18px 18px 20px}
+  .p-ring,.p-ring>svg{width:60px;height:60px}.p-ring b{font-size:13px}.p-ring b svg{width:22px;height:22px}.p-streak{height:60px}
+}
 .tutup{display:grid;grid-template-columns:1fr;border:1px solid var(--line);border-radius:var(--r-panel);background:var(--canvas);overflow:hidden}
 .tutup-foto{position:relative;min-height:210px;background-size:cover;background-position:center 55%;background-color:#1c1c1e;display:flex;align-items:flex-end}
 .tutup-foto::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.12) 0%,rgba(17,17,19,.78) 100%)}
@@ -344,6 +412,7 @@ const unpack = o => withIds({
 const params = new URLSearchParams(location.search);
 const SOLO = params.get("v") === "timer";
 const TUTUP = params.get("v") === "tutup";
+const PAPAN = params.get("v") === "papan";
 const hashStr = (location.hash.match(/c=([^&]+)/) || [])[1] || "";
 const CFG_KEY = "dch:cfg:" + (hashStr ? fnv(hashStr) : "local");
 let cfg = null;
@@ -549,7 +618,7 @@ function heatHTML(weeks) {
     const m = (log[k] || 0) / 60000, b = babPerDay[k] || 0;
     const s = b + m / 25; // satu bab ≈ satu sesi 25 menit
     const l = s <= 0 ? 0 : s < 1.5 ? 1 : s < 2.5 ? 2 : s < 3.5 ? 3 : 4;
-    const tip = [`${b} bab`].concat(m >= 1 ? [`${Math.round(m)} menit`] : []).join(" · ");
+    const tip = [`${b} ${PAPAN ? "tugas" : "bab"}`].concat(m >= 1 ? [`${Math.round(m)} menit`] : []).join(" · ");
     cells += `<i class="${l ? "l" + l : ""}${k === tk ? " today" : ""}" title="${d.getDate()} ${BULAN[d.getMonth()]} · ${tip}"></i>`;
   }
   return cells;
@@ -584,7 +653,7 @@ function planHTML() {
   }
   return `<div class="card plan"><div class="card-h"><h3>Rencana hari ini</h3><span class="label">${doneT} dari ${items.length} beres</span></div>
     <div class="card-b" style="padding:6px 0 10px"><div class="plan-list">
-      ${items.map(x => babLine(x, `<button class="mini" data-act="plan" data-b="${x.b.id}" aria-label="Keluarkan dari rencana" title="Keluarkan dari rencana">✕</button>`)).join("")}
+      ${items.map(x => babLine(x, `<button class="mini" data-act="plan" data-b="${x.b.id}" aria-label="Keluarkan dari rencana" title="Keluarkan dari rencana"><span style="font-size:17px;line-height:1">×</span></button>`)).join("")}
     </div>
     ${doneT === items.length ? `<div class="note" style="margin:10px 16px 0">Rencana hari ini beres. Mantap.</div>` : ""}
     </div></div>`;
@@ -666,10 +735,26 @@ function emptyHTML() {
 }
 function fitHeat() {
   const h = $("#heat"); if (!h) return;
-  const w = h.getBoundingClientRect().width - 2;
-  const weeks = Math.max(8, Math.min(26, Math.floor((w + 3) / 14)));
+  const w = h.getBoundingClientRect().width - 2, gap = 3, maks = PAPAN ? 53 : 26;
+  // kotak 11 px; kalau ruangnya lebih dari setahun, kotaknya yang dibesarkan (maks 16 px)
+  let cell = 11, weeks = Math.floor((w + gap) / (cell + gap));
+  if (weeks > maks) { weeks = maks; if (PAPAN) cell = Math.max(11, Math.min(16, Math.floor((w + gap) / maks) - gap)); }
+  weeks = Math.max(8, weeks);
+  h.style.setProperty("--cell", cell + "px");
   h.innerHTML = heatHTML(weeks);
   const r = $("#heat-range"); if (r) r.textContent = weeks + " minggu";
+  const m = $("#heat-m"); if (!m) return;
+  // label bulan di atas kolom tempat bulan berganti
+  const end = new Date(); end.setHours(0, 0, 0, 0);
+  const start = new Date(end); start.setDate(end.getDate() - (end.getDay() + 6) % 7 - (weeks - 1) * 7);
+  const step = cell + gap, kiri = w + 2 - (weeks * step - gap);
+  const bulan = Array.from({ length: weeks }, (_, c) => { const d = new Date(start); d.setDate(start.getDate() + c * 7); return d.getMonth(); });
+  let html = "", last = -9;
+  bulan.forEach((mo, c) => {
+    const ganti = c === 0 ? (bulan[1] === mo && bulan[2] === mo) : mo !== bulan[c - 1];
+    if (ganti && c - last >= 3 && c <= weeks - 2) { html += `<span style="left:${Math.round(kiri + c * step)}px">${BULAN[mo]}</span>`; last = c; }
+  });
+  m.innerHTML = html;
 }
 // Foto bebas dari Unsplash (Unsplash License), sama dengan widget jam di halaman utama. Pilih lewat ?bg=<nama>
 const FOTO = {
@@ -790,14 +875,146 @@ function tutupHTML() {
   </section>`;
 }
 
+/* ---------- papan belajar umum (?v=papan&k=<kunci>&judul=<nama course>&bg=<foto>) ---------- */
+// Tugas diisi sendiri oleh pelajar, jadi satu widget bisa dipakai di semua halaman course.
+const PK = "dch:papan:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
+const SARAN = ["Baca 1 unit", "Listening 20 menit", "Hafal 10 kosakata", "Kerjakan 1 set soal"];
+const HARI = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
+const HARI_PANJANG = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+const BULAN_PANJANG = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+const papan = () => Object.assign({ tasks: [], target: 5 }, LS.get(PK, {}));
+const simpanPapan = p => LS.set(PK, p);
+function papanTambah(teks) {
+  const t = String(teks || "").trim().slice(0, 80); if (!t) return;
+  const p = papan(); p.tasks.push({ id: rid(), t, at: Date.now(), done: 0 }); simpanPapan(p);
+}
+// Toast dengan tombol Urungkan (dipakai saat tugas dihapus)
+function toastUndo(msg, fn) {
+  const t = $("#toast");
+  t.innerHTML = `${esc(msg)} <button type="button" id="toast-undo">Urungkan</button>`;
+  t.classList.add("show", "aksi");
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show", "aksi"), 5000);
+  $("#toast-undo").onclick = () => { fn(); clearTimeout(toastT); t.classList.remove("show", "aksi"); };
+}
+function papanHTML() {
+  const p = papan(), now = new Date(), tk = today(), ws = weekStart();
+  const buka = p.tasks.filter(x => !x.done);
+  const hariIni = p.tasks.filter(x => x.done && dkey(new Date(x.done)) === tk);
+  const minggu = p.tasks.filter(x => x.done >= ws).length, total = p.tasks.filter(x => x.done).length;
+  const nHari = buka.length + hariIni.length, pct = nHari ? hariIni.length / nHari : 0;
+  babPerDay = {}; p.tasks.forEach(x => { if (x.done) { const k = dkey(new Date(x.done)); babPerDay[k] = (babPerDay[k] || 0) + 1; } });
+  // hari aktif: ada tugas selesai atau fokus minimal 1 menit
+  const log = LS.get(LOG, {}), aktif = new Set(Object.keys(babPerDay).concat(Object.keys(log).filter(k => log[k] >= 60000)));
+  const d = new Date(); let st = 0; if (!aktif.has(dkey(d))) d.setDate(d.getDate() - 1);
+  while (aktif.has(dkey(d))) { st++; d.setDate(d.getDate() - 1); }
+  let rekor = 0, lari = 0, sebelum = null;
+  [...aktif].sort().forEach(k => {
+    const t = new Date(k + "T00:00:00").getTime();
+    lari = sebelum !== null && Math.round((t - sebelum) / 86400000) === 1 ? lari + 1 : 1;
+    rekor = Math.max(rekor, lari); sebelum = t;
+  });
+  // tujuh hari minggu ini
+  const wk = HARI.map((n, i) => { const x = new Date(ws); x.setDate(x.getDate() + i); const k = dkey(x); return { n, c: babPerDay[k] || 0, now: k === tk, fut: x > now }; });
+  const maks = Math.max(3, ...wk.map(x => x.c));
+  const jam = now.getHours(), salam = jam < 11 ? "Selamat pagi" : jam < 15 ? "Selamat siang" : jam < 19 ? "Selamat sore" : "Selamat malam";
+  const sub = !nHari ? "Belum ada tugas hari ini. Mulai dari satu hal kecil."
+    : pct === 1 ? `Semua ${nHari} tugas hari ini beres.` : `${hariIni.length} dari ${nHari} tugas hari ini selesai`;
+  const R = 26, C = 2 * Math.PI * R;
+  const centang = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  const baris = x => `<div class="bab${x.done ? " done" : ""}">
+      <button class="chk${x.done ? " on" : ""}" data-act="p-check" data-b="${x.id}" aria-label="Tandai ${esc(x.t)}" aria-pressed="${!!x.done}">${I.check}</button>
+      <span class="bab-name">${esc(x.t)}</span>
+      <button class="mini p-x" data-act="p-del" data-b="${x.id}" aria-label="Hapus ${esc(x.t)}" title="Hapus"><span style="font-size:17px;line-height:1">×</span></button>
+    </div>`;
+  const judul = params.get("judul") || "Papan belajar";
+  const bg = `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.skyline}?auto=format&fit=crop&w=1920&q=80`;
+  return `
+  <section class="p-hero" style="background-image:url('${bg}')">
+    <div class="p-hero-l">
+      <span class="p-salam">${salam} · ${HARI_PANJANG[now.getDay()]}, ${now.getDate()} ${BULAN_PANJANG[now.getMonth()]}</span>
+      <h1>${titleHTML(judul)}</h1>
+      <p>${sub}</p>
+    </div>
+    <div class="p-hero-r">
+      <div class="p-ring" title="Tugas hari ini: ${hariIni.length} dari ${nHari}">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="5"/>
+          <circle cx="32" cy="32" r="${R}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(2)}"/></svg>
+        <b>${pct === 1 ? centang : Math.round(pct * 100) + "%"}</b>
+      </div>
+      <div class="p-streak"><b>${st}</b><span>hari beruntun</span></div>
+    </div>
+  </section>
+  <div class="p-grid">
+    <div class="card p-a">
+      <div class="card-h"><h3>Hari ini mau belajar apa?</h3><span class="label">${buka.length ? `${buka.length} belum selesai` : ""}</span></div>
+      <div class="card-b">
+        <form class="p-form" id="p-form" autocomplete="off">
+          <input class="in" id="p-in" maxlength="80" enterkeyhint="done" placeholder="Contoh: Reading Passage 1" aria-label="Tugas baru">
+          <button class="btn primary" type="submit">Tambah</button>
+        </form>
+        ${nHari ? "" : `<div class="chips">${SARAN.map(s => `<button class="chip" data-act="p-saran" data-t="${esc(s)}">+ ${esc(s)}</button>`).join("")}</div>`}
+      </div>
+      ${nHari ? `<div class="p-list">
+        ${buka.map(baris).join("")}
+        ${hariIni.length ? `<div class="p-sep">Selesai hari ini</div>${hariIni.map(baris).join("")}` : ""}
+      </div>` : `<div class="p-empty">Tugas yang kamu tulis muncul di sini.</div>`}
+    </div>
+    <div class="card p-b"><div class="card-h"><h3>Minggu ini</h3>
+        <span class="stepper"><button data-act="p-target" data-v="-1" aria-label="Kurangi target">−</button><span>target ${p.target}</span><button data-act="p-target" data-v="1" aria-label="Tambah target">+</button></span></div>
+      <div class="card-b">
+        <div class="p-week" role="img" aria-label="Tugas selesai per hari minggu ini">
+          ${minggu ? "" : `<span class="p-week-kosong">Belum ada tugas selesai minggu ini</span>`}
+          ${wk.map(x => `<div class="p-day${x.now ? " now" : ""}${x.fut ? " fut" : ""}" title="${x.n}: ${x.c} tugas">
+            <span class="p-n">${x.c || ""}</span><i style="height:${x.c ? Math.max(12, Math.round(x.c / maks * 100)) : 4}%"></i><span class="p-d">${x.n}</span></div>`).join("")}
+        </div>
+        <div class="stat" style="margin-top:14px"><span class="big">${minggu}<span class="label">dari ${p.target} tugas</span></span><span class="label">${minggu >= p.target ? "Target tercapai" : `${p.target - minggu} lagi`}</span></div>
+        <div class="bar"><i style="width:${Math.min(100, minggu / p.target * 100)}%"></i></div>
+        <div class="label">${total} tugas selesai sejak mulai${focusSum(ws) >= 60000 ? ` · ${fmtMin(focusSum(ws))} fokus minggu ini` : ""}</div>
+      </div></div>
+    <div class="card p-c"><div class="card-h"><h3>Jejak belajar</h3><span class="label">${aktif.size} hari aktif · rekor ${rekor} hari</span></div>
+      <div class="card-b"><div class="heat-m" id="heat-m"></div><div class="heat" id="heat"></div>
+        <div class="legend">sedikit <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i> banyak</div>
+      </div></div>
+  </div>`;
+}
+document.addEventListener("submit", e => {
+  if (e.target.id !== "p-form") return;
+  e.preventDefault();
+  const i = $("#p-in"), v = i.value; i.value = ""; papanTambah(v); render();
+  const n = $("#p-in"); if (n) n.focus();
+});
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act^='p-']"); if (!el) return;
+  const a = el.dataset.act, p = papan(), x = p.tasks.find(t => t.id === el.dataset.b);
+  if (a === "p-saran") { papanTambah(el.dataset.t); render(); return; }
+  if (a === "p-del" && x) {
+    const i = p.tasks.indexOf(x); p.tasks.splice(i, 1); simpanPapan(p); render();
+    toastUndo("Tugas dihapus.", () => { const q = papan(); q.tasks.splice(Math.min(i, q.tasks.length), 0, x); simpanPapan(q); render(); });
+    return;
+  }
+  if (a === "p-check" && x) x.done = x.done ? 0 : Date.now();
+  else if (a === "p-target") p.target = Math.max(1, Math.min(50, p.target + (+el.dataset.v)));
+  else return;
+  simpanPapan(p); render();
+  if (a === "p-check" && x && x.done) { const b = document.querySelector(`.chk[data-b="${x.id}"]`); if (b) b.classList.add("pop"); }
+});
 function render() {
   applyTheme();
   if (SOLO) { document.body.classList.add("solo"); app.innerHTML = bandHTML(); return; }
   if (TUTUP) { document.body.classList.add("solo"); app.innerHTML = tutupHTML(); return; }
+  if (PAPAN) {
+    // teks yang sedang diketik dan fokusnya dipertahankan saat papan digambar ulang
+    const lama = $("#p-in"), teks = lama ? lama.value : "", fokus = !!lama && document.activeElement === lama;
+    document.body.classList.add("papan"); app.innerHTML = papanHTML(); fitHeat();
+    const baru = $("#p-in"); if (baru && teks) baru.value = teks; if (baru && fokus) baru.focus();
+    return;
+  }
   app.innerHTML = cfg ? hubHTML() : emptyHTML();
   fitHeat();
 }
+let hariRender = today();
 function tick() {
+  if (today() !== hariRender) { hariRender = today(); render(); } // lewat tengah malam: rencana dan sapaan ikut berganti
   checkDone();
   if (SOLO) {
     const t = $("#time"), bp = $("#band-p"); if (!t) return;
@@ -860,7 +1077,7 @@ document.addEventListener("click", e => {
 });
 window.addEventListener("storage", e => {
   if (e.key === TKEY) { T = Object.assign({}, T0, LS.get(TKEY, {})); render(); }
-  else if (e.key === LOG || (cfg && e.key === PKEY())) { if (cfg) loadProg(); render(); }
+  else if (e.key === LOG || (cfg && e.key === PKEY()) || (PAPAN && e.key === PK)) { if (cfg) loadProg(); if (!(PAPAN && document.activeElement && document.activeElement.id === "p-in")) render(); }
 });
 let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fitHeat, 120); });
 
