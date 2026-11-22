@@ -240,6 +240,11 @@ body.papan .wrap{max-width:none;padding:6px}
 .p-sep{font-size:12px;color:var(--muted);padding:10px 16px 2px}
 .p-empty{flex:1;display:grid;place-items:center;min-height:72px;padding:12px 16px 16px;border-top:1px solid var(--line);background:var(--surface);
   border-radius:0 0 var(--r-card) var(--r-card);font-size:13px;color:var(--muted);text-align:center}
+.p-langkah{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;align-content:center;align-items:start;padding:13px 12px 15px}
+.p-langkah div{display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center}
+.p-langkah b{width:26px;height:26px;border-radius:50%;border:1px solid var(--line-2);background:var(--canvas);display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--ink)}
+.p-langkah span{font-size:13px;line-height:1.35;color:var(--ink-2)}
+.p-day.nol i{background:var(--h1)}
 .stepper{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted)}
 .stepper button{width:26px;height:26px;border:1px solid var(--line-2);border-radius:7px;background:var(--canvas);line-height:1;padding:0;color:var(--ink)}
 .stepper button:hover{background:var(--control)}
@@ -917,7 +922,12 @@ function papanHTML() {
   const wk = HARI.map((n, i) => { const x = new Date(ws); x.setDate(x.getDate() + i); const k = dkey(x); return { n, c: babPerDay[k] || 0, now: k === tk, fut: x > now }; });
   const maks = Math.max(3, ...wk.map(x => x.c));
   const jam = now.getHours(), salam = jam < 11 ? "Selamat pagi" : jam < 15 ? "Selamat siang" : jam < 19 ? "Selamat sore" : "Selamat malam";
-  const sub = !nHari ? "Belum ada tugas hari ini. Mulai dari satu hal kecil."
+  // tampilan awal: papan yang belum pernah dipakai tidak dipenuhi angka nol, tapi ajakan dan petunjuk
+  const baru = p.tasks.length === 0, adaRiwayat = total > 0 || st > 0;
+  const saranLink = (params.get("saran") || "").split(",").map(s => s.trim().slice(0, 30)).filter(Boolean).slice(0, 6);
+  const saran = saranLink.length ? saranLink : SARAN;
+  const sub = baru ? "Mulai dari satu hal kecil hari ini."
+    : !nHari ? "Belum ada tugas hari ini. Mulai dari satu hal kecil."
     : pct === 1 ? `Semua ${nHari} tugas hari ini beres.` : `${hariIni.length} dari ${nHari} tugas hari ini selesai`;
   const R = 26, C = 2 * Math.PI * R;
   const centang = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
@@ -936,12 +946,13 @@ function papanHTML() {
       <p>${sub}</p>
     </div>
     <div class="p-hero-r">
-      <div class="p-ring" title="Tugas hari ini: ${hariIni.length} dari ${nHari}">
+      ${nHari ? `<div class="p-ring" title="Tugas hari ini: ${hariIni.length} dari ${nHari}">
         <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="5"/>
           <circle cx="32" cy="32" r="${R}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(2)}"/></svg>
         <b>${pct === 1 ? centang : Math.round(pct * 100) + "%"}</b>
-      </div>
-      <div class="p-streak"><b>${st}</b><span>hari beruntun</span></div>
+      </div>` : ""}
+      ${adaRiwayat ? `<div class="p-streak"><b>${st}</b><span>hari beruntun</span></div>`
+        : `<div class="p-streak"><b>${p.target}</b><span>target tugas minggu ini</span></div>`}
     </div>
   </section>
   <div class="p-grid">
@@ -952,26 +963,30 @@ function papanHTML() {
           <input class="in" id="p-in" maxlength="80" enterkeyhint="done" placeholder="Contoh: Reading Passage 1" aria-label="Tugas baru">
           <button class="btn primary" type="submit">Tambah</button>
         </form>
-        ${nHari ? "" : `<div class="chips">${SARAN.map(s => `<button class="chip" data-act="p-saran" data-t="${esc(s)}">+ ${esc(s)}</button>`).join("")}</div>`}
+        ${nHari ? "" : `<div class="chips">${saran.map(s => `<button class="chip" data-act="p-saran" data-t="${esc(s)}">+ ${esc(s)}</button>`).join("")}</div>`}
       </div>
       ${nHari ? `<div class="p-list">
         ${buka.map(baris).join("")}
         ${hariIni.length ? `<div class="p-sep">Selesai hari ini</div>${hariIni.map(baris).join("")}` : ""}
-      </div>` : `<div class="p-empty">Tugas yang kamu tulis muncul di sini.</div>`}
+      </div>` : baru ? `<div class="p-empty p-langkah">
+        <div><b>1</b><span>Tulis tugas kecil</span></div>
+        <div><b>2</b><span>Centang saat selesai</span></div>
+        <div><b>3</b><span>Jejakmu terisi</span></div>
+      </div>` : `<div class="p-empty">Belum ada tugas hari ini.</div>`}
     </div>
     <div class="card p-b"><div class="card-h"><h3>Minggu ini</h3>
         <span class="stepper"><button data-act="p-target" data-v="-1" aria-label="Kurangi target">−</button><span>target ${p.target}</span><button data-act="p-target" data-v="1" aria-label="Tambah target">+</button></span></div>
       <div class="card-b">
         <div class="p-week" role="img" aria-label="Tugas selesai per hari minggu ini">
-          ${minggu ? "" : `<span class="p-week-kosong">Belum ada tugas selesai minggu ini</span>`}
-          ${wk.map(x => `<div class="p-day${x.now ? " now" : ""}${x.fut ? " fut" : ""}" title="${x.n}: ${x.c} tugas">
+          ${minggu ? "" : `<span class="p-week-kosong">${adaRiwayat ? "Belum ada tugas selesai minggu ini" : "Hasil minggu ini muncul di sini"}</span>`}
+          ${wk.map(x => `<div class="p-day${x.now ? " now" : ""}${x.fut ? " fut" : ""}${!x.c && !x.now && !x.fut ? " nol" : ""}" title="${x.n}: ${x.c} tugas">
             <span class="p-n">${x.c || ""}</span><i style="height:${x.c ? Math.max(12, Math.round(x.c / maks * 100)) : 4}%"></i><span class="p-d">${x.n}</span></div>`).join("")}
         </div>
         <div class="stat" style="margin-top:14px"><span class="big">${minggu}<span class="label">dari ${p.target} tugas</span></span><span class="label">${minggu >= p.target ? "Target tercapai" : `${p.target - minggu} lagi`}</span></div>
         <div class="bar"><i style="width:${Math.min(100, minggu / p.target * 100)}%"></i></div>
-        <div class="label">${total} tugas selesai sejak mulai${focusSum(ws) >= 60000 ? ` · ${fmtMin(focusSum(ws))} fokus minggu ini` : ""}</div>
+        <div class="label">${total ? `${total} tugas selesai sejak mulai` : "Target bisa diubah lewat tombol − dan +"}${focusSum(ws) >= 60000 ? ` · ${fmtMin(focusSum(ws))} fokus minggu ini` : ""}</div>
       </div></div>
-    <div class="card p-c"><div class="card-h"><h3>Jejak belajar</h3><span class="label">${aktif.size} hari aktif · rekor ${rekor} hari</span></div>
+    <div class="card p-c"><div class="card-h"><h3>Jejak belajar</h3><span class="label">${aktif.size ? `${aktif.size} hari aktif · rekor ${rekor} hari` : "Terisi saat tugas selesai"}</span></div>
       <div class="card-b"><div class="heat-m" id="heat-m"></div><div class="heat" id="heat"></div>
         <div class="legend">sedikit <i style="background:var(--h0)"></i><i style="background:var(--h1)"></i><i style="background:var(--h2)"></i><i style="background:var(--h3)"></i><i style="background:var(--h4)"></i> banyak</div>
       </div></div>
@@ -1080,6 +1095,18 @@ window.addEventListener("storage", e => {
   else if (e.key === LOG || (cfg && e.key === PKEY()) || (PAPAN && e.key === PK)) { if (cfg) loadProg(); if (!(PAPAN && document.activeElement && document.activeElement.id === "p-in")) render(); }
 });
 let rz; window.addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(fitHeat, 120); });
+// Lebar isi bisa berubah tanpa event resize (scrollbar muncul saat daftar memanjang, embed baru selesai dimuat),
+// jadi kotak jejak dan label bulannya dihitung ulang tiap lebar #app berubah. Dibatasi 3 kali per detik supaya tidak berputar.
+if (window.ResizeObserver) {
+  let lebarTerakhir = 0, hitung = 0, sejak = 0;
+  new ResizeObserver(es => {
+    const w = Math.round(es[0].contentRect.width);
+    if (w === lebarTerakhir) return;
+    lebarTerakhir = w;
+    const kini = Date.now(); if (kini - sejak > 1000) { sejak = kini; hitung = 0; }
+    if (++hitung <= 3) fitHeat();
+  }).observe(app);
+}
 
 /* ---------- editor ---------- */
 function sample() {
