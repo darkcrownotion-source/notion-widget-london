@@ -205,6 +205,47 @@ textarea.in{height:auto;min-height:110px;padding:9px 11px;line-height:1.5;resize
 
 /* standalone timer */
 body.solo .wrap{max-width:none;padding:6px}
+/* jurnal */
+body.jurnal .wrap{max-width:none;padding:6px}
+body.jurnal .top{margin-bottom:12px;padding:4px 4px 0}
+.j-grid{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+.j-kiri,.j-kanan{display:flex;flex-direction:column;gap:14px;min-width:0}
+.j-tanya{position:relative;overflow:hidden;background:var(--dark);color:var(--dark-ink);border-radius:var(--r-panel);padding:20px 22px}
+.j-tanya::before{content:"";position:absolute;right:-60px;top:-70px;width:260px;height:210px;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(124,92,255,.22),transparent),radial-gradient(closest-side at 30% 70%,rgba(229,72,77,.14),transparent);filter:blur(24px)}
+.j-tanya::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:14px 14px;pointer-events:none}
+.j-tanya>*{position:relative;z-index:1}
+.j-tanya-h{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.j-tanya .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.j-select{height:34px;max-width:100%;padding:0 10px;border-radius:var(--r-button);border:1px solid var(--dark-line);background:rgba(255,255,255,.07);color:var(--dark-ink);font-size:13px}
+.j-select option{color:#111113;background:#fff}
+.j-tanya h2{font:400 clamp(26px,3vw,38px)/1.15 var(--serif);letter-spacing:-.01em;margin:14px 0 6px;overflow-wrap:anywhere}
+.j-tanya p{margin:0 0 16px;font-size:14.5px;color:var(--dark-muted)}
+.j-tanya .btn{background:transparent;border-color:var(--dark-line);color:var(--dark-ink)}
+.j-tanya .btn:hover{background:rgba(255,255,255,.07)}
+.j-chip{height:auto;min-height:32px;padding:5px 12px;display:inline-flex;align-items:baseline;gap:8px;text-align:left}
+.j-chip b{font-weight:500;color:var(--ink);font-size:13.5px}
+.j-chip span{font-size:12px;color:var(--muted)}
+.j-pembuka{margin-top:0}
+.j-tulis textarea{min-height:230px;margin-top:10px;padding:12px 14px;font-size:16px;line-height:1.6;resize:vertical}
+.j-aksi{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:12px}
+.j-jam .clock{padding:8px 0 2px}
+.j-petunjuk{margin:12px 0 0;text-align:center}
+.j-kosong{margin:2px 0}
+.j-list{display:flex;flex-direction:column;margin-top:12px;border-top:1px solid var(--line)}
+.j-item{border-bottom:1px solid var(--line)}
+.j-item:last-child{border-bottom:0}
+.j-item>button{width:100%;display:flex;align-items:center;gap:10px;padding:10px 2px;background:none;border:0;text-align:left;font-size:14px}
+.j-item>button:hover{background:var(--surface)}
+.j-item .tgl{min-width:50px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.j-item .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.j-item .kt{font-size:12px;color:var(--muted);white-space:nowrap}
+.j-isi{padding:2px 2px 12px}
+.j-isi p{margin:0 0 6px;font:italic 400 16px/1.3 var(--serif);color:var(--ink-2)}
+.j-isi pre{margin:0 0 10px;white-space:pre-wrap;overflow-wrap:anywhere;font:15px/1.6 var(--sans);background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 12px;max-height:220px;overflow:auto}
+@media (min-width:900px){.j-grid{grid-template-columns:minmax(0,1.75fr) minmax(290px,1fr)}}
+@media (max-width:560px){.j-tanya{padding:18px}.j-chip{width:100%}}
+/* /jurnal */
 body.papan .wrap{max-width:none;padding:6px}
 .p-hero{position:relative;overflow:hidden;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;min-height:178px;padding:22px 24px;margin-bottom:14px;
   border-radius:var(--r-panel);background-size:cover;background-position:center 58%;background-color:#1c1c1e;color:#fff}
@@ -418,6 +459,7 @@ const params = new URLSearchParams(location.search);
 const SOLO = params.get("v") === "timer";
 const TUTUP = params.get("v") === "tutup";
 const PAPAN = params.get("v") === "papan";
+const JURNAL = params.get("v") === "jurnal";
 const hashStr = (location.hash.match(/c=([^&]+)/) || [])[1] || "";
 const CFG_KEY = "dch:cfg:" + (hashStr ? fnv(hashStr) : "local");
 let cfg = null;
@@ -913,6 +955,222 @@ function tutupHTML() {
   </section>`;
 }
 
+/* ---------- jurnal 10 menit (?v=jurnal&k=<kunci>&bahasa=nl|en&judul=<judul>) ---------- */
+// Meja tulis untuk halaman "10 minutes journal": tema + pertanyaan pemancing, hitung mundur 10 menit, hitung kata.
+// Tulisan tersimpan di perangkat dan bisa disalin untuk ditempel ke halaman temanya di Notion.
+const JK = "dch:jurnal:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
+const JB = ["nl", "en"].includes(params.get("bahasa")) ? params.get("bahasa") : "en";
+const J_NAMA = { nl: "bahasa Belanda", en: "bahasa Inggris" };
+const J_MS = 10 * 60000, J_R = 80, J_C = 2 * Math.PI * J_R;
+// Delapan tema sama dengan kartu di halaman Notion. q = pertanyaan, a = artinya, s = kalimat pembuka, sa = artinya.
+const JTEMA = [
+  { n: "Let your mind wander",
+    q: { nl: ["Waar denk je nu aan?", "Wat zie je om je heen?", "Wat wil je dit weekend doen?"],
+         en: ["What is on your mind right now?", "What can you see around you?", "What do you want to do this weekend?"] },
+    a: ["Apa yang sedang kamu pikirkan sekarang?", "Apa yang kamu lihat di sekitarmu?", "Apa yang ingin kamu lakukan akhir pekan ini?"],
+    s: { nl: ["Ik denk aan…", "Ik zie…", "Ik wil graag…"], en: ["I am thinking about…", "I can see…", "I would like to…"] },
+    sa: ["Saya memikirkan…", "Saya melihat…", "Saya ingin…"] },
+  { n: "Recognize the good stuff",
+    q: { nl: ["Waar ben je vandaag dankbaar voor?", "Wie heeft je vandaag geholpen?", "Wat ging vandaag goed?"],
+         en: ["What are you grateful for today?", "Who helped you today?", "What went well today?"] },
+    a: ["Apa yang kamu syukuri hari ini?", "Siapa yang membantumu hari ini?", "Apa yang berjalan baik hari ini?"],
+    s: { nl: ["Ik ben dankbaar voor…", "Ik ben blij met…", "Het ging goed met…"], en: ["I am grateful for…", "I am happy with…", "It went well with…"] },
+    sa: ["Saya bersyukur atas…", "Saya senang dengan…", "Yang berjalan baik: …"] },
+  { n: "Highlight your day",
+    q: { nl: ["Wat was het beste moment van vandaag?", "Wat heb je vandaag gedaan?", "Met wie heb je vandaag gepraat?"],
+         en: ["What was the best moment of your day?", "What did you do today?", "Who did you talk to today?"] },
+    a: ["Apa momen terbaik hari ini?", "Apa yang kamu lakukan hari ini?", "Dengan siapa kamu mengobrol hari ini?"],
+    s: { nl: ["Vandaag heb ik…", "Het beste moment was…", "Daarna…"], en: ["Today I…", "The best moment was…", "After that…"] },
+    sa: ["Hari ini saya…", "Momen terbaiknya…", "Sesudah itu…"] },
+  { n: "Find joy in the moment",
+    q: { nl: ["Wat maakt je nu blij?", "Wat vind je lekker?", "Welke muziek vind je mooi?"],
+         en: ["What makes you happy right now?", "What food do you enjoy?", "What music do you like?"] },
+    a: ["Apa yang membuatmu senang sekarang?", "Makanan apa yang kamu suka?", "Musik apa yang kamu suka?"],
+    s: { nl: ["Ik word blij van…", "Ik vind … lekker.", "Ik hou van…"], en: ["I feel happy because…", "I think … is delicious.", "I love…"] },
+    sa: ["Saya senang karena…", "Menurut saya … enak.", "Saya suka…"] },
+  { n: "Explore a new idea",
+    q: { nl: ["Wat wil je deze week leren?", "Welk nieuw woord heb je vandaag geleerd?", "Wat wil je graag proberen?"],
+         en: ["What do you want to learn this week?", "What new word did you learn today?", "What would you like to try?"] },
+    a: ["Apa yang ingin kamu pelajari minggu ini?", "Kata baru apa yang kamu pelajari hari ini?", "Apa yang ingin kamu coba?"],
+    s: { nl: ["Ik wil … leren.", "Mijn nieuwe woord is…", "Ik wil … proberen."], en: ["I want to learn…", "My new word is…", "I would like to try…"] },
+    sa: ["Saya ingin belajar…", "Kata baru saya…", "Saya ingin mencoba…"] },
+  { n: "Tackle the impossible",
+    q: { nl: ["Wat vind je moeilijk in het Nederlands?", "Wat is je grote doel?", "Wat ga je morgen anders doen?"],
+         en: ["What is difficult for you in English?", "What is your big goal?", "What will you do differently tomorrow?"] },
+    a: [`Apa yang menurutmu sulit dalam ${J_NAMA[JB]}?`, "Apa tujuan besarmu?", "Apa yang akan kamu lakukan berbeda besok?"],
+    s: { nl: ["Ik vind … moeilijk.", "Mijn doel is…", "Morgen ga ik…"], en: ["I find … difficult.", "My goal is…", "Tomorrow I will…"] },
+    sa: ["Menurut saya … sulit.", "Tujuan saya…", "Besok saya akan…"] },
+  { n: "Build a lasting memory",
+    q: { nl: ["Wat is een mooie herinnering?", "Welke plek vind je mooi?", "Wie is belangrijk voor jou?"],
+         en: ["What is a happy memory?", "Which place do you find beautiful?", "Who is important to you?"] },
+    a: ["Apa satu kenangan indahmu?", "Tempat mana yang menurutmu indah?", "Siapa yang penting bagimu?"],
+    s: { nl: ["Ik herinner me…", "Toen was ik…", "Het was…"], en: ["I remember…", "At that time I was…", "It was…"] },
+    sa: ["Saya ingat…", "Waktu itu saya…", "Saat itu…"] },
+  { n: "Reflect on your day",
+    q: { nl: ["Hoe voel je je vandaag?", "Wat heb je vandaag geleerd?", "Wat wil je morgen doen?"],
+         en: ["How do you feel today?", "What did you learn today?", "What do you want to do tomorrow?"] },
+    a: ["Bagaimana perasaanmu hari ini?", "Apa yang kamu pelajari hari ini?", "Apa yang ingin kamu lakukan besok?"],
+    s: { nl: ["Ik voel me…", "Vandaag heb ik … geleerd.", "Morgen wil ik…"], en: ["I feel…", "Today I learned…", "Tomorrow I want to…"] },
+    sa: ["Saya merasa…", "Hari ini saya belajar…", "Besok saya ingin…"] }
+];
+const jurnal = () => {
+  const o = LS.get(JK, {});
+  return { teks: o.teks || "", tema: Number.isInteger(o.tema) ? o.tema : null, tHari: o.tHari || "", q: o.q || 0,
+    entri: Array.isArray(o.entri) ? o.entri : [], run: !!o.run, sisa: Number.isFinite(o.sisa) ? o.sisa : J_MS, akhir: o.akhir || 0 };
+};
+const simpanJurnal = j => LS.set(JK, j);
+const jKata = t => (String(t).trim().match(/\S+/g) || []).length;
+const jSisa = j => j.run ? Math.max(0, j.akhir - Date.now()) : j.sisa;
+const jFmt = ms => { const s = Math.ceil(ms / 1000); return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); };
+const jTgl = k => { const p = k.split("-"); return `${+p[2]} ${BULAN[+p[1] - 1]}`; };
+// tema: pilihan pengguna berlaku untuk hari itu saja, hari berikutnya kembali ke tema harian
+const jTema = j => (j.tHari === today() && j.tema !== null ? j.tema : hariKe()) % JTEMA.length;
+const jTanya = (j, tm) => { const n = tm.q[JB].length; return (((j.tHari === today() ? j.q : 0) % n) + n) % n; };
+let jBuka = null, jCatatan = "";
+function jMulai(j) {
+  if (j.run) return;
+  if (j.sisa <= 0) j.sisa = J_MS;
+  j.run = true; j.akhir = Date.now() + j.sisa;
+  try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (e) {}
+}
+function jurnalHTML() {
+  const j = jurnal(), iT = jTema(j), tm = JTEMA[iT], iQ = jTanya(j, tm), sisa = jSisa(j);
+  const pilihan = j.tHari === today() && j.tema !== null && j.tema !== hariKe() % JTEMA.length;
+  const hari = new Set(j.entri.map(e => e.d)), d = new Date(); let st = 0;
+  if (!hari.has(dkey(d))) d.setDate(d.getDate() - 1);
+  while (hari.has(dkey(d))) { st++; d.setDate(d.getDate() - 1); }
+  const total = j.entri.reduce((a, e) => a + (e.w || 0), 0), terbanyak = j.entri.reduce((a, e) => Math.max(a, e.w || 0), 0);
+  const spk = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  const judul = params.get("judul") || "10 minutes journal";
+  const daftar = j.entri.slice().sort((a, b) => b.at - a.at).slice(0, 6).map(e => `
+        <div class="j-item">
+          <button data-act="j-buka" data-b="${e.id}" aria-expanded="${jBuka === e.id}"><span class="tgl">${jTgl(e.d)}</span><span class="nm">${esc((JTEMA[e.tema] || {}).n || "Bebas")}</span><span class="kt">${e.w} kata</span></button>
+          ${jBuka === e.id ? `<div class="j-isi"><p lang="${JB}">${esc(e.q || "")}</p><pre lang="${JB}">${esc(e.teks)}</pre>
+            <div class="row"><button class="btn sm" data-act="j-salin-entri" data-b="${e.id}">Salin</button><button class="btn sm" data-act="j-hapus-entri" data-b="${e.id}">Hapus</button></div></div>` : ""}
+        </div>`).join("");
+  return `
+  <header class="top">
+    <h1>${titleHTML(judul)}</h1>
+    ${st ? `<span class="pill" title="Hari beruntun menulis"><span class="dot"></span>${st} hari beruntun</span>` : ""}
+  </header>
+  <div class="j-grid">
+    <div class="j-kiri">
+      <section class="j-tanya">
+        <div class="j-tanya-h"><span class="eyebrow">${pilihan ? "Tema pilihanmu" : "Tema hari ini"}</span>
+          <select class="j-select" id="j-tema" aria-label="Pilih tema">${JTEMA.map((x, i) => `<option value="${i}"${i === iT ? " selected" : ""}>${esc(x.n)}</option>`).join("")}</select></div>
+        <h2 lang="${JB}">${esc(tm.q[JB][iQ])}</h2>
+        <p>${esc(tm.a[iQ])}</p>
+        <div class="row">
+          <button class="btn" data-act="j-tanya">Pertanyaan lain</button>
+          <button class="btn" data-act="j-ucap" data-t="${esc(tm.q[JB][iQ])}">${spk}Dengarkan</button>
+        </div>
+      </section>
+      <div class="card j-tulis">
+        <div class="card-h"><h3>Tulis dalam ${J_NAMA[JB]}</h3><span class="label"><span id="j-kata">${jKata(j.teks)} kata</span> · <span id="j-waktu-kecil">${jFmt(sisa)}</span></span></div>
+        <div class="card-b">
+          <div class="chips j-pembuka" aria-label="Kalimat pembuka">
+            ${tm.s[JB].map((x, i) => `<button class="chip j-chip" data-act="j-pembuka" data-t="${esc(x)}"><b lang="${JB}">${esc(x)}</b><span>${esc(tm.sa[i])}</span></button>`).join("")}
+          </div>
+          <textarea class="in" id="j-teks" lang="${JB}" spellcheck="true" maxlength="6000" aria-label="Tulisan jurnal" placeholder="${JB === "nl" ? "Schrijf hier…" : "Write here…"}">${esc(j.teks)}</textarea>
+          <div class="j-aksi"><span class="label">Tidak perlu sempurna. Yang penting menulis 10 menit.</span>
+            <div class="row"><button class="btn" data-act="j-salin">Salin</button><button class="btn primary" data-act="j-simpan">Simpan tulisan</button></div></div>
+          <div class="note">${esc(jCatatan)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="j-kanan">
+      <div class="card j-jam">
+        <div class="card-h"><h3>10 menit menulis</h3><span class="label">${j.run ? "sedang jalan" : sisa <= 0 ? "selesai" : sisa < J_MS ? "dijeda" : "belum mulai"}</span></div>
+        <div class="card-b">
+          <div class="clock"><div class="dial">
+            <svg viewBox="0 0 176 176"><defs><linearGradient id="jg" gradientUnits="userSpaceOnUse" x1="176" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#e5484d"/><stop offset=".55" stop-color="#e5484d"/><stop offset="1" stop-color="#7c5cff"/></linearGradient></defs>
+              <circle class="t" cx="88" cy="88" r="${J_R}" fill="none" stroke-width="5"/>
+              <circle class="p" id="j-ring" cx="88" cy="88" r="${J_R}" fill="none" stroke="url(#jg)" stroke-width="5" stroke-linecap="round" stroke-dasharray="${J_C.toFixed(2)}" stroke-dashoffset="${(J_C * (sisa / J_MS)).toFixed(2)}"/></svg>
+            <div class="dial-in"><div class="time" id="j-time">${jFmt(sisa)}</div><div class="phase"><span class="dot${j.run ? "" : " off"}"></span>sisa waktu</div></div>
+          </div></div>
+          <div class="ctrl" style="margin-top:10px">
+            ${j.run ? `<button class="btn primary" data-act="j-jeda">Jeda</button>` : `<button class="btn primary" data-act="j-mulai">${sisa < J_MS && sisa > 0 ? "Lanjut" : "Mulai"}</button>`}
+            <button class="btn" data-act="j-ulang">Ulang</button>
+          </div>
+          <p class="label j-petunjuk">Waktu jalan sendiri begitu kamu mulai mengetik.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3>Tulisanmu</h3><span class="label">tersimpan di perangkat ini</span></div>
+        <div class="card-b">
+          ${j.entri.length ? `<div class="stats3">
+            <div><b>${j.entri.length}</b><span>tulisan</span></div>
+            <div><b>${total}</b><span>total kata</span></div>
+            <div><b>${terbanyak}</b><span>kata terbanyak</span></div>
+          </div>
+          <div class="j-list">${daftar}</div>` : `<p class="label j-kosong">Tulisan yang kamu simpan muncul di sini. Dari sini tinggal disalin dan ditempel ke halaman temanya di Notion.</p>`}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+function jurnalTick() {
+  const j = jurnal(), sisa = jSisa(j), t = jFmt(sisa);
+  const a = $("#j-time"), b = $("#j-waktu-kecil"), r = $("#j-ring");
+  if (a) a.textContent = t; if (b) b.textContent = t;
+  if (r) r.setAttribute("stroke-dashoffset", (J_C * (sisa / J_MS)).toFixed(2));
+  if (j.run && sisa <= 0) {
+    j.run = false; j.sisa = 0; simpanJurnal(j);
+    jCatatan = "10 menit selesai. Simpan tulisanmu, lalu tempel ke halaman temanya di Notion."; beep(); render();
+  }
+}
+document.addEventListener("input", e => {
+  if (e.target.id !== "j-teks") return;
+  const j = jurnal(); j.teks = e.target.value;
+  // ketikan pertama memulai hitung mundur
+  if (!j.run && j.sisa === J_MS && j.teks.trim()) {
+    jMulai(j);
+    const b = $("[data-act='j-mulai']"); if (b) { b.dataset.act = "j-jeda"; b.textContent = "Jeda"; }
+  }
+  simpanJurnal(j);
+  const k = $("#j-kata"); if (k) k.textContent = jKata(j.teks) + " kata";
+});
+document.addEventListener("change", e => {
+  if (e.target.id !== "j-tema") return;
+  const j = jurnal(); j.tema = +e.target.value; j.tHari = today(); j.q = 0; simpanJurnal(j); render();
+});
+document.addEventListener("click", async e => {
+  const el = e.target.closest("[data-act^='j-']"); if (!el) return;
+  const a = el.dataset.act, j = jurnal(), ent = j.entri.find(x => x.id === el.dataset.b);
+  if (a === "j-mulai") jMulai(j);
+  else if (a === "j-jeda") { j.sisa = jSisa(j); j.run = false; }
+  else if (a === "j-ulang") { j.run = false; j.sisa = J_MS; jCatatan = ""; }
+  else if (a === "j-tanya") { const iT = jTema(j); j.q = jTanya(j, JTEMA[iT]) + 1; j.tema = iT; j.tHari = today(); }
+  else if (a === "j-ucap") { ucap(el.dataset.t); return; }
+  else if (a === "j-pembuka") {
+    const ta = $("#j-teks"), frasa = el.dataset.t.replace(/…$/, "").trimEnd() + (/…$/.test(el.dataset.t) ? " " : "");
+    const awal = ta.value && !/\s$/.test(ta.value) ? ta.value + " " : ta.value;
+    ta.value = awal + frasa; ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length);
+    ta.dispatchEvent(new Event("input", { bubbles: true })); return;
+  }
+  else if (a === "j-salin") {
+    if (!j.teks.trim()) { toast("Belum ada tulisan untuk disalin."); return; }
+    toast(await copyText(j.teks) ? "Tulisan disalin. Tempel ke halaman temanya di Notion." : "Tidak bisa menyalin otomatis. Pilih teksnya lalu salin."); return;
+  }
+  else if (a === "j-simpan") {
+    if (!j.teks.trim()) { toast("Tulis dulu satu kalimat."); return; }
+    const iT = jTema(j), tm = JTEMA[iT];
+    const baru = { id: rid(), d: today(), at: Date.now(), tema: iT, q: tm.q[JB][jTanya(j, tm)], teks: j.teks.trim(), w: jKata(j.teks) };
+    j.entri.push(baru); j.teks = ""; j.run = false; j.sisa = J_MS; jBuka = baru.id;
+    jCatatan = "Tersimpan di perangkat ini. Klik Salin di daftar, lalu tempel ke halaman temanya di Notion supaya ada di akunmu.";
+  }
+  else if (a === "j-buka") { jBuka = jBuka === el.dataset.b ? null : el.dataset.b; render(); return; }
+  else if (a === "j-salin-entri" && ent) { toast(await copyText(ent.teks) ? "Tulisan disalin." : "Tidak bisa menyalin otomatis."); return; }
+  else if (a === "j-hapus-entri" && ent) {
+    const i = j.entri.indexOf(ent); j.entri.splice(i, 1); simpanJurnal(j); render();
+    toastUndo("Tulisan dihapus.", () => { const k = jurnal(); k.entri.splice(Math.min(i, k.entri.length), 0, ent); simpanJurnal(k); render(); });
+    return;
+  }
+  else return;
+  simpanJurnal(j); render();
+});
+window.addEventListener("storage", e => { if (JURNAL && e.key === JK && !(document.activeElement && document.activeElement.id === "j-teks")) render(); });
+/* ---------- akhir jurnal ---------- */
 /* ---------- papan belajar umum (?v=papan&k=<kunci>&judul=<nama course>&bg=<foto>) ---------- */
 // Tugas diisi sendiri oleh pelajar, jadi satu widget bisa dipakai di semua halaman course.
 const PK = "dch:papan:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
@@ -1050,6 +1308,13 @@ function render() {
   applyTheme();
   if (SOLO) { document.body.classList.add("solo"); app.innerHTML = bandHTML(); return; }
   if (TUTUP) { document.body.classList.add("solo"); app.innerHTML = tutupHTML(); return; }
+  if (JURNAL) {
+    // isi tulisan diambil dari simpanan; yang dipertahankan hanya fokus dan posisi kursor
+    const lama = $("#j-teks"), fokus = !!lama && document.activeElement === lama, pos = lama ? [lama.selectionStart, lama.selectionEnd] : null;
+    document.body.classList.add("jurnal"); app.innerHTML = jurnalHTML();
+    const baru = $("#j-teks"); if (baru && fokus) { baru.focus(); try { baru.setSelectionRange(pos[0], pos[1]); } catch (e) {} }
+    return;
+  }
   if (PAPAN) {
     // teks yang sedang diketik dan fokusnya dipertahankan saat papan digambar ulang
     const lama = $("#p-in"), teks = lama ? lama.value : "", fokus = !!lama && document.activeElement === lama;
@@ -1063,6 +1328,7 @@ function render() {
 let hariRender = today();
 function tick() {
   if (today() !== hariRender) { hariRender = today(); render(); } // lewat tengah malam: rencana dan sapaan ikut berganti
+  if (JURNAL) { jurnalTick(); return; }
   checkDone();
   if (SOLO) {
     const t = $("#time"), bp = $("#band-p"); if (!t) return;
