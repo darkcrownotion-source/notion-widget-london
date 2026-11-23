@@ -813,7 +813,15 @@ const KUTIPAN2 = {
     ["Every expert was once a beginner.", "Setiap ahli dulunya pemula."],
     ["Mistakes are proof that you are trying.", "Kesalahan adalah bukti kamu sedang mencoba."],
     ["Where there is a will, there is a way.", "Di mana ada kemauan, di situ ada jalan."],
-    ["Better late than never.", "Lebih baik terlambat daripada tidak sama sekali."]]
+    ["Better late than never.", "Lebih baik terlambat daripada tidak sama sekali."]],
+  nl: [
+    ["Oefening baart kunst.", "Latihan melahirkan kemahiran."],
+    ["Alle begin is moeilijk.", "Semua permulaan itu sulit."],
+    ["Stap voor stap kom je er.", "Selangkah demi selangkah, kamu pasti sampai."],
+    ["Elke dag een beetje beter.", "Setiap hari sedikit lebih baik."],
+    ["Waar een wil is, is een weg.", "Di mana ada kemauan, di situ ada jalan."],
+    ["Je bent nooit te oud om te leren.", "Tidak ada kata terlalu tua untuk belajar."],
+    ["Fouten maken mag.", "Berbuat salah itu boleh."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -839,7 +847,32 @@ const KATA = {
     ["progress", "kata benda", "kemajuan", "You are making good progress.", "Kamu membuat kemajuan yang bagus."],
     ["forget", "kata kerja", "lupa", "Don't forget your keys.", "Jangan lupa kuncimu."],
     ["healthy", "kata sifat", "sehat", "Vegetables are healthy.", "Sayuran itu sehat."],
-    ["prepare", "kata kerja", "menyiapkan", "I need to prepare for the test.", "Aku perlu bersiap untuk tes."]]
+    ["prepare", "kata kerja", "menyiapkan", "I need to prepare for the test.", "Aku perlu bersiap untuk tes."]],
+  nl: [
+    ["gezellig", "kata sifat", "hangat dan akrab", "Het is hier heel gezellig.", "Suasana di sini hangat dan akrab sekali."],
+    ["de fiets", "kata benda", "sepeda", "Ik ga met de fiets naar school.", "Saya pergi ke sekolah naik sepeda."],
+    ["leren", "kata kerja", "belajar", "Ik leer elke dag Nederlands.", "Saya belajar bahasa Belanda setiap hari."],
+    ["lekker", "kata sifat", "enak", "De soep is lekker.", "Supnya enak."],
+    ["de afspraak", "kata benda", "janji temu", "Ik heb morgen een afspraak.", "Saya punya janji temu besok."],
+    ["helpen", "kata kerja", "membantu", "Kunt u mij helpen?", "Bisakah Anda membantu saya?"],
+    ["het weer", "kata benda", "cuaca", "Het weer is mooi vandaag.", "Cuacanya bagus hari ini."],
+    ["wachten", "kata kerja", "menunggu", "Ik wacht op de bus.", "Saya menunggu bus."],
+    ["moe", "kata sifat", "lelah", "Ik ben een beetje moe.", "Saya sedikit lelah."],
+    ["de boodschappen", "kata benda", "belanjaan", "Ik doe vandaag boodschappen.", "Saya berbelanja hari ini."],
+    ["betalen", "kata kerja", "membayar", "Ik wil graag betalen.", "Saya mau membayar."],
+    ["goedkoop", "kata sifat", "murah", "Dit boek is goedkoop.", "Buku ini murah."],
+    ["de trein", "kata benda", "kereta", "De trein vertrekt om acht uur.", "Keretanya berangkat jam delapan."],
+    ["spreken", "kata kerja", "berbicara", "Ik spreek een beetje Nederlands.", "Saya bisa berbicara bahasa Belanda sedikit."],
+    ["vaak", "kata keterangan", "sering", "Ik drink vaak koffie.", "Saya sering minum kopi."],
+    ["het huis", "kata benda", "rumah", "Ons huis is klein.", "Rumah kami kecil."],
+    ["zoeken", "kata kerja", "mencari", "Ik zoek het station.", "Saya mencari stasiun."],
+    ["blij", "kata sifat", "senang", "Zij is blij met het cadeau.", "Dia senang dengan hadiahnya."],
+    ["de buurt", "kata benda", "lingkungan sekitar", "Er is een supermarkt in de buurt.", "Ada supermarket di sekitar sini."],
+    ["wonen", "kata kerja", "tinggal", "Ik woon in Utrecht.", "Saya tinggal di Utrecht."],
+    ["duur", "kata sifat", "mahal", "De koffie is hier duur.", "Kopi di sini mahal."],
+    ["de sleutel", "kata benda", "kunci", "Waar is mijn sleutel?", "Di mana kunci saya?"],
+    ["herhalen", "kata kerja", "mengulangi", "Kunt u dat herhalen?", "Bisakah Anda mengulanginya?"],
+    ["samen", "kata keterangan", "bersama", "Wij eten vanavond samen.", "Kita makan bersama nanti malam."]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
@@ -960,7 +993,7 @@ function papanHTML() {
       <div class="card-h"><h3>Hari ini mau belajar apa?</h3><span class="label">${buka.length ? `${buka.length} belum selesai` : ""}</span></div>
       <div class="card-b">
         <form class="p-form" id="p-form" autocomplete="off">
-          <input class="in" id="p-in" maxlength="80" enterkeyhint="done" placeholder="Contoh: Reading Passage 1" aria-label="Tugas baru">
+          <input class="in" id="p-in" maxlength="80" enterkeyhint="done" placeholder="Contoh: ${esc((params.get("contoh") || "Reading Passage 1").slice(0, 40))}" aria-label="Tugas baru">
           <button class="btn primary" type="submit">Tambah</button>
         </form>
         ${nHari ? "" : `<div class="chips">${saran.map(s => `<button class="chip" data-act="p-saran" data-t="${esc(s)}">+ ${esc(s)}</button>`).join("")}</div>`}
