@@ -337,6 +337,13 @@ body.papan .wrap{max-width:none;padding:6px}
 .kata-contoh{margin-top:12px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 13px;display:flex;flex-direction:column;gap:2px}
 .kata-contoh:hover{border-color:var(--line-2)}
 .kata-contoh em{font:italic 400 19px/1.3 var(--serif)}
+.band-q:lang(zh),.tutup-q blockquote:lang(zh),.kata-row h2:lang(zh),.kata-contoh em:lang(zh){font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC","Noto Sans CJK SC","Source Han Sans SC",var(--sans);font-style:normal}
+.tutup-q blockquote:lang(zh){font-weight:500;font-size:clamp(24px,2.7vw,34px);line-height:1.3}
+.kata-row h2:lang(zh){font-weight:500;font-size:clamp(40px,4.4vw,54px)}
+.band-q:lang(zh){font-size:16px}
+.tutup-py{display:block;margin:0 0 6px;font-size:14px;color:rgba(255,255,255,.9)}
+.kata-py{font-size:17px;color:var(--ink-2);white-space:nowrap}
+.kata-contoh i{font-style:normal;font-size:13.5px;color:var(--ink-2)}
 .kata-contoh span{font-size:13px;color:var(--muted)}
 @media (min-width:720px){.tutup{grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr)}.tutup-foto{min-height:300px}.tutup-kata{padding:24px 28px}}
 
@@ -806,11 +813,14 @@ function fitHeat() {
 // Foto bebas dari Unsplash (Unsplash License), sama dengan widget jam di halaman utama. Pilih lewat ?bg=<nama>
 const FOTO = {
   kanalsenja: "photo-1512470876302-972faa2aa9a4", kanal: "photo-1534351590666-13e3e96b5017", kinderdijk: "photo-1595698251407-8e7e3030a715",
-  skyline: "photo-1772339164384-e4eba87f08c0", towerbridge: "photo-1543832923-44667a44c804", bigben: "photo-1584986098745-02507619826c"
+  skyline: "photo-1772339164384-e4eba87f08c0", towerbridge: "photo-1543832923-44667a44c804", bigben: "photo-1584986098745-02507619826c",
+  guilin: "photo-1702266888836-e7969c65acc8", zhangjiajie: "photo-1567266565245-c08dc046815f", kotaterlarang: "photo-1614555383820-941c466f1b52",
+  lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
-  en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."]
+  en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."],
+  zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -827,7 +837,7 @@ function bandHTML() {
     <div class="band-l">
       <div class="band-phase"><span class="dot${T.run ? "" : " off"}"></span>${phase}${T.run ? "" : e > 0 ? " · dijeda" : ""}</div>
       <div class="band-time" id="time">${text}</div>
-      ${q && GAYA !== "belah" ? `<div class="band-q">${esc(q)}</div>` : ""}
+      ${q && GAYA !== "belah" ? `<div class="band-q" lang="${esc(params.get("bahasa") || "")}">${esc(q)}</div>` : ""}
     </div>
     <div class="band-m">
       <div class="tabs">${tab("fokus", `Fokus ${D.fokus / 60000}`)}${tab("istirahat", `Istirahat ${D.istirahat / 60000}`)}${tab("sw", "Stopwatch")}</div>
@@ -863,7 +873,15 @@ const KUTIPAN2 = {
     ["Elke dag een beetje beter.", "Setiap hari sedikit lebih baik."],
     ["Waar een wil is, is een weg.", "Di mana ada kemauan, di situ ada jalan."],
     ["Je bent nooit te oud om te leren.", "Tidak ada kata terlalu tua untuk belajar."],
-    ["Fouten maken mag.", "Berbuat salah itu boleh."]]
+    ["Fouten maken mag.", "Berbuat salah itu boleh."]],
+  zh: [
+    ["千里之行，始于足下。", "Perjalanan seribu li dimulai dari satu langkah.", "Qiān lǐ zhī xíng, shǐ yú zú xià."],
+    ["熟能生巧。", "Latihan membuat mahir.", "Shú néng shēng qiǎo."],
+    ["活到老，学到老。", "Hidup sampai tua, belajar sampai tua.", "Huó dào lǎo, xué dào lǎo."],
+    ["一步一个脚印。", "Satu langkah, satu jejak.", "Yí bù yí gè jiǎoyìn."],
+    ["不怕慢，就怕站。", "Jangan takut lambat, takutlah kalau berhenti.", "Bú pà màn, jiù pà zhàn."],
+    ["有志者，事竟成。", "Di mana ada kemauan, di situ ada jalan.", "Yǒu zhì zhě, shì jìng chéng."],
+    ["好好学习，天天向上。", "Belajar yang rajin, tiap hari makin maju.", "Hǎohǎo xuéxí, tiāntiān xiàng shàng."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -914,12 +932,37 @@ const KATA = {
     ["duur", "kata sifat", "mahal", "De koffie is hier duur.", "Kopi di sini mahal."],
     ["de sleutel", "kata benda", "kunci", "Waar is mijn sleutel?", "Di mana kunci saya?"],
     ["herhalen", "kata kerja", "mengulangi", "Kunt u dat herhalen?", "Bisakah Anda mengulanginya?"],
-    ["samen", "kata keterangan", "bersama", "Wij eten vanavond samen.", "Kita makan bersama nanti malam."]]
+    ["samen", "kata keterangan", "bersama", "Wij eten vanavond samen.", "Kita makan bersama nanti malam."]],
+  zh: [
+    ["学习", "kata kerja", "belajar", "我每天学习汉语。", "Saya belajar bahasa Mandarin setiap hari.", "xuéxí", "Wǒ měitiān xuéxí Hànyǔ."],
+    ["朋友", "kata benda", "teman", "他是我的朋友。", "Dia teman saya.", "péngyou", "Tā shì wǒ de péngyou."],
+    ["喜欢", "kata kerja", "suka", "我喜欢喝茶。", "Saya suka minum teh.", "xǐhuan", "Wǒ xǐhuan hē chá."],
+    ["高兴", "kata sifat", "senang", "认识你很高兴。", "Senang berkenalan denganmu.", "gāoxìng", "Rènshi nǐ hěn gāoxìng."],
+    ["谢谢", "ungkapan", "terima kasih", "谢谢你的帮助。", "Terima kasih atas bantuanmu.", "xièxie", "Xièxie nǐ de bāngzhù."],
+    ["今天", "kata benda", "hari ini", "今天很热。", "Hari ini panas.", "jīntiān", "Jīntiān hěn rè."],
+    ["老师", "kata benda", "guru", "老师很忙。", "Gurunya sibuk.", "lǎoshī", "Lǎoshī hěn máng."],
+    ["好吃", "kata sifat", "enak (makanan)", "这个菜很好吃。", "Hidangan ini enak.", "hǎochī", "Zhège cài hěn hǎochī."],
+    ["便宜", "kata sifat", "murah", "这本书很便宜。", "Buku ini murah.", "piányi", "Zhè běn shū hěn piányi."],
+    ["时间", "kata benda", "waktu", "我今天没有时间。", "Hari ini saya tidak punya waktu.", "shíjiān", "Wǒ jīntiān méiyǒu shíjiān."],
+    ["帮助", "kata kerja", "membantu", "你可以帮助我吗？", "Bisakah kamu membantu saya?", "bāngzhù", "Nǐ kěyǐ bāngzhù wǒ ma?"],
+    ["等", "kata kerja", "menunggu", "请等一下。", "Tolong tunggu sebentar.", "děng", "Qǐng děng yíxià."],
+    ["明白", "kata kerja", "paham", "我明白了。", "Saya sudah paham.", "míngbai", "Wǒ míngbai le."],
+    ["一起", "kata keterangan", "bersama", "我们一起吃饭吧。", "Ayo kita makan bersama.", "yìqǐ", "Wǒmen yìqǐ chī fàn ba."],
+    ["多少", "kata tanya", "berapa", "这个多少钱？", "Yang ini berapa harganya?", "duōshao", "Zhège duōshao qián?"],
+    ["休息", "kata kerja", "istirahat", "我想休息一下。", "Saya ingin istirahat sebentar.", "xiūxi", "Wǒ xiǎng xiūxi yíxià."],
+    ["累", "kata sifat", "lelah", "我今天很累。", "Hari ini saya lelah.", "lèi", "Wǒ jīntiān hěn lèi."],
+    ["家", "kata benda", "rumah, keluarga", "我家在雅加达。", "Rumah saya di Jakarta.", "jiā", "Wǒ jiā zài Yǎjiādá."],
+    ["工作", "kata kerja", "bekerja; pekerjaan", "我在银行工作。", "Saya bekerja di bank.", "gōngzuò", "Wǒ zài yínháng gōngzuò."],
+    ["练习", "kata kerja", "berlatih; latihan", "我们练习说汉语。", "Kami berlatih berbicara bahasa Mandarin.", "liànxí", "Wǒmen liànxí shuō Hànyǔ."],
+    ["再见", "ungkapan", "sampai jumpa", "老师，再见！", "Sampai jumpa, Guru!", "zàijiàn", "Lǎoshī, zàijiàn!"],
+    ["漂亮", "kata sifat", "cantik, bagus", "这件衣服很漂亮。", "Baju ini bagus.", "piàoliang", "Zhè jiàn yīfu hěn piàoliang."],
+    ["慢", "kata sifat", "pelan", "请说慢一点儿。", "Tolong bicara lebih pelan sedikit.", "màn", "Qǐng shuō màn yìdiǎnr."],
+    ["每天", "kata keterangan", "setiap hari", "我每天早上喝茶。", "Saya minum teh setiap pagi.", "měitiān", "Wǒ měitiān zǎoshang hē chá."]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
@@ -935,18 +978,19 @@ function tutupHTML() {
     <div class="tutup-foto" style="background-image:url('${bg}')">
       <div class="tutup-q">
         <span class="tutup-label">Kutipan hari ini</span>
-        <blockquote>${esc(q[0])}</blockquote>
+        <blockquote lang="${L}">${esc(q[0])}</blockquote>
+        ${q[2] ? `<span class="tutup-py">${esc(q[2])}</span>` : ""}
         <p>${esc(q[1])}</p>
       </div>
     </div>
     <div class="tutup-kata">
       <div class="tutup-top"><span class="label">Kata hari ini</span><span class="label">${n} kata hafal</span></div>
-      <div class="kata-row"><h2>${esc(k[0])}</h2>
+      <div class="kata-row"><h2 lang="${L}">${esc(k[0])}</h2>${k[5] ? `<span class="kata-py">${esc(k[5])}</span>` : ""}
         <button class="icon-btn" data-act="ucap" data-t="${esc(k[0])}" aria-label="Dengarkan ${esc(k[0])}" title="Dengarkan">${spk}</button></div>
       <span class="scribble" style="margin:6px 0 10px"></span>
       <div class="kata-arti"><span class="tag">${esc(k[1])}</span><b>${esc(k[2])}</b></div>
       <button class="kata-contoh" data-act="ucap" data-t="${esc(k[3])}" title="Dengarkan kalimat">
-        <em>${esc(k[3])}</em><span>${esc(k[4])}</span></button>
+        <em lang="${L}">${esc(k[3])}</em>${k[6] ? `<i>${esc(k[6])}</i>` : ""}<span>${esc(k[4])}</span></button>
       <div class="row" style="margin-top:14px">
         <button class="btn${on ? "" : " primary"}" data-act="hafal" data-b="${esc(id)}">${on ? I.check.replace('stroke-width="3"', 'stroke-width="2.4"') + "Sudah hafal" : "Tandai hafal"}</button>
         <button class="btn" data-act="kata-next">Kata lain</button>
