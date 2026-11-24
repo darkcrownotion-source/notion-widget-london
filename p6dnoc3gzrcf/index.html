@@ -821,13 +821,15 @@ const FOTO = {
   skyline: "photo-1772339164384-e4eba87f08c0", towerbridge: "photo-1543832923-44667a44c804", bigben: "photo-1584986098745-02507619826c",
   guilin: "photo-1702266888836-e7969c65acc8", zhangjiajie: "photo-1567266565245-c08dc046815f", kotaterlarang: "photo-1614555383820-941c466f1b52",
   lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191",
-  gyeongbokgung: "photo-1638964663550-e2123ac8900b", paviliun: "photo-1666670750287-176e3218ce12", seoulmalam: "photo-1532649097480-b67d52743b69"
+  gyeongbokgung: "photo-1638964663550-e2123ac8900b", paviliun: "photo-1666670750287-176e3218ce12", seoulmalam: "photo-1532649097480-b67d52743b69",
+  neuschwanstein: "photo-1557067175-db3159d938ac", brandenburg: "photo-1587330979470-3595ac045ab0", berlin: "photo-1554072675-66db59dba46f"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
   en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."],
   zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"],
-  ko: ["천 리 길도 한 걸음부터.", "시작이 반이다.", "티끌 모아 태산.", "배움에는 끝이 없다.", "꾸준함이 재능을 이긴다."]
+  ko: ["천 리 길도 한 걸음부터.", "시작이 반이다.", "티끌 모아 태산.", "배움에는 끝이 없다.", "꾸준함이 재능을 이긴다."],
+  de: ["Übung macht den Meister.", "Aller Anfang ist schwer.", "Steter Tropfen höhlt den Stein.", "Man lernt nie aus.", "Kleine Schritte sind auch Schritte."]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -896,7 +898,15 @@ const KUTIPAN2 = {
     ["배움에는 끝이 없다.", "Belajar tidak ada habisnya."],
     ["꾸준함이 재능을 이긴다.", "Ketekunan mengalahkan bakat."],
     ["뜻이 있는 곳에 길이 있다.", "Di mana ada kemauan, di situ ada jalan."],
-    ["조금씩, 매일.", "Sedikit demi sedikit, setiap hari."]]
+    ["조금씩, 매일.", "Sedikit demi sedikit, setiap hari."]],
+  de: [
+    ["Übung macht den Meister.", "Latihan membuat mahir."],
+    ["Aller Anfang ist schwer.", "Semua permulaan itu sulit."],
+    ["Steter Tropfen höhlt den Stein.", "Tetesan yang terus-menerus melubangi batu."],
+    ["Man lernt nie aus.", "Belajar tidak pernah selesai."],
+    ["Kleine Schritte sind auch Schritte.", "Langkah kecil tetaplah langkah."],
+    ["Wer rastet, der rostet.", "Siapa yang berhenti, akan berkarat."],
+    ["Wo ein Wille ist, ist auch ein Weg.", "Di mana ada kemauan, di situ ada jalan."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -997,12 +1007,37 @@ const KATA = {
     ["천천히", "kata keterangan", "pelan-pelan", "천천히 말해 주세요.", "Tolong bicara pelan-pelan."],
     ["매일", "kata keterangan", "setiap hari", "저는 매일 아침에 커피를 마셔요.", "Saya minum kopi setiap pagi."],
     ["쉽다", "kata sifat", "mudah", "이 단어는 쉬워요.", "Kata ini mudah."],
-    ["좋다", "kata sifat", "baik, bagus", "이 노래가 좋아요.", "Lagu ini bagus."]]
+    ["좋다", "kata sifat", "baik, bagus", "이 노래가 좋아요.", "Lagu ini bagus."]],
+  de: [
+    ["lernen", "kata kerja", "belajar", "Ich lerne jeden Tag Deutsch.", "Saya belajar bahasa Jerman setiap hari."],
+    ["der Freund", "kata benda", "teman (lk.)", "Mein Freund kommt aus Berlin.", "Teman saya berasal dari Berlin."],
+    ["gern", "kata keterangan", "suka", "Ich trinke gern Kaffee.", "Saya suka minum kopi."],
+    ["schön", "kata sifat", "indah, bagus", "Das Wetter ist heute schön.", "Cuacanya bagus hari ini."],
+    ["danke", "ungkapan", "terima kasih", "Danke für die Hilfe!", "Terima kasih atas bantuannya!"],
+    ["heute", "kata keterangan", "hari ini", "Heute ist Montag.", "Hari ini hari Senin."],
+    ["die Zeit", "kata benda", "waktu", "Ich habe heute keine Zeit.", "Hari ini saya tidak punya waktu."],
+    ["billig", "kata sifat", "murah", "Das Buch ist billig.", "Bukunya murah."],
+    ["warten", "kata kerja", "menunggu", "Ich warte auf den Bus.", "Saya menunggu bus."],
+    ["verstehen", "kata kerja", "mengerti", "Ich verstehe das nicht.", "Saya tidak mengerti itu."],
+    ["zusammen", "kata keterangan", "bersama", "Wir essen heute zusammen.", "Kita makan bersama hari ini."],
+    ["wie viel", "kata tanya", "berapa", "Wie viel kostet das?", "Berapa harganya?"],
+    ["müde", "kata sifat", "lelah", "Ich bin ein bisschen müde.", "Saya sedikit lelah."],
+    ["das Haus", "kata benda", "rumah", "Unser Haus ist klein.", "Rumah kami kecil."],
+    ["arbeiten", "kata kerja", "bekerja", "Ich arbeite in einem Büro.", "Saya bekerja di sebuah kantor."],
+    ["wiederholen", "kata kerja", "mengulang", "Können Sie das bitte wiederholen?", "Bisakah Anda mengulanginya?"],
+    ["langsam", "kata keterangan", "pelan", "Bitte sprechen Sie langsam.", "Tolong bicara pelan-pelan."],
+    ["der Schlüssel", "kata benda", "kunci", "Wo ist mein Schlüssel?", "Di mana kunci saya?"],
+    ["helfen", "kata kerja", "menolong", "Können Sie mir helfen?", "Bisakah Anda menolong saya?"],
+    ["wohnen", "kata kerja", "tinggal", "Ich wohne in Jakarta.", "Saya tinggal di Jakarta."],
+    ["teuer", "kata sifat", "mahal", "Der Kaffee ist hier teuer.", "Kopi di sini mahal."],
+    ["der Termin", "kata benda", "janji temu", "Ich habe morgen einen Termin.", "Saya punya janji temu besok."],
+    ["das Wochenende", "kata benda", "akhir pekan", "Am Wochenende schlafe ich lange.", "Akhir pekan saya tidur lama."],
+    ["Auf Wiedersehen", "ungkapan", "sampai jumpa", "Auf Wiedersehen, bis morgen!", "Sampai jumpa, sampai besok!"]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
