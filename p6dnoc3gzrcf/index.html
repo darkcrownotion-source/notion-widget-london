@@ -892,7 +892,8 @@ const FOTO = {
   lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191",
   gyeongbokgung: "photo-1638964663550-e2123ac8900b", paviliun: "photo-1666670750287-176e3218ce12", seoulmalam: "photo-1532649097480-b67d52743b69",
   neuschwanstein: "photo-1557067175-db3159d938ac", brandenburg: "photo-1587330979470-3595ac045ab0", berlin: "photo-1554072675-66db59dba46f",
-  petra: "photo-1580834341580-8c17a3a630ca", dubai: "photo-1512453979798-5ea266f8880c", petra2: "photo-1548786811-dd6e453ccca7"
+  petra: "photo-1580834341580-8c17a3a630ca", dubai: "photo-1512453979798-5ea266f8880c", petra2: "photo-1548786811-dd6e453ccca7",
+  sevilla: "photo-1509840841025-9088ba78a826", plaza: "photo-1688404808661-92f72f2ea258", barcelona: "photo-1583422409516-2895a77efded"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
@@ -900,7 +901,8 @@ const KUTIPAN = {
   zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"],
   ko: ["천 리 길도 한 걸음부터.", "시작이 반이다.", "티끌 모아 태산.", "배움에는 끝이 없다.", "꾸준함이 재능을 이긴다."],
   de: ["Übung macht den Meister.", "Aller Anfang ist schwer.", "Steter Tropfen höhlt den Stein.", "Man lernt nie aus.", "Kleine Schritte sind auch Schritte."],
-  ar: ["من جدّ وجد، ومن زرع حصد.", "العلم نور.", "لكل مجتهد نصيب.", "الصبر مفتاح الفرج.", "خطوة بخطوة تصل إلى هدفك."]
+  ar: ["من جدّ وجد، ومن زرع حصد.", "العلم نور.", "لكل مجتهد نصيب.", "الصبر مفتاح الفرج.", "خطوة بخطوة تصل إلى هدفك."],
+  es: ["Poco a poco se va lejos.", "La práctica hace al maestro.", "Querer es poder.", "Nunca es tarde para aprender.", "Cada día es una nueva oportunidad."]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -985,7 +987,15 @@ const KUTIPAN2 = {
     ["الصبر مفتاح الفرج.", "Sabar adalah kunci kelapangan."],
     ["خطوة بخطوة تصل إلى هدفك.", "Selangkah demi selangkah kamu sampai ke tujuanmu."],
     ["قليلٌ دائمٌ خيرٌ من كثيرٍ منقطع.", "Sedikit tapi terus-menerus lebih baik daripada banyak tapi terputus."],
-    ["التكرار يعلّم الشطّار.", "Pengulangan mengajari orang yang pandai."]]
+    ["التكرار يعلّم الشطّار.", "Pengulangan mengajari orang yang pandai."]],
+  es: [
+    ["Poco a poco se va lejos.", "Sedikit demi sedikit, lama-lama jadi jauh."],
+    ["La práctica hace al maestro.", "Latihan membuat mahir."],
+    ["Querer es poder.", "Mau berarti bisa."],
+    ["Nunca es tarde para aprender.", "Tidak ada kata terlambat untuk belajar."],
+    ["Cada día es una nueva oportunidad.", "Setiap hari adalah kesempatan baru."],
+    ["El que la sigue, la consigue.", "Siapa yang terus berusaha, akan berhasil."],
+    ["Equivocarse también es aprender.", "Salah juga bagian dari belajar."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -1136,12 +1146,37 @@ const KATA = {
     ["مَكْتَب", "kata benda", "kantor", "هَلِ المُدِيرُ فِي المَكْتَبِ؟", "Apakah direktur di kantor?"],
     ["غُرْفَة", "kata benda", "kamar", "هَذِهِ غُرْفَتُكَ يَا بَايُو.", "Ini kamarmu, Bayu."],
     ["العَرَبِيَّة", "kata benda", "bahasa Arab", "تَتَكَلَّمِينَ العَرَبِيَّةَ جَيِّدًا!", "Kamu berbicara bahasa Arab dengan baik!"],
-    ["أُرِيدُ", "kata kerja", "saya mau", "أُرِيدُ شَايًا وَخُبْزًا، مِنْ فَضْلِكِ.", "Saya mau teh dan roti, tolong."]]
+    ["أُرِيدُ", "kata kerja", "saya mau", "أُرِيدُ شَايًا وَخُبْزًا، مِنْ فَضْلِكِ.", "Saya mau teh dan roti, tolong."]],
+  es: [
+    ["hablar", "kata kerja", "berbicara", "Hablo un poco de español.", "Saya berbicara sedikit bahasa Spanyol."],
+    ["el amigo", "kata benda", "teman", "Mi amigo vive en Madrid.", "Teman saya tinggal di Madrid."],
+    ["me gusta", "ungkapan", "saya suka", "Me gusta el café con leche.", "Saya suka kopi susu."],
+    ["bonito", "kata sifat", "bagus, cantik", "El parque es muy bonito.", "Taman itu sangat bagus."],
+    ["gracias", "ungkapan", "terima kasih", "Muchas gracias por tu ayuda.", "Terima kasih banyak atas bantuanmu."],
+    ["hoy", "kata keterangan", "hari ini", "Hoy es lunes.", "Hari ini hari Senin."],
+    ["la casa", "kata benda", "rumah", "Mi casa es pequeña.", "Rumah saya kecil."],
+    ["barato", "kata sifat", "murah", "Este libro es barato.", "Buku ini murah."],
+    ["escuchar", "kata kerja", "mendengarkan", "Escucho música por la noche.", "Saya mendengarkan musik pada malam hari."],
+    ["no entiendo", "ungkapan", "saya tidak mengerti", "Perdón, no entiendo.", "Maaf, saya tidak mengerti."],
+    ["juntos", "kata keterangan", "bersama-sama", "Comemos juntos hoy.", "Kita makan bersama hari ini."],
+    ["cuánto", "kata tanya", "berapa", "¿Cuánto cuesta el café?", "Berapa harga kopinya?"],
+    ["cansado", "kata sifat", "lelah", "Estoy un poco cansado.", "Saya sedikit lelah."],
+    ["trabajar", "kata kerja", "bekerja", "Trabajo en un hospital.", "Saya bekerja di rumah sakit."],
+    ["despacio", "kata keterangan", "pelan-pelan", "Hable más despacio, por favor.", "Tolong bicara lebih pelan."],
+    ["la llave", "kata benda", "kunci", "¿Dónde está mi llave?", "Di mana kunci saya?"],
+    ["ayudar", "kata kerja", "membantu", "¿Me puede ayudar?", "Bisakah Anda membantu saya?"],
+    ["vivir", "kata kerja", "tinggal, hidup", "Vivo en Yakarta.", "Saya tinggal di Jakarta."],
+    ["caro", "kata sifat", "mahal", "El hotel es muy caro.", "Hotelnya sangat mahal."],
+    ["el fin de semana", "kata benda", "akhir pekan", "El fin de semana voy a la playa.", "Akhir pekan saya pergi ke pantai."],
+    ["la playa", "kata benda", "pantai", "La playa está cerca de aquí.", "Pantainya dekat dari sini."],
+    ["leer", "kata kerja", "membaca", "Leo el periódico cada mañana.", "Saya membaca koran setiap pagi."],
+    ["siempre", "kata keterangan", "selalu", "Siempre desayuno a las siete.", "Saya selalu sarapan jam tujuh."],
+    ["hasta mañana", "ungkapan", "sampai besok", "¡Adiós, hasta mañana!", "Dah, sampai besok!"]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE", ar: "ar-SA" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE", ar: "ar-SA", es: "es-ES" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
@@ -1361,62 +1396,70 @@ document.addEventListener("click", e => {
   }
 });
 /* ---------- akhir kamus ---------- */
-/* ---------- jurnal 10 menit (?v=jurnal&k=<kunci>&bahasa=nl|en&judul=<judul>) ---------- */
+/* ---------- jurnal 10 menit (?v=jurnal&k=<kunci>&bahasa=nl|en|es&judul=<judul>) ---------- */
 // Meja tulis untuk halaman "10 minutes journal": tema + pertanyaan pemancing, hitung mundur 10 menit, hitung kata.
 // Tulisan tersimpan di perangkat dan bisa disalin untuk ditempel ke halaman temanya di Notion.
 const JK = "dch:jurnal:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
-const JB = ["nl", "en"].includes(params.get("bahasa")) ? params.get("bahasa") : "en";
-const J_NAMA = { nl: "bahasa Belanda", en: "bahasa Inggris" };
+const JB = ["nl", "en", "es"].includes(params.get("bahasa")) ? params.get("bahasa") : "en";
+const J_NAMA = { nl: "bahasa Belanda", en: "bahasa Inggris", es: "bahasa Spanyol" };
 const J_MS = 10 * 60000, J_R = 80, J_C = 2 * Math.PI * J_R;
 // Delapan tema sama dengan kartu di halaman Notion. q = pertanyaan, a = artinya, s = kalimat pembuka, sa = artinya.
 const JTEMA = [
   { n: "Let your mind wander",
     q: { nl: ["Waar denk je nu aan?", "Wat zie je om je heen?", "Wat wil je dit weekend doen?"],
-         en: ["What is on your mind right now?", "What can you see around you?", "What do you want to do this weekend?"] },
+         en: ["What is on your mind right now?", "What can you see around you?", "What do you want to do this weekend?"],
+         es: ["¿En qué piensas ahora?", "¿Qué ves a tu alrededor?", "¿Qué quieres hacer este fin de semana?"] },
     a: ["Apa yang sedang kamu pikirkan sekarang?", "Apa yang kamu lihat di sekitarmu?", "Apa yang ingin kamu lakukan akhir pekan ini?"],
-    s: { nl: ["Ik denk aan…", "Ik zie…", "Ik wil graag…"], en: ["I am thinking about…", "I can see…", "I would like to…"] },
+    s: { nl: ["Ik denk aan…", "Ik zie…", "Ik wil graag…"], en: ["I am thinking about…", "I can see…", "I would like to…"], es: ["Pienso en…", "Veo…", "Quiero…"] },
     sa: ["Saya memikirkan…", "Saya melihat…", "Saya ingin…"] },
   { n: "Recognize the good stuff",
     q: { nl: ["Waar ben je vandaag dankbaar voor?", "Wie heeft je vandaag geholpen?", "Wat ging vandaag goed?"],
-         en: ["What are you grateful for today?", "Who helped you today?", "What went well today?"] },
+         en: ["What are you grateful for today?", "Who helped you today?", "What went well today?"],
+         es: ["¿Por qué estás agradecido hoy?", "¿Quién te ayudó hoy?", "¿Qué salió bien hoy?"] },
     a: ["Apa yang kamu syukuri hari ini?", "Siapa yang membantumu hari ini?", "Apa yang berjalan baik hari ini?"],
-    s: { nl: ["Ik ben dankbaar voor…", "Ik ben blij met…", "Het ging goed met…"], en: ["I am grateful for…", "I am happy with…", "It went well with…"] },
+    s: { nl: ["Ik ben dankbaar voor…", "Ik ben blij met…", "Het ging goed met…"], en: ["I am grateful for…", "I am happy with…", "It went well with…"], es: ["Estoy agradecido por…", "Estoy contento con…", "Salió bien…"] },
     sa: ["Saya bersyukur atas…", "Saya senang dengan…", "Yang berjalan baik: …"] },
   { n: "Highlight your day",
     q: { nl: ["Wat was het beste moment van vandaag?", "Wat heb je vandaag gedaan?", "Met wie heb je vandaag gepraat?"],
-         en: ["What was the best moment of your day?", "What did you do today?", "Who did you talk to today?"] },
+         en: ["What was the best moment of your day?", "What did you do today?", "Who did you talk to today?"],
+         es: ["¿Cuál fue el mejor momento de hoy?", "¿Qué hiciste hoy?", "¿Con quién hablaste hoy?"] },
     a: ["Apa momen terbaik hari ini?", "Apa yang kamu lakukan hari ini?", "Dengan siapa kamu mengobrol hari ini?"],
-    s: { nl: ["Vandaag heb ik…", "Het beste moment was…", "Daarna…"], en: ["Today I…", "The best moment was…", "After that…"] },
+    s: { nl: ["Vandaag heb ik…", "Het beste moment was…", "Daarna…"], en: ["Today I…", "The best moment was…", "After that…"], es: ["Hoy…", "El mejor momento fue…", "Después…"] },
     sa: ["Hari ini saya…", "Momen terbaiknya…", "Sesudah itu…"] },
   { n: "Find joy in the moment",
     q: { nl: ["Wat maakt je nu blij?", "Wat vind je lekker?", "Welke muziek vind je mooi?"],
-         en: ["What makes you happy right now?", "What food do you enjoy?", "What music do you like?"] },
+         en: ["What makes you happy right now?", "What food do you enjoy?", "What music do you like?"],
+         es: ["¿Qué te hace feliz ahora?", "¿Qué comida te gusta?", "¿Qué música te gusta?"] },
     a: ["Apa yang membuatmu senang sekarang?", "Makanan apa yang kamu suka?", "Musik apa yang kamu suka?"],
-    s: { nl: ["Ik word blij van…", "Ik vind … lekker.", "Ik hou van…"], en: ["I feel happy because…", "I think … is delicious.", "I love…"] },
+    s: { nl: ["Ik word blij van…", "Ik vind … lekker.", "Ik hou van…"], en: ["I feel happy because…", "I think … is delicious.", "I love…"], es: ["Estoy feliz porque…", "Para mí, … es delicioso.", "Me encanta…"] },
     sa: ["Saya senang karena…", "Menurut saya … enak.", "Saya suka…"] },
   { n: "Explore a new idea",
     q: { nl: ["Wat wil je deze week leren?", "Welk nieuw woord heb je vandaag geleerd?", "Wat wil je graag proberen?"],
-         en: ["What do you want to learn this week?", "What new word did you learn today?", "What would you like to try?"] },
+         en: ["What do you want to learn this week?", "What new word did you learn today?", "What would you like to try?"],
+         es: ["¿Qué quieres aprender esta semana?", "¿Qué palabra nueva aprendiste hoy?", "¿Qué te gustaría probar?"] },
     a: ["Apa yang ingin kamu pelajari minggu ini?", "Kata baru apa yang kamu pelajari hari ini?", "Apa yang ingin kamu coba?"],
-    s: { nl: ["Ik wil … leren.", "Mijn nieuwe woord is…", "Ik wil … proberen."], en: ["I want to learn…", "My new word is…", "I would like to try…"] },
+    s: { nl: ["Ik wil … leren.", "Mijn nieuwe woord is…", "Ik wil … proberen."], en: ["I want to learn…", "My new word is…", "I would like to try…"], es: ["Quiero aprender…", "Mi palabra nueva es…", "Me gustaría probar…"] },
     sa: ["Saya ingin belajar…", "Kata baru saya…", "Saya ingin mencoba…"] },
   { n: "Tackle the impossible",
     q: { nl: ["Wat vind je moeilijk in het Nederlands?", "Wat is je grote doel?", "Wat ga je morgen anders doen?"],
-         en: ["What is difficult for you in English?", "What is your big goal?", "What will you do differently tomorrow?"] },
+         en: ["What is difficult for you in English?", "What is your big goal?", "What will you do differently tomorrow?"],
+         es: ["¿Qué te parece difícil en español?", "¿Cuál es tu gran meta?", "¿Qué vas a hacer diferente mañana?"] },
     a: [`Apa yang menurutmu sulit dalam ${J_NAMA[JB]}?`, "Apa tujuan besarmu?", "Apa yang akan kamu lakukan berbeda besok?"],
-    s: { nl: ["Ik vind … moeilijk.", "Mijn doel is…", "Morgen ga ik…"], en: ["I find … difficult.", "My goal is…", "Tomorrow I will…"] },
+    s: { nl: ["Ik vind … moeilijk.", "Mijn doel is…", "Morgen ga ik…"], en: ["I find … difficult.", "My goal is…", "Tomorrow I will…"], es: ["Me parece difícil…", "Mi meta es…", "Mañana voy a…"] },
     sa: ["Menurut saya … sulit.", "Tujuan saya…", "Besok saya akan…"] },
   { n: "Build a lasting memory",
     q: { nl: ["Wat is een mooie herinnering?", "Welke plek vind je mooi?", "Wie is belangrijk voor jou?"],
-         en: ["What is a happy memory?", "Which place do you find beautiful?", "Who is important to you?"] },
+         en: ["What is a happy memory?", "Which place do you find beautiful?", "Who is important to you?"],
+         es: ["¿Cuál es un recuerdo bonito?", "¿Qué lugar te parece bonito?", "¿Quién es importante para ti?"] },
     a: ["Apa satu kenangan indahmu?", "Tempat mana yang menurutmu indah?", "Siapa yang penting bagimu?"],
-    s: { nl: ["Ik herinner me…", "Toen was ik…", "Het was…"], en: ["I remember…", "At that time I was…", "It was…"] },
+    s: { nl: ["Ik herinner me…", "Toen was ik…", "Het was…"], en: ["I remember…", "At that time I was…", "It was…"], es: ["Recuerdo…", "En ese momento yo…", "Fue…"] },
     sa: ["Saya ingat…", "Waktu itu saya…", "Saat itu…"] },
   { n: "Reflect on your day",
     q: { nl: ["Hoe voel je je vandaag?", "Wat heb je vandaag geleerd?", "Wat wil je morgen doen?"],
-         en: ["How do you feel today?", "What did you learn today?", "What do you want to do tomorrow?"] },
+         en: ["How do you feel today?", "What did you learn today?", "What do you want to do tomorrow?"],
+         es: ["¿Cómo te sientes hoy?", "¿Qué aprendiste hoy?", "¿Qué quieres hacer mañana?"] },
     a: ["Bagaimana perasaanmu hari ini?", "Apa yang kamu pelajari hari ini?", "Apa yang ingin kamu lakukan besok?"],
-    s: { nl: ["Ik voel me…", "Vandaag heb ik … geleerd.", "Morgen wil ik…"], en: ["I feel…", "Today I learned…", "Tomorrow I want to…"] },
+    s: { nl: ["Ik voel me…", "Vandaag heb ik … geleerd.", "Morgen wil ik…"], en: ["I feel…", "Today I learned…", "Tomorrow I want to…"], es: ["Me siento…", "Hoy aprendí…", "Mañana quiero…"] },
     sa: ["Saya merasa…", "Hari ini saya belajar…", "Besok saya ingin…"] }
 ];
 const jurnal = () => {
@@ -1477,7 +1520,7 @@ function jurnalHTML() {
           <div class="chips j-pembuka" aria-label="Kalimat pembuka">
             ${tm.s[JB].map((x, i) => `<button class="chip j-chip" data-act="j-pembuka" data-t="${esc(x)}"><b lang="${JB}">${esc(x)}</b><span>${esc(tm.sa[i])}</span></button>`).join("")}
           </div>
-          <textarea class="in" id="j-teks" lang="${JB}" spellcheck="true" maxlength="6000" aria-label="Tulisan jurnal" placeholder="${JB === "nl" ? "Schrijf hier…" : "Write here…"}">${esc(j.teks)}</textarea>
+          <textarea class="in" id="j-teks" lang="${JB}" spellcheck="true" maxlength="6000" aria-label="Tulisan jurnal" placeholder="${{ nl: "Schrijf hier…", es: "Escribe aquí…" }[JB] || "Write here…"}">${esc(j.teks)}</textarea>
           <div class="j-aksi"><span class="label">Tidak perlu sempurna. Yang penting menulis 10 menit.</span>
             <div class="row"><button class="btn" data-act="j-salin">Salin</button><button class="btn primary" data-act="j-simpan">Simpan tulisan</button></div></div>
           <div class="note">${esc(jCatatan)}</div>
