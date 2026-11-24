@@ -7,7 +7,7 @@
 <title>Course Hub · Darkcrow</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400..700&family=Noto+Naskh+Arabic:wght@400..700&display=swap" rel="stylesheet">
 <style>
 :root{
   --canvas:#ffffff;--surface:#fafafa;--control:#f4f4f4;
@@ -349,6 +349,11 @@ body.papan .wrap{max-width:none;padding:6px}
 .kata-row h2:lang(ko){font-weight:600;font-size:clamp(34px,3.8vw,46px);letter-spacing:-.01em}
 .kata-contoh em:lang(ko){font-size:18px}
 .band-q:lang(ko){font-size:15.5px}
+.band-q:lang(ar),.tutup-q blockquote:lang(ar),.kata-row h2:lang(ar),.kata-contoh em:lang(ar){font-family:"Noto Naskh Arabic","Geeza Pro","Traditional Arabic","Segoe UI",var(--sans);font-style:normal;direction:rtl;unicode-bidi:isolate;text-align:left;letter-spacing:0}
+.tutup-q blockquote:lang(ar){font-weight:600;font-size:clamp(25px,2.7vw,35px);line-height:1.65}
+.kata-row h2:lang(ar){font-weight:600;font-size:clamp(38px,4.2vw,52px);line-height:1.5}
+.kata-contoh em:lang(ar){font-size:22px;line-height:1.8}
+.band-q:lang(ar){font-size:18px;line-height:1.6}
 .kata-contoh span{font-size:13px;color:var(--muted)}
 @media (min-width:720px){.tutup{grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr)}.tutup-foto{min-height:300px}.tutup-kata{padding:24px 28px}}
 
@@ -822,14 +827,16 @@ const FOTO = {
   guilin: "photo-1702266888836-e7969c65acc8", zhangjiajie: "photo-1567266565245-c08dc046815f", kotaterlarang: "photo-1614555383820-941c466f1b52",
   lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191",
   gyeongbokgung: "photo-1638964663550-e2123ac8900b", paviliun: "photo-1666670750287-176e3218ce12", seoulmalam: "photo-1532649097480-b67d52743b69",
-  neuschwanstein: "photo-1557067175-db3159d938ac", brandenburg: "photo-1587330979470-3595ac045ab0", berlin: "photo-1554072675-66db59dba46f"
+  neuschwanstein: "photo-1557067175-db3159d938ac", brandenburg: "photo-1587330979470-3595ac045ab0", berlin: "photo-1554072675-66db59dba46f",
+  petra: "photo-1580834341580-8c17a3a630ca", dubai: "photo-1512453979798-5ea266f8880c", petra2: "photo-1548786811-dd6e453ccca7"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
   en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."],
   zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"],
   ko: ["천 리 길도 한 걸음부터.", "시작이 반이다.", "티끌 모아 태산.", "배움에는 끝이 없다.", "꾸준함이 재능을 이긴다."],
-  de: ["Übung macht den Meister.", "Aller Anfang ist schwer.", "Steter Tropfen höhlt den Stein.", "Man lernt nie aus.", "Kleine Schritte sind auch Schritte."]
+  de: ["Übung macht den Meister.", "Aller Anfang ist schwer.", "Steter Tropfen höhlt den Stein.", "Man lernt nie aus.", "Kleine Schritte sind auch Schritte."],
+  ar: ["من جدّ وجد، ومن زرع حصد.", "العلم نور.", "لكل مجتهد نصيب.", "الصبر مفتاح الفرج.", "خطوة بخطوة تصل إلى هدفك."]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -906,7 +913,15 @@ const KUTIPAN2 = {
     ["Man lernt nie aus.", "Belajar tidak pernah selesai."],
     ["Kleine Schritte sind auch Schritte.", "Langkah kecil tetaplah langkah."],
     ["Wer rastet, der rostet.", "Siapa yang berhenti, akan berkarat."],
-    ["Wo ein Wille ist, ist auch ein Weg.", "Di mana ada kemauan, di situ ada jalan."]]
+    ["Wo ein Wille ist, ist auch ein Weg.", "Di mana ada kemauan, di situ ada jalan."]],
+  ar: [
+    ["من جدّ وجد، ومن زرع حصد.", "Siapa bersungguh-sungguh akan mendapat, siapa menanam akan menuai."],
+    ["العلم نور.", "Ilmu adalah cahaya."],
+    ["لكل مجتهد نصيب.", "Setiap orang yang tekun punya bagiannya."],
+    ["الصبر مفتاح الفرج.", "Sabar adalah kunci kelapangan."],
+    ["خطوة بخطوة تصل إلى هدفك.", "Selangkah demi selangkah kamu sampai ke tujuanmu."],
+    ["قليلٌ دائمٌ خيرٌ من كثيرٍ منقطع.", "Sedikit tapi terus-menerus lebih baik daripada banyak tapi terputus."],
+    ["التكرار يعلّم الشطّار.", "Pengulangan mengajari orang yang pandai."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -1032,12 +1047,37 @@ const KATA = {
     ["teuer", "kata sifat", "mahal", "Der Kaffee ist hier teuer.", "Kopi di sini mahal."],
     ["der Termin", "kata benda", "janji temu", "Ich habe morgen einen Termin.", "Saya punya janji temu besok."],
     ["das Wochenende", "kata benda", "akhir pekan", "Am Wochenende schlafe ich lange.", "Akhir pekan saya tidur lama."],
-    ["Auf Wiedersehen", "ungkapan", "sampai jumpa", "Auf Wiedersehen, bis morgen!", "Sampai jumpa, sampai besok!"]]
+    ["Auf Wiedersehen", "ungkapan", "sampai jumpa", "Auf Wiedersehen, bis morgen!", "Sampai jumpa, sampai besok!"]],
+  ar: [
+    ["بَيْت", "kata benda", "rumah", "هَذَا بَيْتٌ.", "Ini rumah."],
+    ["كِتَاب", "kata benda", "buku", "هَذَا كِتَابٌ جَمِيلٌ وَكَبِيرٌ.", "Ini buku yang bagus dan besar."],
+    ["شُكْرًا", "ungkapan", "terima kasih", "شُكْرًا جَزِيلًا!", "Terima kasih banyak!"],
+    ["صَبَاحُ الخَيْرِ", "ungkapan", "selamat pagi", "صَبَاحُ الخَيْرِ يَا لَيْلَى!", "Selamat pagi, Laila!"],
+    ["كَيْفَ", "kata tanya", "bagaimana", "كَيْفَ حَالُكِ اليَوْمَ؟", "Bagaimana kabarmu hari ini?"],
+    ["جَامِعَة", "kata benda", "universitas", "أَنَا فِي المَقْهَى قُرْبَ الجَامِعَةِ.", "Saya di kafe dekat universitas."],
+    ["هُنَا", "kata keterangan", "di sini", "الفَصْلُ هُنَا، وَالحَمَّامُ هُنَاكَ.", "Kelasnya di sini, kamar mandinya di sana."],
+    ["سُؤَال", "kata benda", "pertanyaan", "عِنْدِي سُؤَالٌ يَا خَالِدُ.", "Saya punya pertanyaan, Khalid."],
+    ["اِسْمِي", "ungkapan", "nama saya", "اِسْمِي رِينَا.", "Nama saya Rina."],
+    ["فُنْدُق", "kata benda", "hotel", "عَفْوًا، أَيْنَ الفُنْدُقُ؟", "Permisi, hotelnya di mana?"],
+    ["جَرِيدَة", "kata benda", "koran", "أَنَا فِي البَيْتِ، أَقْرَأُ الجَرِيدَةَ.", "Aku di rumah, sedang membaca koran."],
+    ["مَخْرَج", "kata benda", "pintu keluar", "مِنْ فَضْلِكَ، أَيْنَ المَخْرَجُ؟", "Permisi, pintu keluarnya di mana?"],
+    ["كَبِير", "kata sifat", "besar", "هَلِ المَكْتَبَةُ كَبِيرَةٌ؟", "Apakah perpustakaannya besar?"],
+    ["أُسْبُوع", "kata benda", "minggu (pekan)", "نَدْرُسُ يَوْمَيْنِ فِي الأُسْبُوعِ.", "Kami belajar dua hari dalam seminggu."],
+    ["جَمِيل", "kata sifat", "indah", "هَذَا مَكَانٌ جَمِيلٌ. شُكْرًا!", "Ini tempat yang indah. Terima kasih!"],
+    ["دَرْس", "kata benda", "pelajaran", "الدَّرْسُ يَوْمَ الثُّلَاثَاءِ.", "Pelajarannya hari Selasa."],
+    ["خُبْز", "kata benda", "roti", "هَلْ عِنْدَكُمْ حَلِيبٌ وَخُبْزٌ؟", "Apakah kalian punya susu dan roti?"],
+    ["شَاي", "kata benda", "teh", "الشَّايُ بِخَمْسَةِ رِيَالَاتٍ.", "Teh lima riyal."],
+    ["هَاتِف", "kata benda", "telepon", "أَيْنَ هَاتِفِي؟ هَلْ هُوَ عِنْدَكِ؟", "Di mana ponselku? Apakah ada padamu?"],
+    ["طَالِب", "kata benda", "pelajar; mahasiswa", "كَمْ طَالِبًا فِي صَفِّكَ؟", "Ada berapa pelajar di kelasmu?"],
+    ["مَكْتَب", "kata benda", "kantor", "هَلِ المُدِيرُ فِي المَكْتَبِ؟", "Apakah direktur di kantor?"],
+    ["غُرْفَة", "kata benda", "kamar", "هَذِهِ غُرْفَتُكَ يَا بَايُو.", "Ini kamarmu, Bayu."],
+    ["العَرَبِيَّة", "kata benda", "bahasa Arab", "تَتَكَلَّمِينَ العَرَبِيَّةَ جَيِّدًا!", "Kamu berbicara bahasa Arab dengan baik!"],
+    ["أُرِيدُ", "kata kerja", "saya mau", "أُرِيدُ شَايًا وَخُبْزًا، مِنْ فَضْلِكِ.", "Saya mau teh dan roti, tolong."]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE", ar: "ar-SA" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
