@@ -205,6 +205,67 @@ textarea.in{height:auto;min-height:110px;padding:9px 11px;line-height:1.5;resize
 
 /* standalone timer */
 body.solo .wrap{max-width:none;padding:6px}
+/* lima */
+.l-grid{display:grid;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:12px}
+.l-kartu{display:flex;flex-direction:column;min-width:0;padding:16px}
+.l-kartu.on{background:var(--surface)}
+.l-atas{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.l-ikon{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px;background:var(--canvas);color:var(--ink)}
+.l-ikon svg{width:18px;height:18px}
+.l-kartu.on .l-ikon{background:var(--ink);border-color:var(--ink);color:var(--canvas)}
+.l-kartu h3{margin:12px 0 4px;font:400 25px/1.1 var(--serif);letter-spacing:-.01em}
+.l-kartu p{margin:0 0 14px;font-size:13.5px;line-height:1.4;color:var(--ink-2);min-height:38px;flex:1}
+.l-titik{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.l-titik span{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;color:var(--muted)}
+.l-titik i{display:block;width:100%;max-width:22px;aspect-ratio:1;border-radius:6px;background:var(--h1)}
+.l-titik .fut i{background:var(--h0)}
+.l-titik .on i{background:var(--ink)}
+.l-titik .now{color:var(--ink);font-weight:600}
+.l-titik .now:not(.on) i{background:var(--canvas);box-shadow:inset 0 0 0 1.5px var(--accent)}
+.l-kartu .btn{width:100%}
+.l-minggu{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:13px 16px}
+.l-minggu-t{font-size:14px;white-space:nowrap}
+.l-minggu-t b{font:400 24px/1 var(--serif);margin-right:4px;font-variant-numeric:tabular-nums}
+.l-minggu .bar{flex:1;min-width:120px;margin:0}
+/* lima kartu tanpa celah kosong: di HP kartu kelima selebar dua kolom, di kolom sedang 3 kartu di atas dan 2 di bawah */
+.l-kartu:last-child{grid-column:1/-1}
+@media (min-width:640px){.l-grid{grid-template-columns:repeat(6,minmax(0,1fr))}.l-kartu,.l-kartu:last-child{grid-column:span 2}.l-kartu:nth-child(n+4){grid-column:span 3}}
+@media (min-width:1000px){.l-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.l-kartu,.l-kartu:last-child,.l-kartu:nth-child(n+4){grid-column:auto}}
+@media (max-width:420px){.l-kartu{padding:13px}.l-kartu h3{font-size:22px}}
+/* /lima */
+/* kamus */
+.km{display:grid;grid-template-columns:1fr;border:1px solid var(--line);border-radius:var(--r-panel);background:var(--canvas);overflow:hidden}
+.km-foto{position:relative;min-height:230px;background-size:cover;background-position:center 55%;background-color:#1c1c1e;display:flex;align-items:flex-end}
+.km-foto::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,19,.3) 0%,rgba(17,17,19,.82) 100%)}
+.km-foto::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--sig)}
+.km-isi{position:relative;width:100%;padding:22px 24px 26px;color:#fff}
+.km-isi h1{margin:8px 0 6px;font:400 clamp(30px,3.6vw,44px)/1.05 var(--serif);letter-spacing:-.01em;text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.km-isi h1 em{font-style:italic}
+.km-isi p{margin:0 0 14px;font-size:14.5px;color:rgba(255,255,255,.86)}
+.km-cari{width:100%;max-width:460px;height:44px;padding:0 14px;border:1px solid rgba(255,255,255,.5);border-radius:var(--r-button);background:#fff;color:#1c1c1e;font-size:16px;outline:0}
+.km-cari::placeholder{color:#636367}
+.km-cari:focus{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.3)}
+.km-kanan{display:flex;flex-direction:column;min-width:0}
+.km-atas{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:14px 18px 12px;border-bottom:1px solid var(--line)}
+.km-tab{display:inline-flex;gap:2px;padding:3px;border-radius:10px;background:var(--control)}
+.km-tab button{height:30px;padding:0 12px;border:0;border-radius:8px;background:none;font-size:13px;font-weight:500;color:var(--ink-2)}
+.km-tab button.on{background:var(--canvas);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.km-daftar{flex:1;height:296px;max-height:296px;overflow-y:auto;overscroll-behavior:contain}
+.km-baris{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) 34px 34px;align-items:center;gap:10px;padding:7px 18px;border-bottom:1px solid var(--line);min-height:56px}
+.km-baris:last-of-type{border-bottom:0}
+.km-baris b{font:600 24px/1.7 "Noto Naskh Arabic","Geeza Pro","Traditional Arabic","Segoe UI",var(--sans);overflow-wrap:anywhere}
+.km-baris b:lang(ar){direction:rtl;unicode-bidi:isolate;text-align:left;letter-spacing:0}
+.km-baris span{font-size:14.5px;color:var(--ink-2);overflow-wrap:anywhere}
+.km-baris small{display:block;font-size:12px;color:var(--muted)}
+.km-tanda.on{background:var(--ink);border-color:var(--ink);color:var(--canvas)}
+.km-tanda.on svg{fill:currentColor}
+.km-kosong{padding:26px 22px;font-size:14px;line-height:1.5;color:var(--muted);text-align:center}
+.km-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr) auto;gap:8px;padding:12px 18px 14px;border-top:1px solid var(--line);background:var(--surface);position:sticky;bottom:0}
+.km-form .in{min-width:0;font-size:16px}
+@media (min-width:720px){.km{grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)}.km-foto{min-height:356px}.km-isi{padding:26px 28px 30px}}
+@media (max-width:460px){.km-baris{grid-template-columns:minmax(0,1fr) 34px 34px;padding:8px 14px}.km-baris b{grid-column:1}.km-baris span{grid-column:1;grid-row:2;margin-top:-8px}.km-baris .icon-btn{grid-row:1/3}
+  .km-form{grid-template-columns:1fr 1fr}.km-form .btn{grid-column:1/-1}.km-atas{padding:12px 14px}}
+/* /kamus */
 /* jurnal */
 body.jurnal .wrap{max-width:none;padding:6px}
 body.jurnal .top{margin-bottom:12px;padding:4px 4px 0}
@@ -1114,6 +1175,178 @@ function tutupHTML() {
   </section>`;
 }
 
+/* ---------- lima latihan harian (?v=lima&k=<kunci>&judul=<judul>&bg=<foto>) ---------- */
+// Untuk halaman yang isinya lima ruang latihan (Reading, Writing, Listening, Speaking, Vocabulary), misalnya Daily Arabic.
+// Tiap hari pelajar menandai latihan mana yang sudah dikerjakan; tujuh titik menunjukkan minggu ini.
+const LIMA = params.get("v") === "lima";
+const LK = "dch:lima:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
+const L_SVG = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+// [kunci, nama di halaman Notion, nama Indonesia, ikon, ide latihan yang bergilir tiap hari]
+const L_SKILL = [
+  ["r", "Reading Time", "Membaca", L_SVG('<path d="M12 6c-2-1.3-4.5-2-8-2v14c3.5 0 6 .7 8 2 2-1.3 4.5-2 8-2V4c-3.5 0-6 .7-8 2z"/><path d="M12 6v14"/>'),
+    ["Baca satu cerita pendek", "Baca satu halaman dengan suara keras", "Baca ulang bacaan kemarin", "Baca satu paragraf lalu ceritakan isinya"]],
+  ["w", "Writing Time", "Menulis", L_SVG('<path d="M4 20l1-4.5L16.5 4a2.1 2.1 0 0 1 3 3L8 18.5z"/><path d="M14.5 6l3 3"/>'),
+    ["Tulis tiga kalimat tentang hari ini", "Salin satu paragraf dari bacaan", "Tulis lima kata baru dengan harakat", "Tulis ulang satu percakapan pendek"]],
+  ["l", "Listening Time", "Mendengar", L_SVG('<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/>'),
+    ["Dengarkan satu video pendek", "Dengarkan lalu tulis kata yang tertangkap", "Putar ulang satu audio dua kali", "Dengarkan tanpa melihat teks"]],
+  ["s", "Speaking Time", "Berbicara", L_SVG('<path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4.5 4v-4H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/>'),
+    ["Ucapkan lima kalimat dengan suara keras", "Tirukan satu percakapan", "Rekam suaramu satu menit", "Ceritakan kegiatanmu hari ini"]],
+  ["v", "Vocabulary", "Kosakata", L_SVG('<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h4"/>'),
+    ["Hafal lima kata baru", "Ulang kata yang dihafal kemarin", "Buat kalimat dari tiga kata baru", "Tutup artinya lalu tebak sepuluh kata"]]
+];
+const lima = () => Object.assign({ d: {} }, LS.get(LK, {}));
+function limaHTML() {
+  const p = lima(), now = new Date(), tk = today(), ws = weekStart(), hi = p.d[tk] || {};
+  const nHari = L_SKILL.filter(s => hi[s[0]]).length, pct = nHari / L_SKILL.length;
+  const hari = HARI.map((n, i) => { const x = new Date(ws); x.setDate(x.getDate() + i); const k = dkey(x); return { n, k, now: k === tk, fut: x > now }; });
+  const minggu = hari.reduce((a, h) => a + L_SKILL.filter(s => (p.d[h.k] || {})[s[0]]).length, 0);
+  const aktif = k => L_SKILL.some(s => (p.d[k] || {})[s[0]]);
+  const d = new Date(); let st = 0; if (!aktif(dkey(d))) d.setDate(d.getDate() - 1);
+  while (aktif(dkey(d))) { st++; d.setDate(d.getDate() - 1); }
+  const adaRiwayat = Object.keys(p.d).some(aktif);
+  const jam = now.getHours(), salam = jam < 11 ? "Selamat pagi" : jam < 15 ? "Selamat siang" : jam < 19 ? "Selamat sore" : "Selamat malam";
+  const sub = !nHari ? "Pilih satu latihan untuk memulai hari ini." : pct === 1 ? "Lima latihan hari ini beres." : `${nHari} dari ${L_SKILL.length} latihan hari ini selesai`;
+  const R = 26, C = 2 * Math.PI * R;
+  const centang = I.check.replace('stroke-width="3"', 'stroke-width="2.4"');
+  const judul = params.get("judul") || "Latihan harian";
+  const bg = `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.skyline}?auto=format&fit=crop&w=1920&q=80`;
+  return `
+  <section class="p-hero" style="background-image:url('${bg}')">
+    <div class="p-hero-l">
+      <span class="p-salam">${salam} · ${HARI_PANJANG[now.getDay()]}, ${now.getDate()} ${BULAN_PANJANG[now.getMonth()]}</span>
+      <h1>${titleHTML(judul)}</h1>
+      <p>${sub}</p>
+    </div>
+    <div class="p-hero-r">
+      <div class="p-ring" title="Latihan hari ini: ${nHari} dari ${L_SKILL.length}">
+        <svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="5"/>
+          <circle cx="32" cy="32" r="${R}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${(C * (1 - pct)).toFixed(2)}"/></svg>
+        <b>${pct === 1 ? I.check : nHari + "/" + L_SKILL.length}</b>
+      </div>
+      ${adaRiwayat ? `<div class="p-streak"><b>${st}</b><span>hari beruntun</span></div>`
+        : `<div class="p-streak"><b>${L_SKILL.length}</b><span>latihan tiap hari</span></div>`}
+    </div>
+  </section>
+  <div class="l-grid">
+    ${L_SKILL.map(([k, nama, id, ikon, ide]) => { const on = !!hi[k]; return `<div class="card l-kartu${on ? " on" : ""}">
+      <div class="l-atas"><span class="l-ikon">${ikon}</span><span class="label">${id}</span></div>
+      <h3>${nama}</h3>
+      <p>${esc(ide[hariKe() % ide.length])}</p>
+      <div class="l-titik" role="img" aria-label="${id} minggu ini">${hari.map(h => `<span class="${(p.d[h.k] || {})[k] ? "on" : ""}${h.now ? " now" : ""}${h.fut ? " fut" : ""}" title="${h.n}"><i></i>${h.n[0]}</span>`).join("")}</div>
+      <button class="btn${on ? "" : " primary"}" data-act="l-cek" data-b="${k}" aria-pressed="${on}">${on ? centang + "Selesai hari ini" : "Tandai selesai"}</button>
+    </div>`; }).join("")}
+  </div>
+  <div class="card l-minggu">
+    <span class="l-minggu-t"><b>${minggu}</b> dari ${L_SKILL.length * 7} latihan minggu ini</span>
+    <div class="bar"><i style="width:${(minggu / (L_SKILL.length * 7) * 100).toFixed(1)}%"></i></div>
+    <span class="label">${minggu ? "Tiap titik yang terisi = satu latihan selesai" : "Titik di tiap kartu terisi saat latihan ditandai selesai"}</span>
+  </div>`;
+}
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act='l-cek']"); if (!el) return;
+  const p = lima(), tk = today(), k = el.dataset.b;
+  p.d[tk] = p.d[tk] || {};
+  if (p.d[tk][k]) delete p.d[tk][k]; else p.d[tk][k] = 1;
+  if (!Object.keys(p.d[tk]).length) delete p.d[tk];
+  LS.set(LK, p); render();
+});
+/* ---------- akhir lima ---------- */
+/* ---------- kamus saku (?v=kamus&bahasa=ar&k=<kunci>&judul=<judul>&bg=<foto>) ---------- */
+// Untuk halaman perpustakaan (Library): cari kata dari kosakata produk, dengarkan, simpan,
+// dan tambah kata sendiri yang ditemukan saat membaca. Isi KAMUS dibuat oleh alat/buat-kamus.cjs dari kosakata app Foundation.
+const KAMUS_V = params.get("v") === "kamus";
+const KK = "dch:kamus:" + (params.get("k") || "umum").replace(/[^\w-]/g, "").slice(0, 40);
+const KAMUS = {
+  ar: [["بَيْت","rumah"],["بَاب","pintu"],["قَلَم","pena"],["نُور","cahaya"],["سَمَك","ikan"],["وَرَق","kertas"],["لَيْل","malam"],["يَوْم","hari"],["تِين","buah tin"],["ثَلْج","salju; es"],["جَبَل","gunung"],["شَجَرَة","pohon"],["فِيل","gajah"],["نَهْر","sungai"],["يَد","tangan"],["غَيْم","awan"],["خَيْط","benang"],["دَار","rumah; tempat tinggal"],["وَرْدَة","bunga mawar"],["دَوَاء","obat"],["زَوْج","suami"],["رِجْل","kaki"],["وَزِير","menteri"],["أَرُزّ","beras; nasi"],["ذُرَة","jagung"],["بَرِيد","pos (surat)"],["سَلَام","salam; damai"],["لَاعِب","pemain"],["فَلَّاح","petani"],["مَلَابِس","pakaian"],["عَيْن","mata"],["نَهَار","siang hari"],["غَدَاء","makan siang"],["بِلَاد","negeri"],["دَفْتَر","buku tulis"],["مِمْحَاة","penghapus"],["مِسْطَرَة","penggaris"],["سَبُّورَة","papan tulis"],["حِبْر","tinta"],["مِبْرَاة","rautan"],["خَطّ","tulisan tangan; garis"],["اِسْم","nama"],["مَقْهَى","kafe; kedai kopi"],["مَعْنَى","arti"],["مَاء","air"],["أَرْض","bumi; tanah"],["أُسْرَة","keluarga"],["رَئِيس","ketua; presiden"],["سُؤَال","pertanyaan"],["آلَة","alat; mesin"],["أَرْبَعَة","empat"],["حَاسُوب","komputer"],["شَاشَة","layar"],["زِرّ","tombol"],["سَطْر","baris"],["نُقْطَة","titik"],["مَوْقِع","situs; lokasi"],["حَرْف","huruf"],["كِتَابَة","tulisan"],["دَرْس","pelajaran"],["شَمْس","matahari"],["كَتَبَ","dia (lk) menulis"],["فَتَحَ","dia (lk) membuka"],["سَمِعَ","dia (lk) mendengar"],["عَمَل","pekerjaan"],["قَمَر","bulan"],["مِلْح","garam"],["حُلْم","mimpi"],["كِتَاب","buku"],["جَمَل","unta"],["جَمَال","keindahan"],["قَدِيم","lama; kuno"],["فُلُوس","uang"],["سَعِيد","bahagia"],["كَرِيم","dermawan"],["طَرِيق","jalan"],["حَمَّام","kamar mandi"],["دُكَّان","toko; warung"],["سُكَّر","gula"],["نَجَّار","tukang kayu"],["خَبَّاز","tukang roti"],["شُكْرًا","terima kasih"],["عَفْوًا","sama-sama; maaf"],["أَهْلًا","halo; selamat datang"],["جِدًّا","sangat"],["حَلِيب","susu"],["خُبْز","roti"],["عَالَم","dunia"],["أَلَم","rasa sakit"],["حَال","keadaan"],["خَال","paman (saudara ibu)"],["عَشَاء","makan malam"],["هَوَاء","udara"],["صَبَاح","pagi"],["طَالِب","pelajar; mahasiswa"],["ضَيْف","tamu"],["طَعَام","makanan"],["صَدِيق","teman"],["بَيْض","telur"],["مَرِيض","sakit; orang sakit"],["نَظِيف","bersih"],["قَلْب","hati; jantung"],["كَلْب","anjing"],["ثَوْب","baju panjang; jubah"],["ذَهَب","emas"],["زَيْت","minyak"],["شَاي","teh"],["فُنْدُق","hotel"],["ثَمَن","harga"],["ذَكِيّ","pintar"],["قَامُوس","kamus"],["مَجَلَّة","majalah"],["وَقْت","waktu"],["مَسْجِد","masjid"],["خَبَر","berita"],["عِلْم","ilmu"],["فِكْر","pikiran"],["صَبْر","kesabaran"],["عَقْل","akal"],["أَنَا","saya"],["مَدْرَسَة","sekolah"],["جَامِعَة","universitas"],["بَلَد","negeri; negara"],["لُغَة","bahasa"],["جَوَاب","jawaban"],["مَسَاء","sore"],["لَوْن","warna"],["سَيَّارَة","mobil"],["طَائِرَة","pesawat"],["مَحَطَّة","stasiun"],["حَدِيقَة","taman"],["مَدِينَة","kota"],["شَارِع","jalan"],["سُوق","pasar"],["غُرْفَة","kamar"],["القَهْوَة","kopi"],["العَصِير","jus"],["الجُبْن","keju"],["الشَّاي","teh"],["السُّكَّر","gula"],["الدَّجَاج","ayam"],["اللَّحْم","daging"],["التُّفَّاح","apel"],["رِسَالَة","pesan, surat"],["هَاتِف","telepon"],["جَرِيدَة","koran"],["خَرِيطَة","peta"],["مَوْعِد","janji temu"],["سَاعَة","jam"],["أُسْبُوع","minggu (pekan)"],["لَيْلَة","malam"],["صَوْت","suara"],["وَجْه","wajah"],["فَاكِهَة","buah"],["مِيَاه","air (jamak)"],["صَيْف","musim panas"],["ظُهْر","tengah hari"],["نَظَّارَة","kacamata"],["رِحْلَة","perjalanan"],["مَفْتُوح","buka, terbuka"],["مُغْلَق","tutup, tertutup"],["مَمْنُوع","dilarang"],["صَيْدَلِيَّة","apotek"],["اِسْتِقْبَال","resepsionis"],["يَمِين","kanan"],["يَسَار","kiri"],["بَوَّابَة","gerbang"],["مُغَادَرَة","keberangkatan"],["وُصُول","kedatangan"],["اِسْتِمَارَة","formulir"],["جِنْسِيَّة","kewarganegaraan"],["عُنْوَان","alamat"],["تَارِيخ","tanggal"],["مِيلَاد","kelahiran"],["لَقَب","nama keluarga, gelar"],["تَوْقِيع","tanda tangan"],["مِهْنَة","pekerjaan, profesi"],["شَرِبَ","minum (fi'l)"],["جَلَسَ","duduk (fi'l)"],["سَرِيع","cepat (ism)"],["صَغِير","kecil (ism)"],["طَاوِلَة","meja (ism)"],["نَافِذَة","jendela (ism)"],["إِلَى","ke (harf)"],["عَلَى","di atas (harf)"],["ثُمَّ","lalu (harf)"],["لَعِبَ","bermain"],["مَلْعَب","lapangan, stadion"],["عَمِلَ","bekerja"],["عَامِل","pekerja"],["مَعْمَل","laboratorium"],["طَبَخَ","memasak"],["طَبَّاخ","juru masak"],["مَطْبَخ","dapur"],["مَشْرُوب","minuman"],["طَبِيب","dokter (lk)"],["طَبِيبَة","dokter (pr)"],["مُمَرِّض","perawat (lk)"],["مُمَرِّضَة","perawat (pr)"],["مُوَظَّف","pegawai (lk)"],["مُوَظَّفَة","pegawai (pr)"],["مَالِيزِيّ","orang Malaysia (lk)"],["مَالِيزِيَّة","orang Malaysia (pr)"],["سُعُودِيَّة","orang Saudi (pr)"],["مِظَلَّة","payung"],["كُرْسِيّ","kursi"],["هَدِيَّة","hadiah"],["قَمِيص","kemeja"],["حِذَاء","sepatu"],["دَرَّاجَة","sepeda"],["صُنْدُوق","kotak"],["مِفْتَاح","kunci"],["بِطَاقَة","kartu"],["أَوْلَاد","anak-anak (lk)"],["بَنَات","anak-anak perempuan"],["دُرُوس","pelajaran-pelajaran"],["كُتُب","buku-buku"],["رِجَال","para laki-laki"],["مُعَلِّمُونَ","para guru (lk)"],["مُعَلِّمَات","para guru (pr)"],["يَوْمَانِ","dua hari"],["طَالِبَتَانِ","dua pelajar perempuan"],["أَنْتَ","kamu (lk)"],["هُوَ","dia (lk)"],["هِيَ","dia (pr)"],["نَحْنُ","kami, kita"],["هُمْ","mereka (lk)"],["مِنْ","dari"],["مَعَ","bersama"],["عِنْدَ","pada, di (punya)"],["تَحْتَ","di bawah"],["فَوْقَ","di atas"],["بَيْنَ","di antara"],["مُهَنْدِس","insinyur"],["مَطْعَم","restoran"],["فَصْل","kelas"],["مُدِير","direktur"],["قَرِيب","dekat"],["مُدَرِّس","guru (laki-laki)"],["مَشْغُول","sibuk"],["جَائِع","lapar"],["هَذَا","ini (maskulin)"],["هَذِهِ","ini (feminin)"],["كَبِير","besar"],["جَدِيد","baru"],["جَمِيل","indah"],["بَعِيد","jauh"],["سَرِير","tempat tidur"],["وَاسِع","luas"],["هَلْ","apakah"],["مَا","apa (sebelum nomina)"],["مَاذَا","apa (sebelum verba)"],["مَنْ","siapa"],["أَيْنَ","di mana"],["مِنْ أَيْنَ","dari mana"],["كَيْفَ","bagaimana"],["كَمْ","berapa"],["مَتَى","kapan"],["نَعَمْ","ya"],["لَا","tidak"],["عُمْر","umur"],["لَسْتُ","saya bukan"],["لَيْسَ","dia (laki-laki) bukan"],["لَيْسَتْ","dia (perempuan) bukan"],["هُنَا","di sini"],["مِصْرِيّ","orang Mesir (laki-laki)"],["يَابَانِيّ","orang Jepang (laki-laki)"],["سُعُودِيّ","orang Saudi (laki-laki)"],["تُرْكِيّ","orang Turki (laki-laki)"],["لُبْنَانِيّ","orang Lebanon (laki-laki)"],["أَدْرُسُ","saya belajar"],["أَسْكُنُ","saya tinggal"],["أَعْمَلُ","saya bekerja"],["أَكْتُبُ","saya menulis"],["أَفْهَمُ","saya mengerti"],["أَتَكَلَّمُ","saya berbicara"],["أَعْرِفُ","saya tahu"],["تَتَكَلَّمِينَ","kamu (perempuan) berbicara"],["بَنْك","bank"],["شَرِكَة","perusahaan"],["العَرَبِيَّة","bahasa Arab"],["الفَرَنْسِيَّة","bahasa Prancis"],["أُسْتَاذ","guru, dosen (laki-laki)"],["مَكْتَب","kantor"],["مَطَار","bandara"],["طَابِق","lantai"],["وِزَارَة","kementerian"],["تَعْلِيم","pendidikan"],["بِجَانِب","di samping"],["عَاصِمَة","ibu kota"],["لَكِنْ","tetapi"],["جَيِّدًا","dengan baik"],["مُسْتَشْفَى","rumah sakit"],["أَيْضًا","juga"],["فِي","di, dalam"],["طُلَّاب","para mahasiswa"],["صَحِيح","benar"],["خَطَأ","kesalahan"],["جُمْلَة","kalimat"],["السَّلَامُ عَلَيْكُمْ","assalamualaikum (salam umum)"],["وَعَلَيْكُمُ السَّلَامُ","waalaikumsalam (jawaban salam)"],["مَرْحَبًا","halo"],["أَهْلًا وَسَهْلًا","selamat datang"],["صَبَاحُ الخَيْرِ","selamat pagi"],["صَبَاحُ النُّورِ","selamat pagi (jawaban)"],["مَسَاءُ الخَيْرِ","selamat sore/malam"],["مَسَاءُ النُّورِ","selamat sore/malam (jawaban)"],["مَعَ السَّلَامَةِ","selamat jalan"],["إِلَى اللِّقَاءِ","sampai jumpa"],["اِسْمِي","nama saya"],["تَشَرَّفْنَا","senang berkenalan"],["إِنْدُونِيسِيّ","orang Indonesia (laki-laki)"],["قَلِيلًا","sedikit"],["الإِنْجِلِيزِيَّة","bahasa Inggris"],["وَأَنْتَ؟","dan kamu (laki-laki)?"],["فَقَطْ","hanya, saja"],["الطِّبّ","ilmu kedokteran"],["صِفْر","nol (0)"],["وَاحِد","satu (1)"],["اِثْنَان","dua (2)"],["ثَلَاثَة","tiga (3)"],["خَمْسَة","lima (5)"],["سِتَّة","enam (6)"],["سَبْعَة","tujuh (7)"],["ثَمَانِيَة","delapan (8)"],["تِسْعَة","sembilan (9)"],["عَشَرَة","sepuluh (10)"],["رَقْم","nomor"],["الأَحَد","hari Minggu (Ahad)"],["الاِثْنَيْن","hari Senin"],["الثُّلَاثَاء","hari Selasa"],["الأَرْبِعَاء","hari Rabu"],["الخَمِيس","hari Kamis"],["الجُمُعَة","hari Jumat"],["السَّبْت","hari Sabtu"],["غَدًا","besok"],["أَمْسِ","kemarin"],["كَمِ السَّاعَةُ؟","jam berapa?"],["نِصْف","setengah"],["أَب","ayah"],["أُمّ","ibu"],["أَخ","saudara laki-laki"],["أُخْت","saudara perempuan"],["اِبْن","anak laki-laki"],["بِنْت","anak perempuan"],["عَائِلَة","keluarga"],["صُورَة","foto, gambar"],["حَقِيبَة","tas"],["أُرِيدُ","saya mau"],["بِكَمْ هَذَا؟","berapa harganya?"],["أَعِدْ مِنْ فَضْلِكَ","ulangi, tolong (kepada laki-laki)"],["أَعِيدِي مِنْ فَضْلِكِ","ulangi, tolong (kepada perempuan)"],["بِبُطْءٍ","pelan-pelan"],["كَلِمَة","kata"],["مَاذَا تَعْنِي؟","apa artinya?"],["كِيس","kantong plastik"],["مَخْرَج","pintu keluar"],["مَدْخَل","pintu masuk"],["مَمْنُوع التَّدْخِين","dilarang merokok"],["رِيَال","riyal (mata uang)"],["كُلِّيَّة","fakultas"],["لَهْجَة","dialek"],["الفُصْحَى","bahasa Arab baku (MSA)"],["تَاكْسِي","taksi"],["هُنَاكَ","di sana"]]
+};
+const K_SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const K_TANDA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v17l-6-4.5L6 21z"/></svg>';
+let kTab = "cari", kQ = "";
+const kBahasa = () => KAMUS[params.get("bahasa")] ? params.get("bahasa") : "ar";
+const kNorm = t => String(t).replace(/[ً-ْٰـ]/g, "").toLowerCase().trim(); // harakat dan tatwil tidak ikut dicocokkan
+const kSimpan = () => Object.assign({ s: [] }, LS.get(KK, {})).s; // [kata, arti, 1 kalau kata sendiri]
+function kamusCari(q) {
+  const n = kNorm(q), pas = [], awal = [], isi = [];
+  for (const x of KAMUS[kBahasa()]) {
+    const id = x[1].toLowerCase(), k = kNorm(x[0]);
+    if (id === n || k === n) pas.push(x); else if (id.startsWith(n) || k.startsWith(n)) awal.push(x); else if (id.includes(n) || k.includes(n)) isi.push(x);
+  }
+  return pas.concat(awal, isi).slice(0, 40);
+}
+function kamusKanan() {
+  const L = kBahasa(), semua = KAMUS[L], s = kSimpan(), ada = x => s.some(y => y[0] === x[0] && y[1] === x[1]);
+  const baris = x => `<div class="km-baris">
+      <b lang="${L}">${esc(x[0])}</b><span>${esc(x[1])}${x[2] ? '<small>kata sendiri</small>' : ""}</span>
+      <button class="icon-btn" data-act="ucap" data-t="${esc(x[0])}" aria-label="Dengarkan ${esc(x[1])}" title="Dengarkan">${K_SPK}</button>
+      <button class="icon-btn km-tanda${ada(x) ? " on" : ""}" data-act="k-simpan" data-a="${esc(x[0])}" data-i="${esc(x[1])}" aria-pressed="${ada(x)}" aria-label="${ada(x) ? "Hapus dari simpanan" : "Simpan"} ${esc(x[1])}" title="${ada(x) ? "Hapus dari simpanan" : "Simpan"}">${K_TANDA}</button>
+    </div>`;
+  let judul, isi;
+  if (kTab === "simpan") {
+    judul = s.length ? `${s.length} kata tersimpan` : "Belum ada kata tersimpan";
+    isi = (s.length ? s.slice().reverse().map(baris).join("") : `<div class="km-kosong">Tekan tanda simpan di samping kata, atau tambah kata yang kamu temukan saat membaca.</div>`) +
+      `<form class="km-form" id="k-form" autocomplete="off">
+        <input class="in" id="k-a" lang="${L}" dir="auto" maxlength="40" placeholder="Kata" aria-label="Kata baru">
+        <input class="in" id="k-i" maxlength="60" placeholder="Artinya" aria-label="Arti kata baru">
+        <button class="btn primary" type="submit">Tambah</button>
+      </form>`;
+  } else if (kNorm(kQ)) {
+    const h = kamusCari(kQ);
+    judul = h.length ? `${h.length} kata ditemukan` : "Tidak ditemukan";
+    isi = h.length ? h.map(baris).join("") : `<div class="km-kosong">Kata itu belum ada di kamus saku. Kamu bisa menambahkannya sendiri lewat tab Tersimpan.</div>`;
+  } else {
+    const n = 8, mulai = (hariKe() * n) % semua.length;
+    judul = "Kata untuk hari ini";
+    isi = Array.from({ length: n }, (_, i) => semua[(mulai + i) % semua.length]).map(baris).join("");
+  }
+  return `<div class="km-atas">
+      <div class="km-tab" role="tablist">
+        <button role="tab" aria-selected="${kTab === "cari"}" class="${kTab === "cari" ? "on" : ""}" data-act="k-tab" data-v="cari">Kamus</button>
+        <button role="tab" aria-selected="${kTab === "simpan"}" class="${kTab === "simpan" ? "on" : ""}" data-act="k-tab" data-v="simpan">Tersimpan${s.length ? " · " + s.length : ""}</button>
+      </div>
+      <span class="label">${judul}</span>
+    </div>
+    <div class="km-daftar">${isi}</div>`;
+}
+function kamusHTML() {
+  const judul = params.get("judul") || "Kamus saku";
+  const bg = `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.towerbridge}?auto=format&fit=crop&w=1400&q=80`;
+  return `<section class="km">
+    <div class="km-foto" style="background-image:url('${bg}')">
+      <div class="km-isi">
+        <span class="tutup-label">Kamus saku · ${KAMUS[kBahasa()].length} kata</span>
+        <h1>${titleHTML(judul)}</h1>
+        <p>Cari kata, dengarkan, lalu simpan yang mau kamu ingat.</p>
+        <input class="in km-cari" id="k-in" type="search" maxlength="40" enterkeyhint="search" autocomplete="off" placeholder="Cari kata, misalnya rumah" aria-label="Cari kata" value="${esc(kQ)}">
+      </div>
+    </div>
+    <div class="km-kanan" id="k-kanan">${kamusKanan()}</div>
+  </section>`;
+}
+const kamusSegar = () => { const k = $("#k-kanan"); if (k) k.innerHTML = kamusKanan(); };
+document.addEventListener("input", e => {
+  if (e.target.id !== "k-in") return;
+  kQ = e.target.value; kTab = "cari"; kamusSegar();
+});
+document.addEventListener("submit", e => {
+  if (e.target.id !== "k-form") return;
+  e.preventDefault();
+  const a = $("#k-a").value.trim().slice(0, 40), i = $("#k-i").value.trim().slice(0, 60);
+  if (!a || !i) { toast("Isi kata dan artinya dulu."); return; }
+  const s = kSimpan();
+  if (s.some(y => y[0] === a && y[1] === i)) { toast("Kata itu sudah tersimpan."); return; }
+  s.push([a, i, 1]); LS.set(KK, { s }); kamusSegar(); toast("Kata ditambahkan.");
+  const n = $("#k-a"); if (n) n.focus();
+});
+document.addEventListener("click", e => {
+  const el = e.target.closest("[data-act^='k-']"); if (!el) return;
+  if (el.dataset.act === "k-tab") { kTab = el.dataset.v; kamusSegar(); return; }
+  if (el.dataset.act === "k-simpan") {
+    const a = el.dataset.a, i = el.dataset.i, s = kSimpan(), n = s.findIndex(y => y[0] === a && y[1] === i);
+    if (n >= 0) s.splice(n, 1); else s.push([a, i]);
+    LS.set(KK, { s }); kamusSegar(); toast(n >= 0 ? "Dihapus dari simpanan." : "Kata disimpan.");
+  }
+});
+/* ---------- akhir kamus ---------- */
 /* ---------- jurnal 10 menit (?v=jurnal&k=<kunci>&bahasa=nl|en&judul=<judul>) ---------- */
 // Meja tulis untuk halaman "10 minutes journal": tema + pertanyaan pemancing, hitung mundur 10 menit, hitung kata.
 // Tulisan tersimpan di perangkat dan bisa disalin untuk ditempel ke halaman temanya di Notion.
@@ -1467,6 +1700,14 @@ function render() {
   applyTheme();
   if (SOLO) { document.body.classList.add("solo"); app.innerHTML = bandHTML(); return; }
   if (TUTUP) { document.body.classList.add("solo"); app.innerHTML = tutupHTML(); return; }
+  if (LIMA) { document.body.classList.add("papan"); app.innerHTML = limaHTML(); return; }
+  if (KAMUS_V) {
+    // kotak cari dipertahankan isinya dan fokusnya saat digambar ulang (misalnya lewat tengah malam)
+    const lama = $("#k-in"), fokus = !!lama && document.activeElement === lama;
+    document.body.classList.add("solo"); app.innerHTML = kamusHTML();
+    const baru = $("#k-in"); if (baru && fokus) baru.focus();
+    return;
+  }
   if (JURNAL) {
     // isi tulisan diambil dari simpanan; yang dipertahankan hanya fokus dan posisi kursor
     const lama = $("#j-teks"), fokus = !!lama && document.activeElement === lama, pos = lama ? [lama.selectionStart, lama.selectionEnd] : null;
