@@ -413,6 +413,11 @@ body.papan .wrap{max-width:none;padding:6px}
 .kata-row h2:lang(ko){font-weight:600;font-size:clamp(34px,3.8vw,46px);letter-spacing:-.01em}
 .kata-contoh em:lang(ko){font-size:18px}
 .band-q:lang(ko){font-size:15.5px}
+.band-q:lang(ja),.tutup-q blockquote:lang(ja),.kata-row h2:lang(ja),.kata-contoh em:lang(ja){font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo","Noto Sans JP","Noto Sans CJK JP",var(--sans);font-style:normal;letter-spacing:0}
+.tutup-q blockquote:lang(ja){font-weight:600;font-size:clamp(26px,2.9vw,36px);line-height:1.3}
+.kata-row h2:lang(ja){font-weight:600;font-size:clamp(32px,3.6vw,46px);line-height:1.25}
+.kata-contoh em:lang(ja){font-size:17px;line-height:1.6}
+.band-q:lang(ja){font-size:16px}
 .band-q:lang(ar),.tutup-q blockquote:lang(ar),.kata-row h2:lang(ar),.kata-contoh em:lang(ar){font-family:"Noto Naskh Arabic","Geeza Pro","Traditional Arabic","Segoe UI",var(--sans);font-style:normal;direction:rtl;unicode-bidi:isolate;text-align:left;letter-spacing:0}
 .tutup-q blockquote:lang(ar){font-weight:600;font-size:clamp(25px,2.7vw,35px);line-height:1.65}
 .kata-row h2:lang(ar){font-weight:600;font-size:clamp(38px,4.2vw,52px);line-height:1.5}
@@ -469,6 +474,10 @@ body.papan .wrap{max-width:none;padding:6px}
 @media (max-width:719px){.band.g-foto::before{background:rgba(17,17,19,.62)}}
 .band.g-foto .tabs,.band.g-foto .band-r div,.band.g-foto .btn:not(.primary){-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .band.g-foto .band-time{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+/* gerak: foto menyorot pelan dari atas ke bawah lalu kembali, 80 detik satu putaran */
+@keyframes sorot{from{background-position:center 25%}to{background-position:center 75%}}
+body.gerak .band.g-foto,body.gerak .tutup-foto,body.gerak .p-hero,body.gerak .km-foto{animation:sorot 40s ease-in-out var(--gerak-mulai,0s) infinite alternate}
+@media (prefers-reduced-motion:reduce){body.gerak .band.g-foto,body.gerak .tutup-foto,body.gerak .p-hero,body.gerak .km-foto{animation:none}}
 .band.g-malam{background:#1c1c1e}
 .band.g-malam::before{background:radial-gradient(closest-side,rgba(124,92,255,.26),transparent),radial-gradient(closest-side at 30% 70%,rgba(229,72,77,.16),transparent)}
 .band.g-malam::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.045) 1px,transparent 1px);background-size:14px 14px;pointer-events:none}
@@ -894,7 +903,8 @@ const FOTO = {
   neuschwanstein: "photo-1557067175-db3159d938ac", brandenburg: "photo-1587330979470-3595ac045ab0", berlin: "photo-1554072675-66db59dba46f",
   petra: "photo-1580834341580-8c17a3a630ca", dubai: "photo-1512453979798-5ea266f8880c", petra2: "photo-1548786811-dd6e453ccca7",
   sevilla: "photo-1509840841025-9088ba78a826", plaza: "photo-1688404808661-92f72f2ea258", barcelona: "photo-1583422409516-2895a77efded",
-  eiffel: "photo-1502602898657-3e91760cbb34", eiffel2: "photo-1431274172761-fca41d930114", kafe: "photo-1762597269801-a4232de6a8f2"
+  eiffel: "photo-1502602898657-3e91760cbb34", eiffel2: "photo-1431274172761-fca41d930114", kafe: "photo-1762597269801-a4232de6a8f2",
+  hutan: "photo-1601823984263-b87b59798b70", fuji: "photo-1526481280693-3bfa7568e0f3", kyoto: "photo-1493976040374-85c8e12f0c0e", torii: "photo-1492571350019-22de08371fd3"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
@@ -904,7 +914,8 @@ const KUTIPAN = {
   de: ["Übung macht den Meister.", "Aller Anfang ist schwer.", "Steter Tropfen höhlt den Stein.", "Man lernt nie aus.", "Kleine Schritte sind auch Schritte."],
   ar: ["من جدّ وجد، ومن زرع حصد.", "العلم نور.", "لكل مجتهد نصيب.", "الصبر مفتاح الفرج.", "خطوة بخطوة تصل إلى هدفك."],
   es: ["Poco a poco se va lejos.", "La práctica hace al maestro.", "Querer es poder.", "Nunca es tarde para aprender.", "Cada día es una nueva oportunidad."],
-  fr: ["Petit à petit, l'oiseau fait son nid.", "C'est en forgeant qu'on devient forgeron.", "Vouloir, c'est pouvoir.", "Il n'est jamais trop tard pour apprendre.", "Chaque jour est un nouveau départ."]
+  fr: ["Petit à petit, l'oiseau fait son nid.", "C'est en forgeant qu'on devient forgeron.", "Vouloir, c'est pouvoir.", "Il n'est jamais trop tard pour apprendre.", "Chaque jour est un nouveau départ."],
+  ja: ["七転び八起き", "継続は力なり", "塵も積もれば山となる", "千里の道も一歩から", "習うより慣れろ"]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -1005,7 +1016,15 @@ const KUTIPAN2 = {
     ["Il n'est jamais trop tard pour apprendre.", "Tidak ada kata terlambat untuk belajar."],
     ["Chaque jour est un nouveau départ.", "Setiap hari adalah awal yang baru."],
     ["Qui ne tente rien n'a rien.", "Siapa yang tidak mencoba, tidak mendapat apa-apa."],
-    ["Pas à pas, on va loin.", "Langkah demi langkah, kita bisa pergi jauh."]]
+    ["Pas à pas, on va loin.", "Langkah demi langkah, kita bisa pergi jauh."]],
+  ja: [
+    ["七転び八起き", "Jatuh tujuh kali, bangkit delapan kali.", "nana korobi ya oki"],
+    ["継続は力なり", "Ketekunan adalah kekuatan.", "keizoku wa chikara nari"],
+    ["塵も積もれば山となる", "Debu pun kalau terus ditumpuk akan menjadi gunung.", "chiri mo tsumoreba yama to naru"],
+    ["千里の道も一歩から", "Perjalanan seribu ri dimulai dari satu langkah.", "senri no michi mo ippo kara"],
+    ["石の上にも三年", "Batu pun hangat kalau diduduki tiga tahun: sabar membuahkan hasil.", "ishi no ue ni mo sannen"],
+    ["習うより慣れろ", "Membiasakan diri lebih penting daripada sekadar mempelajari.", "narau yori narero"],
+    ["急がば回れ", "Kalau terburu-buru, ambil jalan memutar.", "isogaba maware"]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -1206,12 +1225,37 @@ const KATA = {
     ["chaud", "kata sifat", "panas", "Le thé est très chaud.", "Tehnya sangat panas."],
     ["la gare", "kata benda", "stasiun kereta", "La gare est à côté de l'hôtel.", "Stasiun kereta ada di sebelah hotel."],
     ["étudier", "kata kerja", "belajar, kuliah", "J'étudie le français tous les jours.", "Saya belajar bahasa Prancis setiap hari."],
-    ["à bientôt", "ungkapan", "sampai nanti", "Au revoir, à bientôt !", "Sampai jumpa, sampai nanti!"]]
+    ["à bientôt", "ungkapan", "sampai nanti", "Au revoir, à bientôt !", "Sampai jumpa, sampai nanti!"]],
+  ja: [
+    ["べんきょう", "kata benda", "belajar", "まいにち にほんごを べんきょうします。", "Saya belajar bahasa Jepang setiap hari.", "benkyō", "mainichi nihongo o benkyō shimasu."],
+    ["ともだち", "kata benda", "teman", "ともだちと こうえんへ いきます。", "Saya pergi ke taman bersama teman.", "tomodachi", "tomodachi to kōen e ikimasu."],
+    ["すき", "kata sifat", "suka", "わたしは すしが すきです。", "Saya suka sushi.", "suki", "watashi wa sushi ga suki desu."],
+    ["きれい", "kata sifat", "cantik; bersih", "この へやは きれいです。", "Kamar ini bersih.", "kirei", "kono heya wa kirei desu."],
+    ["ありがとうございます", "ungkapan", "terima kasih (sopan)", "どうも ありがとうございます。", "Terima kasih banyak.", "arigatō gozaimasu", "dōmo arigatō gozaimasu."],
+    ["あした", "kata keterangan", "besok", "あした がっこうへ いきます。", "Besok saya pergi ke sekolah.", "ashita", "ashita gakkō e ikimasu."],
+    ["うち", "kata benda", "rumah", "うちで ごはんを たべます。", "Saya makan di rumah.", "uchi", "uchi de gohan o tabemasu."],
+    ["やすい", "kata sifat", "murah", "この かばんは やすいです。", "Tas ini murah.", "yasui", "kono kaban wa yasui desu."],
+    ["わかる", "kata kerja", "mengerti", "すみません、わかりません。", "Maaf, saya tidak mengerti.", "wakaru", "sumimasen, wakarimasen."],
+    ["いくら", "kata tanya", "berapa (harga)", "この ほんは いくらですか。", "Buku ini harganya berapa?", "ikura", "kono hon wa ikura desu ka."],
+    ["つかれる", "kata kerja", "lelah", "きょうは すこし つかれました。", "Hari ini saya agak lelah.", "tsukareru", "kyō wa sukoshi tsukaremashita."],
+    ["しごと", "kata benda", "pekerjaan", "しごとは なんじに おわりますか。", "Pekerjaannya selesai jam berapa?", "shigoto", "shigoto wa nanji ni owarimasu ka."],
+    ["ゆっくり", "kata keterangan", "pelan-pelan", "ゆっくり はなして ください。", "Tolong bicara pelan-pelan.", "yukkuri", "yukkuri hanashite kudasai."],
+    ["かぎ", "kata benda", "kunci", "かぎは どこですか。", "Kuncinya di mana?", "kagi", "kagi wa doko desu ka."],
+    ["えき", "kata benda", "stasiun", "えきの まえで あいましょう。", "Mari bertemu di depan stasiun.", "eki", "eki no mae de aimashō."],
+    ["しゅうまつ", "kata benda", "akhir pekan", "しゅうまつは うみへ いきます。", "Akhir pekan saya pergi ke laut.", "shūmatsu", "shūmatsu wa umi e ikimasu."],
+    ["てんき", "kata benda", "cuaca", "きょうは いい てんきですね。", "Cuaca hari ini bagus, ya.", "tenki", "kyō wa ii tenki desu ne."],
+    ["みず", "kata benda", "air", "みずを ください。", "Tolong beri saya air.", "mizu", "mizu o kudasai."],
+    ["ほん", "kata benda", "buku", "よるに ほんを よみます。", "Saya membaca buku pada malam hari.", "hon", "yoru ni hon o yomimasu."],
+    ["あさごはん", "kata benda", "sarapan", "あさごはんは パンです。", "Sarapan saya roti.", "asagohan", "asagohan wa pan desu."],
+    ["でんしゃ", "kata benda", "kereta listrik", "でんしゃで かいしゃへ いきます。", "Saya pergi ke kantor naik kereta.", "densha", "densha de kaisha e ikimasu."],
+    ["むずかしい", "kata sifat", "sulit", "かんじは むずかしいです。", "Kanji itu sulit.", "muzukashii", "kanji wa muzukashii desu."],
+    ["ときどき", "kata keterangan", "kadang-kadang", "ときどき えいがかんへ いきます。", "Kadang-kadang saya pergi ke bioskop.", "tokidoki", "tokidoki eigakan e ikimasu."],
+    ["おやすみなさい", "ungkapan", "selamat tidur", "おやすみなさい、また あした。", "Selamat tidur, sampai besok.", "oyasuminasai", "oyasuminasai, mata ashita."]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE", ar: "ar-SA", es: "es-ES", fr: "fr-FR" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR", de: "de-DE", ar: "ar-SA", es: "es-ES", fr: "fr-FR", ja: "ja-JP" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
@@ -1796,8 +1840,13 @@ document.addEventListener("click", e => {
   simpanPapan(p); render();
   if (a === "p-check" && x && x.done) { const b = document.querySelector(`.chk[data-b="${x.id}"]`); if (b) b.classList.add("pop"); }
 });
+// &gerak=1: foto bergerak pelan naik-turun seperti kamera yang menyorot (dipakai set Jepang).
+// Jeda negatif dihitung dari jam supaya gerakan tidak melompat ke awal setiap kali widget digambar ulang.
+const GERAK = params.get("gerak") === "1";
+if (GERAK) document.body.classList.add("gerak");
 function render() {
   applyTheme();
+  if (GERAK) document.body.style.setProperty("--gerak-mulai", -((performance.now() / 1000) % 80).toFixed(2) + "s");
   if (SOLO) { document.body.classList.add("solo"); app.innerHTML = bandHTML(); return; }
   if (TUTUP) { document.body.classList.add("solo"); app.innerHTML = tutupHTML(); return; }
   if (LIMA) { document.body.classList.add("papan"); app.innerHTML = limaHTML(); return; }
