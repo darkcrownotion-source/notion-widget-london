@@ -344,6 +344,11 @@ body.papan .wrap{max-width:none;padding:6px}
 .tutup-py{display:block;margin:0 0 6px;font-size:14px;color:rgba(255,255,255,.9)}
 .kata-py{font-size:17px;color:var(--ink-2);white-space:nowrap}
 .kata-contoh i{font-style:normal;font-size:13.5px;color:var(--ink-2)}
+.band-q:lang(ko),.tutup-q blockquote:lang(ko),.kata-row h2:lang(ko),.kata-contoh em:lang(ko){font-family:"Apple SD Gothic Neo","Malgun Gothic","Noto Sans KR","Noto Sans CJK KR",var(--sans);font-style:normal;word-break:keep-all}
+.tutup-q blockquote:lang(ko){font-weight:600;font-size:clamp(23px,2.5vw,32px);line-height:1.35;letter-spacing:-.01em}
+.kata-row h2:lang(ko){font-weight:600;font-size:clamp(34px,3.8vw,46px);letter-spacing:-.01em}
+.kata-contoh em:lang(ko){font-size:18px}
+.band-q:lang(ko){font-size:15.5px}
 .kata-contoh span{font-size:13px;color:var(--muted)}
 @media (min-width:720px){.tutup{grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr)}.tutup-foto{min-height:300px}.tutup-kata{padding:24px 28px}}
 
@@ -815,12 +820,14 @@ const FOTO = {
   kanalsenja: "photo-1512470876302-972faa2aa9a4", kanal: "photo-1534351590666-13e3e96b5017", kinderdijk: "photo-1595698251407-8e7e3030a715",
   skyline: "photo-1772339164384-e4eba87f08c0", towerbridge: "photo-1543832923-44667a44c804", bigben: "photo-1584986098745-02507619826c",
   guilin: "photo-1702266888836-e7969c65acc8", zhangjiajie: "photo-1567266565245-c08dc046815f", kotaterlarang: "photo-1614555383820-941c466f1b52",
-  lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191"
+  lampion: "photo-1517009832553-cfcd067adf81", shanghai: "photo-1545893835-abaa50cbe628", greatwall: "photo-1508804185872-d7badad00f7d", greatwall2: "photo-1608037521277-154cd1b89191",
+  gyeongbokgung: "photo-1638964663550-e2123ac8900b", paviliun: "photo-1666670750287-176e3218ce12", seoulmalam: "photo-1532649097480-b67d52743b69"
 };
 const KUTIPAN = {
   nl: ["Oefening baart kunst.", "Alle begin is moeilijk.", "Stap voor stap kom je er.", "Elke dag een beetje beter.", "Waar een wil is, is een weg."],
   en: ["Practice makes perfect.", "Little by little, a little becomes a lot.", "One step at a time.", "Every day a little better.", "Where there is a will, there is a way."],
-  zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"]
+  zh: ["千里之行，始于足下。", "不怕慢，就怕站。", "熟能生巧。", "活到老，学到老。", "一步一个脚印。"],
+  ko: ["천 리 길도 한 걸음부터.", "시작이 반이다.", "티끌 모아 태산.", "배움에는 끝이 없다.", "꾸준함이 재능을 이긴다."]
 };
 const GAYA = ["terang", "foto", "malam", "belah"].includes(params.get("gaya")) ? params.get("gaya") : "foto";
 const fotoUrl = w => `https://images.unsplash.com/${FOTO[params.get("bg")] || FOTO.kanalsenja}?auto=format&fit=crop&w=${w}&q=80`;
@@ -881,7 +888,15 @@ const KUTIPAN2 = {
     ["一步一个脚印。", "Satu langkah, satu jejak.", "Yí bù yí gè jiǎoyìn."],
     ["不怕慢，就怕站。", "Jangan takut lambat, takutlah kalau berhenti.", "Bú pà màn, jiù pà zhàn."],
     ["有志者，事竟成。", "Di mana ada kemauan, di situ ada jalan.", "Yǒu zhì zhě, shì jìng chéng."],
-    ["好好学习，天天向上。", "Belajar yang rajin, tiap hari makin maju.", "Hǎohǎo xuéxí, tiāntiān xiàng shàng."]]
+    ["好好学习，天天向上。", "Belajar yang rajin, tiap hari makin maju.", "Hǎohǎo xuéxí, tiāntiān xiàng shàng."]],
+  ko: [
+    ["천 리 길도 한 걸음부터.", "Perjalanan seribu li pun dimulai dari satu langkah."],
+    ["시작이 반이다.", "Memulai itu sudah setengah jalan."],
+    ["티끌 모아 태산.", "Sedikit demi sedikit, lama-lama jadi bukit."],
+    ["배움에는 끝이 없다.", "Belajar tidak ada habisnya."],
+    ["꾸준함이 재능을 이긴다.", "Ketekunan mengalahkan bakat."],
+    ["뜻이 있는 곳에 길이 있다.", "Di mana ada kemauan, di situ ada jalan."],
+    ["조금씩, 매일.", "Sedikit demi sedikit, setiap hari."]]
 };
 const KATA = {
   en: [["improve", "kata kerja", "meningkatkan", "I want to improve my English.", "Aku ingin meningkatkan bahasa Inggrisku."],
@@ -957,12 +972,37 @@ const KATA = {
     ["再见", "ungkapan", "sampai jumpa", "老师，再见！", "Sampai jumpa, Guru!", "zàijiàn", "Lǎoshī, zàijiàn!"],
     ["漂亮", "kata sifat", "cantik, bagus", "这件衣服很漂亮。", "Baju ini bagus.", "piàoliang", "Zhè jiàn yīfu hěn piàoliang."],
     ["慢", "kata sifat", "pelan", "请说慢一点儿。", "Tolong bicara lebih pelan sedikit.", "màn", "Qǐng shuō màn yìdiǎnr."],
-    ["每天", "kata keterangan", "setiap hari", "我每天早上喝茶。", "Saya minum teh setiap pagi.", "měitiān", "Wǒ měitiān zǎoshang hē chá."]]
+    ["每天", "kata keterangan", "setiap hari", "我每天早上喝茶。", "Saya minum teh setiap pagi.", "měitiān", "Wǒ měitiān zǎoshang hē chá."]],
+  ko: [
+    ["공부하다", "kata kerja", "belajar", "저는 매일 한국어를 공부해요.", "Saya belajar bahasa Korea setiap hari."],
+    ["친구", "kata benda", "teman", "친구를 만나요.", "Saya bertemu teman."],
+    ["좋아하다", "kata kerja", "suka", "저는 커피를 좋아해요.", "Saya suka kopi."],
+    ["맛있다", "kata sifat", "enak", "이 김밥은 맛있어요.", "Gimbap ini enak."],
+    ["감사합니다", "ungkapan", "terima kasih", "선생님, 감사합니다.", "Terima kasih, Guru."],
+    ["오늘", "kata benda", "hari ini", "오늘은 날씨가 좋아요.", "Hari ini cuacanya bagus."],
+    ["선생님", "kata benda", "guru", "우리 선생님은 한국 사람이에요.", "Guru kami orang Korea."],
+    ["싸다", "kata sifat", "murah", "이 옷은 싸요.", "Baju ini murah."],
+    ["시간", "kata benda", "waktu", "오늘은 시간이 없어요.", "Hari ini saya tidak punya waktu."],
+    ["기다리다", "kata kerja", "menunggu", "친구를 기다려요.", "Saya menunggu teman."],
+    ["알겠어요", "ungkapan", "saya mengerti", "네, 알겠어요.", "Ya, saya mengerti."],
+    ["같이", "kata keterangan", "bersama", "같이 밥을 먹어요.", "Kita makan bersama."],
+    ["얼마", "kata tanya", "berapa (harga)", "이거 얼마예요?", "Ini berapa harganya?"],
+    ["쉬다", "kata kerja", "beristirahat", "주말에 집에서 쉬어요.", "Akhir pekan saya beristirahat di rumah."],
+    ["바쁘다", "kata sifat", "sibuk", "저는 지금 바빠요.", "Saya sedang sibuk sekarang."],
+    ["집", "kata benda", "rumah", "집에 가요.", "Saya pulang ke rumah."],
+    ["일하다", "kata kerja", "bekerja", "저는 은행에서 일해요.", "Saya bekerja di bank."],
+    ["연습", "kata benda", "latihan", "매일 발음 연습을 해요.", "Saya latihan pengucapan setiap hari."],
+    ["안녕히 가세요", "ungkapan", "selamat jalan", "안녕히 가세요. 내일 만나요.", "Selamat jalan. Sampai bertemu besok."],
+    ["예쁘다", "kata sifat", "cantik", "꽃이 예뻐요.", "Bunganya cantik."],
+    ["천천히", "kata keterangan", "pelan-pelan", "천천히 말해 주세요.", "Tolong bicara pelan-pelan."],
+    ["매일", "kata keterangan", "setiap hari", "저는 매일 아침에 커피를 마셔요.", "Saya minum kopi setiap pagi."],
+    ["쉽다", "kata sifat", "mudah", "이 단어는 쉬워요.", "Kata ini mudah."],
+    ["좋다", "kata sifat", "baik, bagus", "이 노래가 좋아요.", "Lagu ini bagus."]]
 };
 const HAFAL = "dch:hafal";
 let kataGeser = 0;
 const hariKe = () => Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
-const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN" };
+const SUARA = { en: "en-GB", nl: "nl-NL", zh: "zh-CN", ko: "ko-KR" };
 function ucap(t) {
   try { const u = new SpeechSynthesisUtterance(t); u.lang = SUARA[params.get("bahasa")] || "en-GB"; u.rate = .9; speechSynthesis.cancel(); speechSynthesis.speak(u); }
   catch (e) { toast("Suara tidak tersedia di perangkat ini"); }
